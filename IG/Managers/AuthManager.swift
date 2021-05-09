@@ -14,4 +14,10 @@ final class AuthManager {
     private init() {}
     
     let auth = Auth.auth()
+    
+    public var isSignedIn: Bool {
+        return auth.currentUser != nil
+    }
+    
+    
 }

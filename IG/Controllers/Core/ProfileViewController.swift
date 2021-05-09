@@ -1,20 +1,17 @@
 //
-//  ViewController.swift
+//  ProfileViewController.swift
 //  IG
 //
-//  Created by James Estrada on 5/7/21.
+//  Created by James Estrada on 5/9/21.
 //
 
 import UIKit
 
-class HomeViewController: UIViewController {
+class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "IG"
+        title = "Profile"
         view.backgroundColor = .systemBackground
     }
-
-    
 }
-
