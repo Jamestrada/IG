@@ -25,6 +25,7 @@
 		7B567CF62645FE9E00512ED0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B567CF42645FE9E00512ED0 /* LaunchScreen.storyboard */; };
 		7B83752B264B955E00159105 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B83752A264B955E00159105 /* Extensions.swift */; };
 		7B83752D264B9E3C00159105 /* SignInHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B83752C264B9E3C00159105 /* SignInHeaderView.swift */; };
+		7B83752F264E2B0300159105 /* IGTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B83752E264E2B0300159105 /* IGTextField.swift */; };
 		966C7598DD22CAF0CFCA3D35 /* Pods_IG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0CDA83C170E09C32DEB6B3B /* Pods_IG.framework */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +51,7 @@
 		7B567CF72645FE9E00512ED0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7B83752A264B955E00159105 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		7B83752C264B9E3C00159105 /* SignInHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInHeaderView.swift; sourceTree = "<group>"; };
+		7B83752E264E2B0300159105 /* IGTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGTextField.swift; sourceTree = "<group>"; };
 		B0CDA83C170E09C32DEB6B3B /* Pods_IG.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IG.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F70894DBBBDD01391B2E610C /* Pods-IG.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IG.debug.xcconfig"; path = "Target Support Files/Pods-IG/Pods-IG.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -149,6 +151,7 @@
 			children = (
 				7B567CF42645FE9E00512ED0 /* LaunchScreen.storyboard */,
 				7B83752C264B9E3C00159105 /* SignInHeaderView.swift */,
+				7B83752E264E2B0300159105 /* IGTextField.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -286,6 +289,7 @@
 				7B3D17482647551300831E13 /* AnalyticsManager.swift in Sources */,
 				7B3D175D26483AC100831E13 /* NotificationsViewController.swift in Sources */,
 				7B83752D264B9E3C00159105 /* SignInHeaderView.swift in Sources */,
+				7B83752F264E2B0300159105 /* IGTextField.swift in Sources */,
 				7B3D175926483A7300831E13 /* ExploreViewController.swift in Sources */,
 				7B3D17422647540E00831E13 /* AuthManager.swift in Sources */,
 				7B3D17442647548300831E13 /* DatabaseManager.swift in Sources */,
