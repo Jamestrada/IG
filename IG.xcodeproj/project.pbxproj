@@ -26,6 +26,7 @@
 		7B83752B264B955E00159105 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B83752A264B955E00159105 /* Extensions.swift */; };
 		7B83752D264B9E3C00159105 /* SignInHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B83752C264B9E3C00159105 /* SignInHeaderView.swift */; };
 		7B83752F264E2B0300159105 /* IGTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B83752E264E2B0300159105 /* IGTextField.swift */; };
+		7B837539264F960400159105 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B837538264F960400159105 /* SignUpViewController.swift */; };
 		966C7598DD22CAF0CFCA3D35 /* Pods_IG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0CDA83C170E09C32DEB6B3B /* Pods_IG.framework */; };
 /* End PBXBuildFile section */
 
@@ -52,6 +53,7 @@
 		7B83752A264B955E00159105 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		7B83752C264B9E3C00159105 /* SignInHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInHeaderView.swift; sourceTree = "<group>"; };
 		7B83752E264E2B0300159105 /* IGTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGTextField.swift; sourceTree = "<group>"; };
+		7B837538264F960400159105 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		B0CDA83C170E09C32DEB6B3B /* Pods_IG.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IG.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F70894DBBBDD01391B2E610C /* Pods-IG.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IG.debug.xcconfig"; path = "Target Support Files/Pods-IG/Pods-IG.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -126,6 +128,15 @@
 			path = IG;
 			sourceTree = "<group>";
 		};
+		7B837530264F73EC00159105 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				7B3D17542648376600831E13 /* SignInViewController.swift */,
+				7B837538264F960400159105 /* SignUpViewController.swift */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
 		7BC8CC90264602DA007ACA1A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -141,6 +152,7 @@
 		7BC8CC912646031A007ACA1A /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				7B837530264F73EC00159105 /* Other */,
 				7BC8CC9326460C1C007ACA1A /* Core */,
 			);
 			path = Controllers;
@@ -160,7 +172,6 @@
 			isa = PBXGroup;
 			children = (
 				7B567CED2645FE9C00512ED0 /* HomeViewController.swift */,
-				7B3D17542648376600831E13 /* SignInViewController.swift */,
 				7B3D17562648378E00831E13 /* TabBarViewController.swift */,
 				7B3D175826483A7300831E13 /* ExploreViewController.swift */,
 				7B3D175A26483A9700831E13 /* CameraViewController.swift */,
@@ -289,6 +300,7 @@
 				7B3D17482647551300831E13 /* AnalyticsManager.swift in Sources */,
 				7B3D175D26483AC100831E13 /* NotificationsViewController.swift in Sources */,
 				7B83752D264B9E3C00159105 /* SignInHeaderView.swift in Sources */,
+				7B837539264F960400159105 /* SignUpViewController.swift in Sources */,
 				7B83752F264E2B0300159105 /* IGTextField.swift in Sources */,
 				7B3D175926483A7300831E13 /* ExploreViewController.swift in Sources */,
 				7B3D17422647540E00831E13 /* AuthManager.swift in Sources */,

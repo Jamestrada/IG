@@ -96,18 +96,44 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func addButtonActions() {
-        
+        signInButton.addTarget(self, action: #selector(didTapSignIn), for: .touchUpInside)
+        createAccountButton.addTarget(self, action: #selector(didTapCreateAccount), for: .touchUpInside)
     }
     
     // MARK: - Actions
+    
+    @objc func didTapSignIn() {
+        // dismiss keyboard when tapping the sign in button regardless of field the user is on
+        emailField.resignFirstResponder()
+        passwordField.resignFirstResponder()
+        
+        guard let email = emailField.text,
+              let password = passwordField.text,
+              !email.trimmingCharacters(in: .whitespaces).isEmpty, // avoid spaces to count as valid inputs
+              !password.trimmingCharacters(in: .whitespaces).isEmpty,
+              password.count >= 6 else { // the text property is optional on a field
+            return
+        }
+        
+        // Sign in with authManager
+    }
+    
+    @objc func didTapCreateAccount() {
+        let vc = SignUpViewController()
+//        vc.completion = {
+//
+//        }
+        navigationController?.pushViewController(vc, animated: true)
+    }
     
     // MARK: Field Delegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == emailField {
-            passwordField.becomeFirstResponder()
+            passwordField.becomeFirstResponder() // pressing enter/next on the email field, the cursor will be in the password field
         } else {
-            textField.resignFirstResponder()
+            textField.resignFirstResponder() // pressing enter/next on the password field, the keyboard will be dismissed
+            didTapSignIn()
         }
         return true
     }
