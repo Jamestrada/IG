@@ -14,7 +14,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     
     private let emailField: IGTextField = {
         let field = IGTextField()
-        let outerView = UIView(frame: CGRect(x: 10, y: 0, width: 35, height: 20))
+        let outerView = UIView(frame: CGRect(x: 10, y: 0, width: 40, height: 20))
         let imageView = UIImageView(frame: CGRect(x: 10, y: 0, width: 20, height: 20))
         let image = UIImage(systemName: "envelope")
         imageView.tintColor = .secondaryLabel
@@ -31,7 +31,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     
     private let passwordField: IGTextField = {
         let field = IGTextField()
-        let outerView = UIView(frame: CGRect(x: 10, y: 0, width: 35, height: 20))
+        let outerView = UIView(frame: CGRect(x: 10, y: 0, width: 40, height: 20))
         let imageView = UIImageView(frame: CGRect(x: 10, y: 0, width: 20, height: 20))
         let image = UIImage(systemName: "lock")
         imageView.tintColor = .secondaryLabel
@@ -68,7 +68,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Sign In"
-        view.backgroundColor = .secondarySystemBackground
+        view.backgroundColor = .systemBackground
         headerView.backgroundColor = .red
         addSubviews()
         
@@ -115,7 +115,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
-        // Sign in with authManager
+        // Sign in with AuthManager
     }
     
     @objc func didTapCreateAccount() {
@@ -130,7 +130,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == emailField {
-            passwordField.becomeFirstResponder() // pressing enter/next on the email field, the cursor will be in the password field
+            passwordField.becomeFirstResponder() // pressing enter/next on the email field, the cursor will move to the password field
         } else {
             textField.resignFirstResponder() // pressing enter/next on the password field, the keyboard will be dismissed
             didTapSignIn()

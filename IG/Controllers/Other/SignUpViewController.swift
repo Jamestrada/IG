@@ -7,10 +7,148 @@
 
 import UIKit
 
-class SignUpViewController: UIViewController {
+class SignUpViewController: UIViewController, UITextFieldDelegate {
+    
+    // Subviews
+    private let profilePictureImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.tintColor = .secondaryLabel
+        imageView.image = UIImage(systemName: "person.circle")
+        imageView.contentMode = .scaleAspectFill // fill up the circle
+        imageView.layer.cornerRadius = 45
+        imageView.layer.masksToBounds = true
+        return imageView
+    }()
+    
+    private let usernameField: IGTextField = {
+        let field = IGTextField()
+        let outerView = UIView(frame: CGRect(x: 10, y: 0, width: 40, height: 20))
+        let imageView = UIImageView(frame: CGRect(x: 10, y: 0, width: 20, height: 20))
+        let image = UIImage(systemName: "person")
+        imageView.tintColor = .secondaryLabel
+        imageView.image = image
+        imageView.contentMode = .scaleAspectFit
+        outerView.addSubview(imageView)
+        
+        field.placeholder = "Username"
+        field.leftView = outerView
+
+        return field
+    }()
+    
+    private let emailField: IGTextField = {
+        let field = IGTextField()
+        let outerView = UIView(frame: CGRect(x: 10, y: 0, width: 40, height: 20))
+        let imageView = UIImageView(frame: CGRect(x: 10, y: 0, width: 20, height: 20))
+        let image = UIImage(systemName: "envelope")
+        imageView.tintColor = .secondaryLabel
+        imageView.image = image
+        imageView.contentMode = .scaleAspectFit
+        outerView.addSubview(imageView)
+        
+        field.placeholder = "Email Address"
+        field.leftView = outerView
+        field.keyboardType = .emailAddress
+
+        return field
+    }()
+    
+    private let passwordField: IGTextField = {
+        let field = IGTextField()
+        let outerView = UIView(frame: CGRect(x: 10, y: 0, width: 40, height: 20))
+        let imageView = UIImageView(frame: CGRect(x: 10, y: 0, width: 20, height: 20))
+        let image = UIImage(systemName: "lock")
+        imageView.tintColor = .secondaryLabel
+        imageView.image = image
+        imageView.contentMode = .scaleAspectFit
+        outerView.addSubview(imageView)
+        
+        field.placeholder = "Create Password"
+        field.leftView = outerView
+        field.keyboardType = .default
+        field.isSecureTextEntry = true
+
+        return field
+    }()
+    
+    private let signUpButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Sign Up", for: .normal)
+        button.backgroundColor = .systemGreen
+        button.layer.cornerRadius = 8
+        button.layer.masksToBounds = true
+        return button
+    }()
+    
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Create Account"
+        view.backgroundColor = .systemBackground
+        addSubviews()
         
+        usernameField.delegate = self
+        emailField.delegate = self
+        passwordField.delegate = self
+        
+        addButtonActions()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let imageSize: CGFloat = 90
+        
+        profilePictureImageView.frame = CGRect(x: (view.width - imageSize) / 2, y: view.safeAreaInsets.top + 15, width: imageSize, height: imageSize)
+        usernameField.frame = CGRect(x: 25, y: profilePictureImageView.bottom + 20, width: view.width - 50, height: 50)
+        emailField.frame = CGRect(x: 25, y: usernameField.bottom + 10, width: view.width - 50, height: 50)
+        passwordField.frame = CGRect(x: 25, y: emailField.bottom + 10, width: view.width - 50, height: 50)
+        signUpButton.frame = CGRect(x: 35, y: passwordField.bottom + 20, width: view.width - 70, height: 50)
+    }
+    
+    private func addSubviews() {
+        view.addSubview(profilePictureImageView)
+        view.addSubview(usernameField)
+        view.addSubview(emailField)
+        view.addSubview(passwordField)
+        view.addSubview(signUpButton)
+    }
+    
+    private func addButtonActions() {
+        signUpButton.addTarget(self, action: #selector(didTapSignUp), for: .touchUpInside)
+    }
+    
+    // MARK: - Actions
+    
+    @objc func didTapSignUp() {
+        // dismiss keyboard when tapping the sign in button regardless of field the user is on
+        usernameField.resignFirstResponder()
+        emailField.resignFirstResponder()
+        passwordField.resignFirstResponder()
+        
+        guard let email = emailField.text,
+              let password = passwordField.text,
+              !email.trimmingCharacters(in: .whitespaces).isEmpty, // avoid spaces to count as valid inputs
+              !password.trimmingCharacters(in: .whitespaces).isEmpty,
+              password.count >= 6 else { // the text property is optional on a field
+            return
+        }
+        
+        // Sign up with AuthManager
+    }
+    
+    // MARK: Field Delegate
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == usernameField {
+            emailField.becomeFirstResponder() // pressing enter/next on the username field, the cursor will move to the email field
+        }
+        else if textField == emailField {
+            passwordField.becomeFirstResponder() // pressing enter/next on the email field, the cursor will move to the password field
+        } else {
+            textField.resignFirstResponder() // pressing enter/next on the password field, the keyboard will be dismissed
+            didTapSignUp()
+        }
+        return true
     }
 }
