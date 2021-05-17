@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SignUpViewController: UIViewController, UITextFieldDelegate {
+class SignUpViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     // Subviews
     private let profilePictureImageView: UIImageView = {
@@ -93,6 +93,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         passwordField.delegate = self
         
         addButtonActions()
+        addImageGesture()
     }
     
     override func viewDidLayoutSubviews() {
@@ -112,6 +113,12 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         view.addSubview(emailField)
         view.addSubview(passwordField)
         view.addSubview(signUpButton)
+    }
+    
+    private func addImageGesture() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapImage))
+        profilePictureImageView.isUserInteractionEnabled = true
+        profilePictureImageView.addGestureRecognizer(tap)
     }
     
     private func addButtonActions() {
@@ -137,6 +144,30 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         // Sign up with AuthManager
     }
     
+    @objc func didTapImage() {
+        let sheet = UIAlertController(title: "Profile Picture", message: "Set a profile picture", preferredStyle: .actionSheet)
+        sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        sheet.addAction(UIAlertAction(title: "Take Photo", style: .default, handler: { [weak self] _ in
+            DispatchQueue.main.async {
+                let picker = UIImagePickerController()
+                picker.sourceType = .camera
+                picker.allowsEditing = true
+                picker.delegate = self
+                self?.present(picker, animated: true)
+            }
+        }))
+        sheet.addAction(UIAlertAction(title: "Choose Photo", style: .default, handler: { [weak self] _ in
+            DispatchQueue.main.async {
+                let picker = UIImagePickerController()
+                picker.sourceType = .photoLibrary
+                picker.allowsEditing = true
+                picker.delegate = self
+                self?.present(picker, animated: true)
+            }
+        }))
+        present(sheet, animated: true)
+    }
+    
     // MARK: Field Delegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -150,5 +181,19 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             didTapSignUp()
         }
         return true
+    }
+    
+    // Image Picker
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
+            return
+        }
+        profilePictureImageView.image = image
     }
 }
