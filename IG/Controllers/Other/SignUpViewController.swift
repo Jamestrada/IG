@@ -133,15 +133,27 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UIImagePicker
         emailField.resignFirstResponder()
         passwordField.resignFirstResponder()
         
-        guard let email = emailField.text,
+        guard let username = usernameField.text,
+              let email = emailField.text,
               let password = passwordField.text,
+              !username.trimmingCharacters(in: .whitespaces).isEmpty,
               !email.trimmingCharacters(in: .whitespaces).isEmpty, // avoid spaces to count as valid inputs
               !password.trimmingCharacters(in: .whitespaces).isEmpty,
+              username.trimmingCharacters(in: .alphanumerics).isEmpty, // avoid non alphamumeric characters
+              username.count >= 2,
               password.count >= 6 else { // the text property is optional on a field
+            
+            presentError()
             return
         }
         
         // Sign up with AuthManager
+    }
+    
+    private func presentError() {
+        let alert = UIAlertController(title: "Woops", message: "Please fill out and validate all fields", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+        present(alert, animated: true)
     }
     
     @objc func didTapImage() {
