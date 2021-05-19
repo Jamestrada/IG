@@ -98,7 +98,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UIImagePicker
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        let imageSize: CGFloat = 90
+        let imageSize: CGFloat = 140
         
         profilePictureImageView.frame = CGRect(x: (view.width - imageSize) / 2, y: view.safeAreaInsets.top + 15, width: imageSize, height: imageSize)
         usernameField.frame = CGRect(x: 25, y: profilePictureImageView.bottom + 20, width: view.width - 50, height: 50)
@@ -148,6 +148,15 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UIImagePicker
         }
         
         // Sign up with AuthManager
+        let data = profilePictureImageView.image?.pngData()
+        AuthManager.shared.signUp(username: username, email: email, password: password, profilePicture: data) { result in
+            switch result {
+            case .success(let user):
+                break
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     private func presentError() {

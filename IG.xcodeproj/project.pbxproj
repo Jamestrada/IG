@@ -27,6 +27,7 @@
 		7B83752D264B9E3C00159105 /* SignInHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B83752C264B9E3C00159105 /* SignInHeaderView.swift */; };
 		7B83752F264E2B0300159105 /* IGTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B83752E264E2B0300159105 /* IGTextField.swift */; };
 		7B837539264F960400159105 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B837538264F960400159105 /* SignUpViewController.swift */; };
+		7B83753E26548B3100159105 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B83753D26548B3100159105 /* User.swift */; };
 		966C7598DD22CAF0CFCA3D35 /* Pods_IG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0CDA83C170E09C32DEB6B3B /* Pods_IG.framework */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +55,7 @@
 		7B83752C264B9E3C00159105 /* SignInHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInHeaderView.swift; sourceTree = "<group>"; };
 		7B83752E264E2B0300159105 /* IGTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGTextField.swift; sourceTree = "<group>"; };
 		7B837538264F960400159105 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		7B83753D26548B3100159105 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B0CDA83C170E09C32DEB6B3B /* Pods_IG.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IG.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F70894DBBBDD01391B2E610C /* Pods-IG.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IG.debug.xcconfig"; path = "Target Support Files/Pods-IG/Pods-IG.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -119,6 +121,7 @@
 		7B567CE82645FE9C00512ED0 /* IG */ = {
 			isa = PBXGroup;
 			children = (
+				7B83753C26548B1500159105 /* Models */,
 				7B3D1740264753F800831E13 /* Managers */,
 				7BC8CC9226460362007ACA1A /* Views */,
 				7BC8CC912646031A007ACA1A /* Controllers */,
@@ -135,6 +138,14 @@
 				7B837538264F960400159105 /* SignUpViewController.swift */,
 			);
 			path = Other;
+			sourceTree = "<group>";
+		};
+		7B83753C26548B1500159105 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7B83753D26548B3100159105 /* User.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		7BC8CC90264602DA007ACA1A /* Resources */ = {
@@ -309,6 +320,7 @@
 				7B3D17552648376600831E13 /* SignInViewController.swift in Sources */,
 				7B3D1746264754DC00831E13 /* StorageManager.swift in Sources */,
 				7B3D175F26483AE500831E13 /* ProfileViewController.swift in Sources */,
+				7B83753E26548B3100159105 /* User.swift in Sources */,
 				7B567CEA2645FE9C00512ED0 /* AppDelegate.swift in Sources */,
 				7B567CEC2645FE9C00512ED0 /* SceneDelegate.swift in Sources */,
 				7B83752B264B955E00159105 /* Extensions.swift in Sources */,

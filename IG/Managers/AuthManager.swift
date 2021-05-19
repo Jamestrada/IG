@@ -19,5 +19,17 @@ final class AuthManager {
         return auth.currentUser != nil
     }
     
-    
+    public func signUp(username: String, email: String, password: String, profilePicture: Data?, completion: @escaping(Result<User, Error>) -> Void) {
+        let newUser = User(username: username, email: email)
+        
+        // Create account
+        auth.createUser(withEmail: email, password: password) { result, error in
+            guard result != nil, error == nil else {
+                return
+            }
+            DatabaseManager.shared.createUser(newUser: newUser) { success in
+                
+            }
+        }
+    }
 }
