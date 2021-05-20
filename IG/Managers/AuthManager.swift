@@ -15,6 +15,10 @@ final class AuthManager {
     
     let auth = Auth.auth()
     
+    enum AuthError: Error {
+        case newUserCreation
+    }
+    
     public var isSignedIn: Bool {
         return auth.currentUser != nil
     }
@@ -25,10 +29,21 @@ final class AuthManager {
         // Create account
         auth.createUser(withEmail: email, password: password) { result, error in
             guard result != nil, error == nil else {
+                completion(.failure(AuthError.newUserCreation))
                 return
             }
             DatabaseManager.shared.createUser(newUser: newUser) { success in
-                
+                if success {
+                    StorageManager.shared.uploadProfilePicture(username: username, data: profilePicture) { uploadSuccess in
+                        if uploadSuccess {
+                            completion(.success(newUser))
+                        } else {
+                            completion(.failure(AuthError.newUserCreation))
+                        }
+                    }
+                } else {
+                    completion(.failure(AuthError.newUserCreation))
+                }
             }
         }
     }
