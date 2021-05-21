@@ -17,6 +17,7 @@ class IGTextField: UITextField {
         layer.borderWidth = 1
         backgroundColor = .secondarySystemBackground
         layer.borderColor = UIColor.secondaryLabel.cgColor
+        autocapitalizationType = .none
     }
     
     required init?(coder: NSCoder) {
