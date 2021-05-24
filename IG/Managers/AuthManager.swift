@@ -23,7 +23,7 @@ final class AuthManager {
         return auth.currentUser != nil
     }
     
-    public func signUp(username: String, email: String, password: String, profilePicture: Data?, completion: @escaping(Result<User, Error>) -> Void) {
+    public func signUp(username: String, email: String, password: String, profilePicture: Data?, completion: @escaping (Result<User, Error>) -> Void) {
         let newUser = User(username: username, email: email)
         
         // Create account
@@ -55,6 +55,15 @@ final class AuthManager {
         } catch {
             print(error)
             completion(false)
+        }
+    }
+    
+    public func signIn(email: String, password: String, completion: @escaping (Result<User, Error>) -> Void) {
+        auth.signIn(withEmail: email, password: password) { result, error in
+            guard let result = result, error == nil else {
+                return
+            }
+            
         }
     }
 }
