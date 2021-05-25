@@ -119,8 +119,11 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         AuthManager.shared.signIn(email: email, password: password) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
-                case .success(let user):
-                    break
+                case .success:
+                    let vc = TabBarViewController()
+                    vc.modalPresentationStyle = .fullScreen // prevent interface be swiped away
+                    self?.present(vc, animated: true, completion: nil)
+                    
                 case .failure(let error):
                     print(error)
                 }

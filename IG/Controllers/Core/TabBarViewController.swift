@@ -36,7 +36,7 @@ class TabBarViewController: UITabBarController {
         nav2.tabBarItem = UITabBarItem(title: "Explore", image: UIImage(systemName: "magnifyingglass.circle"), tag: 2)
         nav3.tabBarItem = UITabBarItem(title: "Camera", image: UIImage(systemName: "camera.fill"), tag: 3)
         nav4.tabBarItem = UITabBarItem(title: "Notifications", image: UIImage(systemName: "bell"), tag: 4)
-        nav5.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.circle"), tag: 5)
+        nav5.tabBarItem = UITabBarItem(title: UserDefaults.standard.string(forKey: "username")?.uppercased(), image: UIImage(systemName: "person.circle"), tag: 5)
         
         UITabBar.appearance().tintColor = .label // change the color of the selected tab bar item
         
