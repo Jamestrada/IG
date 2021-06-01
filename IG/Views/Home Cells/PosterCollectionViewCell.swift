@@ -48,6 +48,7 @@ final class PosterCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(moreButton)
         moreButton.addTarget(self, action: #selector(didTapMore), for: .touchUpInside)
         let tap = UITapGestureRecognizer(target: self, action: #selector(didTapUsername))
+        usernameLabel.isUserInteractionEnabled = true
         usernameLabel.addGestureRecognizer(tap)
     }
     

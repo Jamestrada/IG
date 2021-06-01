@@ -42,6 +42,8 @@
 		7BFE15B12661F95A006A18B3 /* PostLikesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFE15B02661F95A006A18B3 /* PostLikesCollectionViewCell.swift */; };
 		7BFE15B32661F973006A18B3 /* PostCaptionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFE15B22661F973006A18B3 /* PostCaptionCollectionViewCell.swift */; };
 		7BFE15B52661F9B2006A18B3 /* PostDatetimeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFE15B42661F9B2006A18B3 /* PostDatetimeCollectionViewCell.swift */; };
+		7BFE15B72666F7F3006A18B3 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFE15B62666F7F3006A18B3 /* PostViewController.swift */; };
+		7BFE15B92666FC39006A18B3 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFE15B82666FC39006A18B3 /* ListViewController.swift */; };
 		966C7598DD22CAF0CFCA3D35 /* Pods_IG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0CDA83C170E09C32DEB6B3B /* Pods_IG.framework */; };
 /* End PBXBuildFile section */
 
@@ -84,6 +86,8 @@
 		7BFE15B02661F95A006A18B3 /* PostLikesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostLikesCollectionViewCell.swift; sourceTree = "<group>"; };
 		7BFE15B22661F973006A18B3 /* PostCaptionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCaptionCollectionViewCell.swift; sourceTree = "<group>"; };
 		7BFE15B42661F9B2006A18B3 /* PostDatetimeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDatetimeCollectionViewCell.swift; sourceTree = "<group>"; };
+		7BFE15B62666F7F3006A18B3 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		7BFE15B82666FC39006A18B3 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		B0CDA83C170E09C32DEB6B3B /* Pods_IG.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IG.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F70894DBBBDD01391B2E610C /* Pods-IG.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IG.debug.xcconfig"; path = "Target Support Files/Pods-IG/Pods-IG.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -166,6 +170,8 @@
 				7B3D17542648376600831E13 /* SignInViewController.swift */,
 				7B837538264F960400159105 /* SignUpViewController.swift */,
 				7B9A6DD82658CE810012B166 /* SettingsViewController.swift */,
+				7BFE15B62666F7F3006A18B3 /* PostViewController.swift */,
+				7BFE15B82666FC39006A18B3 /* ListViewController.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -364,6 +370,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BFE15B92666FC39006A18B3 /* ListViewController.swift in Sources */,
 				7B3D175B26483A9700831E13 /* CameraViewController.swift in Sources */,
 				7B567CEE2645FE9C00512ED0 /* HomeViewController.swift in Sources */,
 				7B3D17482647551300831E13 /* AnalyticsManager.swift in Sources */,
@@ -385,6 +392,7 @@
 				7B9C59782660B3430000C217 /* PostCaptionCollectionViewCellViewModel.swift in Sources */,
 				7B3D1746264754DC00831E13 /* StorageManager.swift in Sources */,
 				7B3D175F26483AE500831E13 /* ProfileViewController.swift in Sources */,
+				7BFE15B72666F7F3006A18B3 /* PostViewController.swift in Sources */,
 				7B9C597A2660B3A90000C217 /* PostDatetimeCollectionViewCellViewModel.swift in Sources */,
 				7BFE15AB2661F839006A18B3 /* PosterCollectionViewCell.swift in Sources */,
 				7B83753E26548B3100159105 /* User.swift in Sources */,
