@@ -55,5 +55,7 @@
 	<string>Please allow access to take profile picture</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Please allow access to choose a profile picture</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Please allow access to take videos</string>
 </dict>
 </plist>
