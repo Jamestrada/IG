@@ -13,13 +13,27 @@ class CameraViewController: UIViewController {
     private var output = AVCapturePhotoOutput()
     private var captureSession: AVCaptureSession?
     private let previewLayer = AVCaptureVideoPreviewLayer()
+    
+    private let cameraView = UIView()
+    
+    private let shutterButton: UIButton = {
+        let button = UIButton()
+        button.layer.masksToBounds = true
+        button.layer.borderWidth = 2
+        button.layer.borderColor = UIColor.label.cgColor
+        button.backgroundColor = nil
+        return button
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black
+        view.backgroundColor = .secondarySystemBackground
         title = "Take Photo"
+        view.addSubview(cameraView)
+        view.addSubview(shutterButton)
         setUpNavBar()
         checkCameraPermission()
+        shutterButton.addTarget(self, action: #selector(didTapTakePhoto), for: .touchUpInside)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -37,7 +51,16 @@ class CameraViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        cameraView.frame = view.bounds
         previewLayer.frame = CGRect(x: 0, y: view.safeAreaInsets.top, width: view.width, height: view.width)
+        
+        let buttonSize: CGFloat = view.width / 4
+        shutterButton.frame = CGRect(x: (view.width - buttonSize) / 2, y: view.safeAreaInsets.top + view.width + 100, width: buttonSize, height: buttonSize)
+        shutterButton.layer.cornerRadius = buttonSize / 2
+    }
+    
+    @objc func didTapTakePhoto() {
+        
     }
     
     private func checkCameraPermission() {
@@ -84,7 +107,7 @@ class CameraViewController: UIViewController {
             // Layer
             previewLayer.session = captureSession
             previewLayer.videoGravity = .resizeAspectFill
-            view.layer.addSublayer(previewLayer)
+            cameraView.layer.addSublayer(previewLayer)
             
             captureSession.startRunning()
         }
