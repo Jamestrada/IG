@@ -21,7 +21,7 @@ class CameraViewController: UIViewController {
         button.layer.masksToBounds = true
         button.layer.borderWidth = 2
         button.layer.borderColor = UIColor.label.cgColor
-        button.backgroundColor = nil
+        button.backgroundColor = .red
         return button
     }()
 
@@ -54,13 +54,13 @@ class CameraViewController: UIViewController {
         cameraView.frame = view.bounds
         previewLayer.frame = CGRect(x: 0, y: view.safeAreaInsets.top, width: view.width, height: view.width)
         
-        let buttonSize: CGFloat = view.width / 4
+        let buttonSize: CGFloat = view.width / 5
         shutterButton.frame = CGRect(x: (view.width - buttonSize) / 2, y: view.safeAreaInsets.top + view.width + 100, width: buttonSize, height: buttonSize)
         shutterButton.layer.cornerRadius = buttonSize / 2
     }
     
     @objc func didTapTakePhoto() {
-        
+        output.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
     }
     
     private func checkCameraPermission() {
@@ -124,5 +124,21 @@ class CameraViewController: UIViewController {
 //        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
 //        navigationController?.navigationBar.shadowImage = UIImage() // hide navbar divider
 //        navigationController?.navigationBar.backgroundColor = .clear
+    }
+}
+
+extension CameraViewController: AVCapturePhotoCaptureDelegate {
+    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+        guard let data = photo.fileDataRepresentation(), let image = UIImage(data: data) else {
+            return
+        }
+        captureSession?.stopRunning()
+        let vc = PostEditViewController(image: image)
+        if #available(iOS 14.0, *) {
+            vc.navigationItem.backButtonDisplayMode = .minimal
+        } else {
+            vc.navigationItem.backButtonTitle = ""
+        }
+        navigationController?.pushViewController(vc, animated: false)
     }
 }
