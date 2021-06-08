@@ -45,6 +45,8 @@
 		7BFE15B72666F7F3006A18B3 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFE15B62666F7F3006A18B3 /* PostViewController.swift */; };
 		7BFE15B92666FC39006A18B3 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFE15B82666FC39006A18B3 /* ListViewController.swift */; };
 		7BFE15BB266C9097006A18B3 /* PostEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFE15BA266C9097006A18B3 /* PostEditViewController.swift */; };
+		7BFE15BD266F1E46006A18B3 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFE15BC266F1E46006A18B3 /* PhotoCollectionViewCell.swift */; };
+		7BFE15BF266F2249006A18B3 /* CaptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFE15BE266F2249006A18B3 /* CaptionViewController.swift */; };
 		966C7598DD22CAF0CFCA3D35 /* Pods_IG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0CDA83C170E09C32DEB6B3B /* Pods_IG.framework */; };
 /* End PBXBuildFile section */
 
@@ -90,6 +92,8 @@
 		7BFE15B62666F7F3006A18B3 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		7BFE15B82666FC39006A18B3 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		7BFE15BA266C9097006A18B3 /* PostEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostEditViewController.swift; sourceTree = "<group>"; };
+		7BFE15BC266F1E46006A18B3 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		7BFE15BE266F2249006A18B3 /* CaptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionViewController.swift; sourceTree = "<group>"; };
 		B0CDA83C170E09C32DEB6B3B /* Pods_IG.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IG.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F70894DBBBDD01391B2E610C /* Pods-IG.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IG.debug.xcconfig"; path = "Target Support Files/Pods-IG/Pods-IG.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -175,6 +179,7 @@
 				7BFE15B62666F7F3006A18B3 /* PostViewController.swift */,
 				7BFE15B82666FC39006A18B3 /* ListViewController.swift */,
 				7BFE15BA266C9097006A18B3 /* PostEditViewController.swift */,
+				7BFE15BE266F2249006A18B3 /* CaptionViewController.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -229,6 +234,7 @@
 				7B567CF42645FE9E00512ED0 /* LaunchScreen.storyboard */,
 				7B83752C264B9E3C00159105 /* SignInHeaderView.swift */,
 				7B83752E264E2B0300159105 /* IGTextField.swift */,
+				7BFE15BC266F1E46006A18B3 /* PhotoCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -378,11 +384,13 @@
 				7B3D175B26483A9700831E13 /* CameraViewController.swift in Sources */,
 				7B567CEE2645FE9C00512ED0 /* HomeViewController.swift in Sources */,
 				7B3D17482647551300831E13 /* AnalyticsManager.swift in Sources */,
+				7BFE15BD266F1E46006A18B3 /* PhotoCollectionViewCell.swift in Sources */,
 				7B3D175D26483AC100831E13 /* NotificationsViewController.swift in Sources */,
 				7B83752D264B9E3C00159105 /* SignInHeaderView.swift in Sources */,
 				7B9A6DD92658CE810012B166 /* SettingsViewController.swift in Sources */,
 				7B837539264F960400159105 /* SignUpViewController.swift in Sources */,
 				7BFE15B12661F95A006A18B3 /* PostLikesCollectionViewCell.swift in Sources */,
+				7BFE15BF266F2249006A18B3 /* CaptionViewController.swift in Sources */,
 				7B83752F264E2B0300159105 /* IGTextField.swift in Sources */,
 				7BFE15B52661F9B2006A18B3 /* PostDatetimeCollectionViewCell.swift in Sources */,
 				7B3D175926483A7300831E13 /* ExploreViewController.swift in Sources */,
