@@ -63,7 +63,10 @@ class PostEditViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     @objc func didTapNext() {
-        let vc = CaptionViewController(image: image)
+        guard let current = imageView.image else {
+            return
+        }
+        let vc = CaptionViewController(image: current)
         vc.title = "Add Caption"
         navigationController?.pushViewController(vc, animated: true)
     }
