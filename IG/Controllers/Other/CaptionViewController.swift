@@ -55,8 +55,22 @@ class CaptionViewController: UIViewController, UITextViewDelegate {
             caption = ""
         }
         
-        // Upload photo, update database
+        // Generate post ID
+        guard let newPostID = createNewPostID() else {
+            return
+        }
+        // Upload Post
+        // Update Database
         
+    }
+    
+    private func createNewPostID() -> String? {
+        let timeStamp = Date().timeIntervalSince1970
+        let randomNumber = Int.random(in: 0...1000)
+        guard let username = UserDefaults.standard.string(forKey: "username") else {
+            return nil
+        }
+        return "\(username)_\(randomNumber)_\(timeStamp)"
     }
     
     override func viewDidLayoutSubviews() {
