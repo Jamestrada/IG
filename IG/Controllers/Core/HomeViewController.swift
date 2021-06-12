@@ -27,6 +27,22 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     private func fetchPosts() {
+        guard let username = UserDefaults.standard.string(forKey: "username") else {
+            return
+        }
+        DatabaseManager.shared.posts(for: username) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let posts):
+                    print("\n\n\nPosts: \(posts.count)")
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+    }
+    
+    private func createMockData() {
         // mock data
         let postData: [HomeFeedCellType] = [
             .poster(viewModel: PosterCollectionViewCellViewModel(username: "jamestrada", profilePictureURL: URL(string: "https://expertphotography.com/wp-content/uploads/2020/08/profile-photos-2.jpg")!)),
