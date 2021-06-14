@@ -57,19 +57,18 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     private func createViewModel(model: Post, username: String, completion: @escaping (Bool) -> Void) {
-        StorageManager.shared.downloadURL(for: model) { [weak self] url in
-            guard let postUrl = url else {
+        StorageManager.shared.profilePictureURL(for: username) { [weak self] profilePictureURL in
+            guard let postUrl = URL(string: model.postUrlString), let profilePictureUrl = profilePictureURL else {
                 return
             }
             let postData: [HomeFeedCellType] = [
-                .poster(viewModel: PosterCollectionViewCellViewModel(username: username, profilePictureURL: URL(string: "https://expertphotography.com/wp-content/uploads/2020/08/profile-photos-2.jpg")!)),
+                .poster(viewModel: PosterCollectionViewCellViewModel(username: username, profilePictureURL: profilePictureUrl)),
                 .post(viewModel: PostCollectionViewCellViewModel(postURL: postUrl)),
                 .actions(viewModel: PostActionsCollectionViewCellViewModel(isLiked: false)),
                 .likeCount(viewModel: PostLikesCollectionViewCellViewModel(likers: [])),
                 .caption(viewModel: PostCaptionCollectionViewCellViewModel(username: username, caption: model.caption)),
                 .timestamp(viewModel: PostDatetimeCollectionViewCellViewModel(date: DateFormatter.formatter.date(from: model.postedDate) ?? Date()))
             ]
-            
             self?.viewModels.append(postData)
             completion(true)
         }

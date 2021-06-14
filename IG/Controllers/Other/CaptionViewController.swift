@@ -60,13 +60,13 @@ class CaptionViewController: UIViewController, UITextViewDelegate {
             return
         }
         // Upload Post
-        StorageManager.shared.uploadPost(data: image.pngData(), id: newPostID) { success in
-            guard success else {
+        StorageManager.shared.uploadPost(data: image.pngData(), id: newPostID) { newPostDownloadURL in
+            guard let url = newPostDownloadURL else {
                 print("Error: Failed to upload")
                 return
             }
             // New Post
-            let newPost = Post(id: newPostID, caption: caption, postedDate:  stringDate, likers: [])
+            let newPost = Post(id: newPostID, caption: caption, postedDate:  stringDate, postUrlString: url.absoluteString, likers: [])
             
             // Update Database
             DatabaseManager.shared.createPost(newPost: newPost) { [weak self] finished in
