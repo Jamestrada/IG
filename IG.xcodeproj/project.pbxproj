@@ -37,6 +37,7 @@
 		7B9C597A2660B3A90000C217 /* PostDatetimeCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9C59792660B3A90000C217 /* PostDatetimeCollectionViewCellViewModel.swift */; };
 		7B9C597C2660B5060000C217 /* HomeFeedCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9C597B2660B5060000C217 /* HomeFeedCellType.swift */; };
 		7BB0414026731726005044B0 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB0413F26731726005044B0 /* Post.swift */; };
+		7BB0414226786F85005044B0 /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB0414126786F85005044B0 /* SearchResultsViewController.swift */; };
 		7BFE15AB2661F839006A18B3 /* PosterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFE15AA2661F839006A18B3 /* PosterCollectionViewCell.swift */; };
 		7BFE15AD2661F8F5006A18B3 /* PostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFE15AC2661F8F5006A18B3 /* PostCollectionViewCell.swift */; };
 		7BFE15AF2661F933006A18B3 /* PostActionsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFE15AE2661F933006A18B3 /* PostActionsCollectionViewCell.swift */; };
@@ -85,6 +86,7 @@
 		7B9C59792660B3A90000C217 /* PostDatetimeCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDatetimeCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
 		7B9C597B2660B5060000C217 /* HomeFeedCellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeedCellType.swift; sourceTree = "<group>"; };
 		7BB0413F26731726005044B0 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		7BB0414126786F85005044B0 /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		7BFE15AA2661F839006A18B3 /* PosterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterCollectionViewCell.swift; sourceTree = "<group>"; };
 		7BFE15AC2661F8F5006A18B3 /* PostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCollectionViewCell.swift; sourceTree = "<group>"; };
 		7BFE15AE2661F933006A18B3 /* PostActionsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostActionsCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 				7BFE15B82666FC39006A18B3 /* ListViewController.swift */,
 				7BFE15BA266C9097006A18B3 /* PostEditViewController.swift */,
 				7BFE15BE266F2249006A18B3 /* CaptionViewController.swift */,
+				7BB0414126786F85005044B0 /* SearchResultsViewController.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -383,6 +386,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7BFE15B92666FC39006A18B3 /* ListViewController.swift in Sources */,
+				7BB0414226786F85005044B0 /* SearchResultsViewController.swift in Sources */,
 				7BFE15BB266C9097006A18B3 /* PostEditViewController.swift in Sources */,
 				7B3D175B26483A9700831E13 /* CameraViewController.swift in Sources */,
 				7B567CEE2645FE9C00512ED0 /* HomeViewController.swift in Sources */,
