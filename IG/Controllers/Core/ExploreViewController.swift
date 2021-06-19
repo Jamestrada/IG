@@ -30,6 +30,8 @@ class ExploreViewController: UIViewController, UISearchResultsUpdating {
         return collectionView
     }()
     
+    private var posts = [Post]()
+    
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
@@ -52,8 +54,11 @@ class ExploreViewController: UIViewController, UISearchResultsUpdating {
     }
     
     private func fetchData() {
-        DatabaseManager.shared.explorePosts { posts in
-            print("\n\n\nPosts: \(posts.count)")
+        DatabaseManager.shared.explorePosts { [weak self] posts in
+            DispatchQueue.main.async {
+                self?.posts = posts
+                self?.collectionView.reloadData()
+            }
         }
     }
     
@@ -73,16 +78,24 @@ class ExploreViewController: UIViewController, UISearchResultsUpdating {
 
 extension ExploreViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 30
+        return posts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCollectionViewCell.identifier, for: indexPath) as? PhotoCollectionViewCell else {
             fatalError()
         }
-        cell.configure(with: UIImage(named: "test"))
+        let model = posts[indexPath.row]
+        cell.configure(with: URL(string: model.postUrlString))
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        let post = posts[indexPath.row]
+        let vc = PostViewController(post: post)
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
