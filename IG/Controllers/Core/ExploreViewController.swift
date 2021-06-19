@@ -43,11 +43,18 @@ class ExploreViewController: UIViewController, UISearchResultsUpdating {
         view.addSubview(collectionView)
         collectionView.delegate = self
         collectionView.dataSource = self
+        fetchData()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView.frame = view.bounds
+    }
+    
+    private func fetchData() {
+        DatabaseManager.shared.explorePosts { posts in
+            print("\n\n\nPosts: \(posts.count)")
+        }
     }
     
     func updateSearchResults(for searchController: UISearchController) {
