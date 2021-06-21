@@ -18,6 +18,10 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         return label
     }()
     
+    private var viewModels: [NotificationCellType] = []
+    
+    // MARK: - Lifecycle
+    
     private let tableView: UITableView = {
         let table = UITableView()
         table.isHidden = true
@@ -52,11 +56,30 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     // MARK: - Table
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return viewModels.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        return cell
+        let cellType = viewModels[indexPath.row]
+        switch cellType {
+        case .follow(let viewModel):
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: FollowNotificationTableViewCell.identifier, for: indexPath) as? FollowNotificationTableViewCell else {
+                fatalError()
+            }
+            cell.configure(with: viewModel)
+            return cell
+        case .like(let viewModel):
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: LikeNotificationTableViewCell.identifier, for: indexPath) as? LikeNotificationTableViewCell else {
+                fatalError()
+            }
+            cell.configure(with: viewModel)
+            return cell
+        case .comment(let viewModel):
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: CommentNotificationTableViewCell.identifier, for: indexPath) as? CommentNotificationTableViewCell else {
+                fatalError()
+            }
+            cell.configure(with: viewModel)
+            return cell
+        }
     }
 }
