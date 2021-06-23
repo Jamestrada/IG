@@ -10,4 +10,5 @@ import Foundation
 struct CommentNotificationCellViewModel {
     let username: String
     let profilePictureUrl: URL
+    let postUrl: URL
 }

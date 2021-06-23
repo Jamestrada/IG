@@ -17,6 +17,13 @@ class LikeNotificationTableViewCell: UITableViewCell {
         return imageView
     }()
     
+    private let postImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.layer.masksToBounds = true
+        imageView.contentMode = .scaleAspectFill
+        return imageView
+    }()
+    
     private let label: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
@@ -31,6 +38,7 @@ class LikeNotificationTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.clipsToBounds = true
         contentView.addSubview(profilePictureImageView)
+        contentView.addSubview(postImageView)
         contentView.addSubview(label)
     }
     
@@ -42,18 +50,25 @@ class LikeNotificationTableViewCell: UITableViewCell {
         super.layoutSubviews()
         let imageSize: CGFloat = contentView.height / 1.5
         profilePictureImageView.frame = CGRect(x: 10, y: (contentView.height - imageSize) / 2, width: imageSize, height: imageSize)
+        profilePictureImageView.layer.cornerRadius = imageSize / 2
         
-        let labelSize = label.sizeThatFits(bounds.size)
+        let postSize: CGFloat = contentView.height - 20
+        postImageView.frame = CGRect(x: contentView.width - postSize - 10, y: 10, width: postSize, height: postSize)
+        
+        let labelSize = label.sizeThatFits(CGSize(width: contentView.width - profilePictureImageView.right - 25 - postSize, height: contentView.height))
         label.frame = CGRect(x: profilePictureImageView.right + 10, y: 0, width: labelSize.width, height: contentView.height)
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         profilePictureImageView.image = nil
+        postImageView.image = nil
         label.text = nil
     }
     
     public func configure(with viewModel: LikeNotificationCellViewModel) {
-        
+        profilePictureImageView.sd_setImage(with: viewModel.profilePictureUrl, completed: nil)
+        postImageView.sd_setImage(with: viewModel.postUrl, completed: nil)
+        label.text = "\(viewModel.username) liked your post."
     }
 }

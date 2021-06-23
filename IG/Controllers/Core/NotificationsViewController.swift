@@ -65,7 +65,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         
         viewModels = [
             .like(viewModel: LikeNotificationCellViewModel(username: "markzuckerberg", profilePictureUrl: iconUrl, postUrl: postUrl)),
-            .comment(viewModel: CommentNotificationCellViewModel(username: "jeffbezos", profilePictureUrl: iconUrl)),
+            .comment(viewModel: CommentNotificationCellViewModel(username: "jeffbezos", profilePictureUrl: iconUrl, postUrl: postUrl)),
             .follow(viewModel: FollowNotificationCellViewModel(username: "billgates", profilePictureUrl: iconUrl, isCurrentUserFollowing: true))
         ]
         tableView.reloadData()
