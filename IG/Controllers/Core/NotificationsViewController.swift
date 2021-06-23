@@ -23,7 +23,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     // MARK: - Lifecycle
     
     private let tableView: UITableView = {
-        let table = UITableView()
+        let table = UITableView(frame: .zero, style: .grouped)
         table.isHidden = true
         table.register(FollowNotificationTableViewCell.self, forCellReuseIdentifier: FollowNotificationTableViewCell.identifier)
         table.register(LikeNotificationTableViewCell.self, forCellReuseIdentifier: LikeNotificationTableViewCell.identifier)
@@ -50,7 +50,25 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     private func fetchNotifications() {
-        noActivityLabel.isHidden = false
+//        noActivityLabel.isHidden = false
+        mockData()
+    }
+    
+    private func mockData() {
+        tableView.isHidden = false
+        guard let postUrl = URL(string: "https://yourwikis.com/wp-content/uploads/2020/01/mark-zuck-img.jpg") else {
+            return
+        }
+        guard let iconUrl = URL(string: "https://cdn3.iconfinder.com/data/icons/capsocial-round/500/facebook-512.png") else {
+            return
+        }
+        
+        viewModels = [
+            .like(viewModel: LikeNotificationCellViewModel(username: "markzuckerberg", profilePictureUrl: iconUrl, postUrl: postUrl)),
+            .comment(viewModel: CommentNotificationCellViewModel(username: "jeffbezos", profilePictureUrl: iconUrl)),
+            .follow(viewModel: FollowNotificationCellViewModel(username: "billgates", profilePictureUrl: iconUrl, isCurrentUserFollowing: true))
+        ]
+        tableView.reloadData()
     }
     
     // MARK: - Table
@@ -81,5 +99,9 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
             cell.configure(with: viewModel)
             return cell
         }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 70
     }
 }
