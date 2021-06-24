@@ -19,6 +19,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     }()
     
     private var viewModels: [NotificationCellType] = []
+    private var models: [IGNotification] = []
     
     // MARK: - Lifecycle
     
@@ -85,6 +86,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                 fatalError()
             }
             cell.configure(with: viewModel)
+            cell.delegate = self
             return cell
         case .like(let viewModel):
             guard let cell = tableView.dequeueReusableCell(withIdentifier: LikeNotificationTableViewCell.identifier, for: indexPath) as? LikeNotificationTableViewCell else {
@@ -103,5 +105,38 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let cellType = viewModels[indexPath.row]
+        let username: String
+        switch cellType {
+        case .follow(let viewModel):
+            username = viewModel.username
+        case .like(viewModel: let viewModel):
+            username = viewModel.username
+        case .comment(viewModel: let viewModel):
+            username = viewModel.username
+        }
+        
+        DatabaseManager.shared.findUser(with: username) { [weak self] user in
+            guard let user = user else {
+                return
+            }
+            
+            DispatchQueue.main.async {
+                let vc = ProfileViewController(user: user)
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+    }
+}
+
+// MARK: - Actions
+
+extension NotificationsViewController: FollowNotificationTableViewCellDelegate {
+    func followNotificationTableViewCell(_ cell: FollowNotificationTableViewCell, didTapButton isFollowing: Bool, viewModel: FollowNotificationCellViewModel) {
+//        let username = viewModel.username
     }
 }

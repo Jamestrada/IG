@@ -23,6 +23,7 @@
 		7B567CEE2645FE9C00512ED0 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B567CED2645FE9C00512ED0 /* HomeViewController.swift */; };
 		7B567CF32645FE9E00512ED0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B567CF22645FE9E00512ED0 /* Assets.xcassets */; };
 		7B567CF62645FE9E00512ED0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B567CF42645FE9E00512ED0 /* LaunchScreen.storyboard */; };
+		7B5EADE62684FF0B00EC0192 /* IGNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5EADE52684FF0B00EC0192 /* IGNotification.swift */; };
 		7B83752B264B955E00159105 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B83752A264B955E00159105 /* Extensions.swift */; };
 		7B83752D264B9E3C00159105 /* SignInHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B83752C264B9E3C00159105 /* SignInHeaderView.swift */; };
 		7B83752F264E2B0300159105 /* IGTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B83752E264E2B0300159105 /* IGTextField.swift */; };
@@ -80,6 +81,7 @@
 		7B567CF22645FE9E00512ED0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7B567CF52645FE9E00512ED0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7B567CF72645FE9E00512ED0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7B5EADE52684FF0B00EC0192 /* IGNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNotification.swift; sourceTree = "<group>"; };
 		7B83752A264B955E00159105 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		7B83752C264B9E3C00159105 /* SignInHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInHeaderView.swift; sourceTree = "<group>"; };
 		7B83752E264E2B0300159105 /* IGTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGTextField.swift; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 				7B9C597B2660B5060000C217 /* HomeFeedCellType.swift */,
 				7BB0413F26731726005044B0 /* Post.swift */,
 				7B9E5BAE26810DC0002E8222 /* NotificationCellType.swift */,
+				7B5EADE52684FF0B00EC0192 /* IGNotification.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -445,6 +448,7 @@
 				7BFE15B52661F9B2006A18B3 /* PostDatetimeCollectionViewCell.swift in Sources */,
 				7B3D175926483A7300831E13 /* ExploreViewController.swift in Sources */,
 				7B3D17422647540E00831E13 /* AuthManager.swift in Sources */,
+				7B5EADE62684FF0B00EC0192 /* IGNotification.swift in Sources */,
 				7B9C59702660B2120000C217 /* PosterCollectionViewCellViewModel.swift in Sources */,
 				7BFE15AF2661F933006A18B3 /* PostActionsCollectionViewCell.swift in Sources */,
 				7B3D17442647548300831E13 /* DatabaseManager.swift in Sources */,
