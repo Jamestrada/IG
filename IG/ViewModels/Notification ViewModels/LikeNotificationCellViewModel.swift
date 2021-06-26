@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct LikeNotificationCellViewModel {
+struct LikeNotificationCellViewModel: Equatable {
     let username: String
     let profilePictureUrl: URL
     let postUrl: URL

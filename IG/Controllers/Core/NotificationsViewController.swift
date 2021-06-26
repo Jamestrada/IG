@@ -93,12 +93,14 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                 fatalError()
             }
             cell.configure(with: viewModel)
+            cell.delegate = self
             return cell
         case .comment(let viewModel):
             guard let cell = tableView.dequeueReusableCell(withIdentifier: CommentNotificationTableViewCell.identifier, for: indexPath) as? CommentNotificationTableViewCell else {
                 fatalError()
             }
             cell.configure(with: viewModel)
+            cell.delegate = self
             return cell
         }
     }
@@ -135,8 +137,52 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
 
 // MARK: - Actions
 
-extension NotificationsViewController: FollowNotificationTableViewCellDelegate {
+extension NotificationsViewController: FollowNotificationTableViewCellDelegate, LikeNotificationTableViewCellDelegate, CommentNotificationTableViewCellDelegate {
     func followNotificationTableViewCell(_ cell: FollowNotificationTableViewCell, didTapButton isFollowing: Bool, viewModel: FollowNotificationCellViewModel) {
 //        let username = viewModel.username
+    }
+    
+    func likeNotificationTableViewCell(_ cell: LikeNotificationTableViewCell, didTapPostWith viewModel: LikeNotificationCellViewModel) {
+        guard let index = viewModels.firstIndex(where: {
+            switch $0 {
+            case .follow, .comment:
+                return false
+            case .like(let current):
+                return current == viewModel
+            }
+        }) else {
+            return
+        }
+        
+        openPost(with: index, username: viewModel.username)
+        // Find post by id
+    }
+    
+    func commentNotificationTableViewCell(_ cell: CommentNotificationTableViewCell, didTapPostWith viewModel: CommentNotificationCellViewModel) {
+        guard let index = viewModels.firstIndex(where: {
+            switch $0 {
+            case .follow, .like:
+                return false
+            case .comment(let current):
+                return current == viewModel
+            }
+        }) else {
+            return
+        }
+        openPost(with: index, username: viewModel.username)
+    }
+    
+    func openPost(with index: Int, username: String) {
+        print(index)
+        
+        guard index < models.count else {
+            return
+        }
+        let model = models[index]
+        let username = username
+        
+        guard let postID = model.postId else {
+            return
+        }
     }
 }

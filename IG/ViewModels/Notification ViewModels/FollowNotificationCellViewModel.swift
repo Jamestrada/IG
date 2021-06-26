@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct FollowNotificationCellViewModel {
+struct FollowNotificationCellViewModel: Equatable {
     let username: String
     let profilePictureUrl: URL
     let isCurrentUserFollowing: Bool
