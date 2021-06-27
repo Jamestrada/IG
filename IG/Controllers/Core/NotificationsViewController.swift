@@ -51,8 +51,52 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     private func fetchNotifications() {
-//        noActivityLabel.isHidden = false
-        mockData()
+        NotificationsManager.shared.getNotifications { [weak self] models in
+            DispatchQueue.main.async {
+                self?.models = models
+                self?.createViewModels()
+            }
+        }
+    }
+    
+    private func createViewModels() {
+        models.forEach { model in
+            guard let type = NotificationsManager.IGType(rawValue: model.notificationType) else {
+                return
+            }
+            let username = model.username
+            guard let profilePictureUrl = URL(string: model.profilePictureUrl) else {
+                return
+            }
+            
+            // Derive
+            
+            switch type {
+            case .like:
+                guard let postUrl = URL(string: model.postUrl ?? "") else {
+                    return
+                }
+                viewModels.append(.like(viewModel: LikeNotificationCellViewModel(username: username, profilePictureUrl: profilePictureUrl, postUrl: postUrl)))
+            case .comment:
+                guard let postUrl = URL(string: model.postUrl ?? "") else {
+                    return
+                }
+                viewModels.append(.comment(viewModel: CommentNotificationCellViewModel(username: username, profilePictureUrl: profilePictureUrl, postUrl: postUrl)))
+            case .follow:
+                guard let isFollowing = model.isFollowing else {
+                    return
+                }
+                viewModels.append(.follow(viewModel: FollowNotificationCellViewModel(username: username, profilePictureUrl: profilePictureUrl, isCurrentUserFollowing: isFollowing)))
+            }
+        }
+        if viewModels.isEmpty {
+            noActivityLabel.isHidden = false
+            tableView.isHidden = true
+        } else {
+            noActivityLabel.isHidden = true
+            tableView.isHidden = false
+            tableView.reloadData()
+        }
     }
     
     private func mockData() {
