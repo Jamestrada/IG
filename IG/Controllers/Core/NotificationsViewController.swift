@@ -76,17 +76,17 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                 guard let postUrl = URL(string: model.postUrl ?? "") else {
                     return
                 }
-                viewModels.append(.like(viewModel: LikeNotificationCellViewModel(username: username, profilePictureUrl: profilePictureUrl, postUrl: postUrl)))
+                viewModels.append(.like(viewModel: LikeNotificationCellViewModel(username: username, profilePictureUrl: profilePictureUrl, postUrl: postUrl, date: model.dateString)))
             case .comment:
                 guard let postUrl = URL(string: model.postUrl ?? "") else {
                     return
                 }
-                viewModels.append(.comment(viewModel: CommentNotificationCellViewModel(username: username, profilePictureUrl: profilePictureUrl, postUrl: postUrl)))
+                viewModels.append(.comment(viewModel: CommentNotificationCellViewModel(username: username, profilePictureUrl: profilePictureUrl, postUrl: postUrl, date: model.dateString)))
             case .follow:
                 guard let isFollowing = model.isFollowing else {
                     return
                 }
-                viewModels.append(.follow(viewModel: FollowNotificationCellViewModel(username: username, profilePictureUrl: profilePictureUrl, isCurrentUserFollowing: isFollowing)))
+                viewModels.append(.follow(viewModel: FollowNotificationCellViewModel(username: username, profilePictureUrl: profilePictureUrl, isCurrentUserFollowing: isFollowing, date: model.dateString)))
             }
         }
         if viewModels.isEmpty {
@@ -109,9 +109,9 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         }
         
         viewModels = [
-            .like(viewModel: LikeNotificationCellViewModel(username: "markzuckerberg", profilePictureUrl: iconUrl, postUrl: postUrl)),
-            .comment(viewModel: CommentNotificationCellViewModel(username: "jeffbezos", profilePictureUrl: iconUrl, postUrl: postUrl)),
-            .follow(viewModel: FollowNotificationCellViewModel(username: "billgates", profilePictureUrl: iconUrl, isCurrentUserFollowing: true))
+            .like(viewModel: LikeNotificationCellViewModel(username: "markzuckerberg", profilePictureUrl: iconUrl, postUrl: postUrl, date: "Jun 27")),
+            .comment(viewModel: CommentNotificationCellViewModel(username: "jeffbezos", profilePictureUrl: iconUrl, postUrl: postUrl, date: "Jun 27")),
+            .follow(viewModel: FollowNotificationCellViewModel(username: "billgates", profilePictureUrl: iconUrl, isCurrentUserFollowing: true, date: "Jun 27"))
         ]
         tableView.reloadData()
     }

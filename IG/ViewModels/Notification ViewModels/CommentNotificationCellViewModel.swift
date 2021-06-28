@@ -11,4 +11,5 @@ struct CommentNotificationCellViewModel: Equatable {
     let username: String
     let profilePictureUrl: URL
     let postUrl: URL
+    let date: String
 }

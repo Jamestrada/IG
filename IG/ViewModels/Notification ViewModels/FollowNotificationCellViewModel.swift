@@ -11,4 +11,5 @@ struct FollowNotificationCellViewModel: Equatable {
     let username: String
     let profilePictureUrl: URL
     let isCurrentUserFollowing: Bool
+    let date: String
 }

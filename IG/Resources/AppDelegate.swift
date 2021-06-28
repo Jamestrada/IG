@@ -15,9 +15,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         
         // mock notification for current user
-        let id = NotificationsManager.newIdentifier()
-        let model = IGNotification(identifier: id, notificationType: 1, profilePictureUrl: "https://cdn3.iconfinder.com/data/icons/capsocial-round/500/facebook-512.png", username: "markzuckerberg", isFollowing: nil, postId: "123", postUrl: "https://yourwikis.com/wp-content/uploads/2020/01/mark-zuck-img.jpg")
-        NotificationsManager.shared.create(notification: model, for: "james")
+//        let id = NotificationsManager.newIdentifier()
+//        let model = IGNotification(identifier: id,
+//                                   notificationType: 3,
+//                                   profilePictureUrl: "https://cdn3.iconfinder.com/data/icons/capsocial-round/500/facebook-512.png",
+//                                   username: "billgates",
+//                                   dateString: String.date(from: Date()) ?? "Now",
+//                                   isFollowing: false,
+//                                   postId: nil,
+//                                   postUrl: nil)
+//        NotificationsManager.shared.create(notification: model, for: "james")
         
         return true
     }
