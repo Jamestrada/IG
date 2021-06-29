@@ -228,5 +228,19 @@ extension NotificationsViewController: FollowNotificationTableViewCellDelegate, 
         guard let postID = model.postId else {
             return
         }
+        
+        // Find post by id from target user
+        DatabaseManager.shared.getPost(with: postID, from: username) { [weak self] post in
+            DispatchQueue.main.async {
+                guard let post = post else {
+                    let alert = UIAlertController(title: "Oops", message: "We are unable to open this post.", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+                    self?.present(alert, animated: true)
+                    return
+                }
+                let vc = PostViewController(post: post)
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
     }
 }
