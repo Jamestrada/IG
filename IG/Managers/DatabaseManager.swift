@@ -51,6 +51,18 @@ final class DatabaseManager {
         }
     }
     
+    public func findUser(username: String, completion: @escaping (User?) -> Void) {
+        let ref = database.collection("users")
+        ref.getDocuments { snapshot, error in
+            guard let users = snapshot?.documents.compactMap({ User(with: $0.data()) }), error == nil else {
+                completion(nil)
+                return
+            }
+            let user = users.first(where: { $0.username == username })
+            completion(user)
+        }
+    }
+    
     public func createPost(newPost: Post, completion: @escaping (Bool) -> Void) {
         guard let username = UserDefaults.standard.string(forKey: "username") else {
             completion(false)
@@ -139,6 +151,37 @@ final class DatabaseManager {
                 return
             }
             completion(Post(with: data))
+        }
+    }
+    
+    enum RelationshipState {
+        case follow
+        case unfollow
+    }
+    
+    public func updateRelationship(state: RelationshipState, for targetUsername: String, completion: @escaping (Bool) -> Void) {
+        guard let currentUsername = UserDefaults.standard.string(forKey: "username") else {
+            completion(false)
+            return
+        }
+        let currentFollowing = database.collection("users").document(currentUsername).collection("following")
+        let targetFollowers = database.collection("users").document(targetUsername).collection("followers")
+        
+        switch state {
+        case .unfollow:
+            // Remove follower from currentUser's following list
+            currentFollowing.document(targetUsername).delete()
+            // Remove currentUser from targetUser's followers list
+            targetFollowers.document(currentUsername).delete()
+            
+            completion(true)
+        case .follow:
+            // Add follower to requester's following list
+            currentFollowing.document(targetUsername).setData(["valid": "1"])
+            // Add currentUser to targetUser's followers list
+            targetFollowers.document(currentUsername).setData(["valid": "1"])
+        
+            completion(true)
         }
     }
 }

@@ -166,8 +166,11 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
             username = viewModel.username
         }
         
-        DatabaseManager.shared.findUser(with: username) { [weak self] user in
+        DatabaseManager.shared.findUser(username: username) { [weak self] user in
             guard let user = user else {
+                let alert = UIAlertController(title: "Woops", message: "\(username) was not found", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+                self?.present(alert, animated: true)
                 return
             }
             
@@ -183,7 +186,17 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
 
 extension NotificationsViewController: FollowNotificationTableViewCellDelegate, LikeNotificationTableViewCellDelegate, CommentNotificationTableViewCellDelegate {
     func followNotificationTableViewCell(_ cell: FollowNotificationTableViewCell, didTapButton isFollowing: Bool, viewModel: FollowNotificationCellViewModel) {
-//        let username = viewModel.username
+        let username = viewModel.username
+        print("\n\nRequest follow=\(isFollowing) for user=\(username)")
+        DatabaseManager.shared.updateRelationship(state: isFollowing ? .follow : .unfollow, for: username) { [weak self] success in
+            if !success {
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "Woops", message: "Unable to perform action.", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+                    self?.present(alert, animated: true)
+                }
+            }
+        }
     }
     
     func likeNotificationTableViewCell(_ cell: LikeNotificationTableViewCell, didTapPostWith viewModel: LikeNotificationCellViewModel) {
