@@ -26,6 +26,7 @@
 		7B5EADE62684FF0B00EC0192 /* IGNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5EADE52684FF0B00EC0192 /* IGNotification.swift */; };
 		7B5EADE8268D753500EC0192 /* ProfileHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5EADE7268D753500EC0192 /* ProfileHeaderCollectionReusableView.swift */; };
 		7B5EADEA268D75BC00EC0192 /* ProfileHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5EADE9268D75BC00EC0192 /* ProfileHeaderViewModel.swift */; };
+		7B5EADEC268E7EBF00EC0192 /* ProfileHeaderCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5EADEB268E7EBF00EC0192 /* ProfileHeaderCountView.swift */; };
 		7B83752B264B955E00159105 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B83752A264B955E00159105 /* Extensions.swift */; };
 		7B83752D264B9E3C00159105 /* SignInHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B83752C264B9E3C00159105 /* SignInHeaderView.swift */; };
 		7B83752F264E2B0300159105 /* IGTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B83752E264E2B0300159105 /* IGTextField.swift */; };
@@ -86,6 +87,7 @@
 		7B5EADE52684FF0B00EC0192 /* IGNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNotification.swift; sourceTree = "<group>"; };
 		7B5EADE7268D753500EC0192 /* ProfileHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		7B5EADE9268D75BC00EC0192 /* ProfileHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderViewModel.swift; sourceTree = "<group>"; };
+		7B5EADEB268E7EBF00EC0192 /* ProfileHeaderCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderCountView.swift; sourceTree = "<group>"; };
 		7B83752A264B955E00159105 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		7B83752C264B9E3C00159105 /* SignInHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInHeaderView.swift; sourceTree = "<group>"; };
 		7B83752E264E2B0300159105 /* IGTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGTextField.swift; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 				7B83752E264E2B0300159105 /* IGTextField.swift */,
 				7BFE15BC266F1E46006A18B3 /* PhotoCollectionViewCell.swift */,
 				7B5EADE7268D753500EC0192 /* ProfileHeaderCollectionReusableView.swift */,
+				7B5EADEB268E7EBF00EC0192 /* ProfileHeaderCountView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -437,6 +440,7 @@
 				7BFE15B92666FC39006A18B3 /* ListViewController.swift in Sources */,
 				7BB0414226786F85005044B0 /* SearchResultsViewController.swift in Sources */,
 				7BFE15BB266C9097006A18B3 /* PostEditViewController.swift in Sources */,
+				7B5EADEC268E7EBF00EC0192 /* ProfileHeaderCountView.swift in Sources */,
 				7B5EADE8268D753500EC0192 /* ProfileHeaderCollectionReusableView.swift in Sources */,
 				7B3D175B26483A9700831E13 /* CameraViewController.swift in Sources */,
 				7B567CEE2645FE9C00512ED0 /* HomeViewController.swift in Sources */,
