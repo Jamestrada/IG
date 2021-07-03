@@ -15,7 +15,7 @@ class ProfileHeaderCountView: UIView {
         let button = UIButton()
         button.setTitleColor(.label, for: .normal)
         button.titleLabel?.numberOfLines = 2
-        button.setTitle("0\nFollowers", for: .normal)
+        button.setTitle("-", for: .normal)
         button.titleLabel?.textAlignment = .center
         button.layer.cornerRadius = 4
         button.layer.borderWidth = 0.5
@@ -27,7 +27,7 @@ class ProfileHeaderCountView: UIView {
         let button = UIButton()
         button.setTitleColor(.label, for: .normal)
         button.titleLabel?.numberOfLines = 2
-        button.setTitle("0\nFollowing", for: .normal)
+        button.setTitle("-", for: .normal)
         button.titleLabel?.textAlignment = .center
         button.layer.cornerRadius = 4
         button.layer.borderWidth = 0.5
@@ -39,7 +39,7 @@ class ProfileHeaderCountView: UIView {
         let button = UIButton()
         button.setTitleColor(.label, for: .normal)
         button.titleLabel?.numberOfLines = 2
-        button.setTitle("0\nPosts", for: .normal)
+        button.setTitle("-", for: .normal)
         button.titleLabel?.textAlignment = .center
         button.layer.cornerRadius = 4
         button.layer.borderWidth = 0.5
@@ -49,9 +49,6 @@ class ProfileHeaderCountView: UIView {
     
     private let actionButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .systemBlue
-        button.setTitle("Follow", for: .normal)
-        button.setTitleColor(.white, for: .normal)
         return button
     }()
     
@@ -79,5 +76,32 @@ class ProfileHeaderCountView: UIView {
         followingCountButton.frame = CGRect(x: followerCountButton.right + 5, y: 5, width: buttonWidth, height: height / 2)
         postCountButton.frame = CGRect(x: followingCountButton.right + 5, y: 5, width: buttonWidth, height: height / 2)
         actionButton.frame = CGRect(x: 5, y: height - 42, width: width - 10, height: 40)
+    }
+    
+    func configure(with viewModel: ProfileHeaderCountViewModel) {
+        followerCountButton.setTitle("\(viewModel.followerCount)\nFollowers", for: .normal)
+        followingCountButton.setTitle("\(viewModel.followingCount)\nnFollowing", for: .normal)
+        postCountButton.setTitle("\(viewModel.postsCount)\nPosts", for: .normal)
+        
+        switch viewModel.actionType {
+        case .edit:
+            actionButton.backgroundColor = .systemBackground
+            actionButton.setTitle("Edit Profile", for: .normal)
+            actionButton.setTitleColor(.label, for: .normal)
+            actionButton.layer.borderWidth = 0.5
+            actionButton.layer.borderColor = UIColor.tertiaryLabel.cgColor
+            
+        case .follow(let isFollowing):
+            actionButton.backgroundColor = isFollowing ? .systemBackground : .systemBlue
+            actionButton.setTitle(isFollowing ? "Unfollow" : "Follow", for: .normal)
+            actionButton.setTitleColor(isFollowing ? .label : .white, for: .normal)
+            
+            if isFollowing {
+                actionButton.layer.borderWidth = 0.5
+                actionButton.layer.borderColor = UIColor.tertiaryLabel.cgColor
+            } else {
+                actionButton.layer.borderWidth = 0
+            }
+        }
     }
 }
