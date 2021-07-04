@@ -36,11 +36,31 @@ class ProfileViewController: UIViewController {
         view.backgroundColor = .systemBackground
         configureNavBar()
         configureCollectionView()
+        fetchProfileInfo()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView?.frame = view.bounds
+    }
+    
+    private func fetchProfileInfo() {
+        // All three counts
+        
+        
+        // Bio, name
+        
+        
+        // Profile picture url
+        StorageManager.shared.profilePictureURL(for: user.username) { url in
+            
+        }
+        
+        // if profile is not for current user
+        if !isCurrentUser {
+            // Get follow state
+            
+        }
     }
     
     private func configureNavBar() {
@@ -58,6 +78,34 @@ class ProfileViewController: UIViewController {
         let vc = SettingsViewController()
         present(UINavigationController(rootViewController: vc), animated: true)
     }
+}
+
+extension ProfileViewController: ProfileHeaderCountViewDelegate {
+    func profileHeaderCountViewDidTapFollowers(_ containerView: ProfileHeaderCountView) {
+        
+    }
+    
+    func profileHeaderCountViewDidTapFollowing(_ containerView: ProfileHeaderCountView) {
+        
+    }
+    
+    func profileHeaderCountViewDidTapPosts(_ containerView: ProfileHeaderCountView) {
+        
+    }
+    
+    func profileHeaderCountViewDidTapEditProfile(_ containerView: ProfileHeaderCountView) {
+        
+    }
+    
+    func profileHeaderCountViewDidTapFollow(_ containerView: ProfileHeaderCountView) {
+        
+    }
+    
+    func profileHeaderCountViewDidTapUnfollow(_ containerView: ProfileHeaderCountView) {
+        
+    }
+    
+    
 }
 
 extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -114,6 +162,17 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
               ) as? ProfileHeaderCollectionReusableView else {
             return UICollectionReusableView()
         }
+        let viewModel = ProfileHeaderViewModel(
+            profilePictureUrl: nil,
+            followerCount: 420,
+            followingCount: 69,
+            postCount: 42,
+            buttonType: self.isCurrentUser ? .edit : .follow(isFollowing: true),
+            name: "james.nomad",
+            bio: "A wanderer of the world!"
+        )
+        headerView.configure(with: viewModel)
+        headerView.countContainerView.delegate = self
         return headerView
     }
     

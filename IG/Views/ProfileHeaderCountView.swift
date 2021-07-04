@@ -7,7 +7,20 @@
 
 import UIKit
 
+protocol ProfileHeaderCountViewDelegate: AnyObject {
+    func profileHeaderCountViewDidTapFollowers(_ containerView: ProfileHeaderCountView)
+    func profileHeaderCountViewDidTapFollowing(_ containerView: ProfileHeaderCountView)
+    func profileHeaderCountViewDidTapPosts(_ containerView: ProfileHeaderCountView)
+    func profileHeaderCountViewDidTapEditProfile(_ containerView: ProfileHeaderCountView)
+    func profileHeaderCountViewDidTapFollow(_ containerView: ProfileHeaderCountView)
+    func profileHeaderCountViewDidTapUnfollow(_ containerView: ProfileHeaderCountView)
+}
+
 class ProfileHeaderCountView: UIView {
+    
+    weak var delegate: ProfileHeaderCountViewDelegate?
+    
+    private var action = ProfileButtonType.edit
     
     // Count Buttons
     
@@ -66,7 +79,39 @@ class ProfileHeaderCountView: UIView {
     }
     
     private func addActions() {
-        
+        followerCountButton.addTarget(self, action: #selector(didTapFollowers), for: .touchUpInside)
+        followingCountButton.addTarget(self, action: #selector(didTapFollowing), for: .touchUpInside)
+        postCountButton.addTarget(self, action: #selector(didTapPosts), for: .touchUpInside)
+        actionButton.addTarget(self, action: #selector(didTapActionButton), for: .touchUpInside)
+    }
+    
+    // Actions
+    
+    @objc func didTapFollowers() {
+        delegate?.profileHeaderCountViewDidTapFollowers(self)
+    }
+    
+    @objc func didTapFollowing() {
+        delegate?.profileHeaderCountViewDidTapFollowing(self)
+    }
+    
+    @objc func didTapPosts() {
+        delegate?.profileHeaderCountViewDidTapPosts(self)
+    }
+    
+    @objc func didTapActionButton() {
+        switch action {
+        case .edit:
+            delegate?.profileHeaderCountViewDidTapEditProfile(self)
+        case .follow(let isFollowing):
+            if isFollowing {
+                // Unfollow
+                delegate?.profileHeaderCountViewDidTapUnfollow(self)
+            } else {
+                // Follow
+                delegate?.profileHeaderCountViewDidTapFollow(self)
+            }
+        }
     }
     
     override func layoutSubviews() {
@@ -80,8 +125,10 @@ class ProfileHeaderCountView: UIView {
     
     func configure(with viewModel: ProfileHeaderCountViewModel) {
         followerCountButton.setTitle("\(viewModel.followerCount)\nFollowers", for: .normal)
-        followingCountButton.setTitle("\(viewModel.followingCount)\nnFollowing", for: .normal)
+        followingCountButton.setTitle("\(viewModel.followingCount)\nFollowing", for: .normal)
         postCountButton.setTitle("\(viewModel.postsCount)\nPosts", for: .normal)
+        
+        self.action = viewModel.actionType
         
         switch viewModel.actionType {
         case .edit:
