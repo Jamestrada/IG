@@ -184,4 +184,51 @@ final class DatabaseManager {
             completion(true)
         }
     }
+    
+    public func getUserCounts(username: String, completion: @escaping ((followers: Int, following: Int, posts: Int)) -> Void) {
+        let userRef = database.collection("users").document(username)
+        var followers = 0
+        var following = 0
+        var posts = 0
+        
+        let group = DispatchGroup()
+        group.enter()
+        group.enter()
+        group.enter()
+        
+        userRef.collection("followers").getDocuments { snapshot, error in
+            defer {
+                group.leave()
+            }
+            guard let count = snapshot?.documents.count, error == nil else {
+                return
+            }
+            followers = count
+        }
+        
+        userRef.collection("following").getDocuments { snapshot, error in
+            defer {
+                group.leave()
+            }
+            guard let count = snapshot?.documents.count, error == nil else {
+                return
+            }
+            following = count
+        }
+        
+        userRef.collection("posts").getDocuments { snapshot, error in
+            defer {
+                group.leave()
+            }
+            guard let count = snapshot?.documents.count, error == nil else {
+                return
+            }
+            posts = count
+        }
+        
+        group.notify(queue: .global()) {
+            let result = (followers: followers, following: following, posts: posts)
+            completion(result)
+        }
+    }
 }
