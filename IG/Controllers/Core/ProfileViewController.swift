@@ -52,6 +52,8 @@ class ProfileViewController: UIViewController {
         var followers = 0
         var following = 0
         var posts = 0
+        var name: String?
+        var bio: String?
         
         let group = DispatchGroup()
         
@@ -67,7 +69,10 @@ class ProfileViewController: UIViewController {
         }
         
         // Bio, name
-        
+        DatabaseManager.shared.getUserInfo(username: user.username) { userInfo in
+            name = userInfo?.name
+            bio = userInfo?.bio
+        }
         
         // Profile picture url
         group.enter()
@@ -81,7 +86,10 @@ class ProfileViewController: UIViewController {
         // if profile is not for current user
         if !isCurrentUser {
             // Get follow state
-            buttonType = .follow(isFollowing: true)
+            group.enter()
+            DatabaseManager.shared.isFollowing(targetUsername: user.username) { isFollowing in
+                buttonType = .follow(isFollowing: isFollowing)
+            }
         }
         
         group.notify(queue: .main) {
@@ -91,8 +99,8 @@ class ProfileViewController: UIViewController {
                 followingCount: following,
                 postCount: posts,
                 buttonType: buttonType,
-                name: "james.nomad",
-                bio: "A wanderer of the world!"
+                name: name,
+                bio: bio
             )
             self.collectionView?.reloadData()
         }
