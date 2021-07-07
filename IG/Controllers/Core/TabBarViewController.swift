@@ -32,9 +32,17 @@ class TabBarViewController: UITabBarController {
         let nav5 = UINavigationController(rootViewController: profile)
         
         if #available(iOS 14.0, *) {
-            nav3.navigationItem.backButtonDisplayMode = .minimal
+            home.navigationItem.backButtonDisplayMode = .minimal
+            explore.navigationItem.backButtonDisplayMode = .minimal
+            camera.navigationItem.backButtonDisplayMode = .minimal
+            activity.navigationItem.backButtonDisplayMode = .minimal
+            profile.navigationItem.backButtonDisplayMode = .minimal
         } else {
-            nav3.navigationItem.backButtonTitle = ""
+            home.navigationItem.backButtonTitle = ""
+            explore.navigationItem.backButtonTitle = ""
+            camera.navigationItem.backButtonTitle = ""
+            activity.navigationItem.backButtonTitle = ""
+            profile.navigationItem.backButtonTitle = ""
         }
         
         // Define tab items
