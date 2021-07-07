@@ -49,9 +49,8 @@ class ProfileViewController: UIViewController {
     }
     
     private func fetchProfileInfo() {
-        guard let username = UserDefaults.standard.string(forKey: "username") else {
-            return
-        }
+        let username = user.username
+
         let group = DispatchGroup()
         
         // Fetch Posts
@@ -108,6 +107,9 @@ class ProfileViewController: UIViewController {
             // Get follow state
             group.enter()
             DatabaseManager.shared.isFollowing(targetUsername: user.username) { isFollowing in
+                defer {
+                    group.leave()
+                }
                 buttonType = .follow(isFollowing: isFollowing)
             }
         }
