@@ -29,6 +29,7 @@
 		7B5EADEC268E7EBF00EC0192 /* ProfileHeaderCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5EADEB268E7EBF00EC0192 /* ProfileHeaderCountView.swift */; };
 		7B5EADEE2690231C00EC0192 /* ProfileHeaderCountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5EADED2690231C00EC0192 /* ProfileHeaderCountViewModel.swift */; };
 		7B5EADF0269405FC00EC0192 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5EADEF269405FC00EC0192 /* UserInfo.swift */; };
+		7B5EADF22695600B00EC0192 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5EADF12695600B00EC0192 /* EditProfileViewController.swift */; };
 		7B83752B264B955E00159105 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B83752A264B955E00159105 /* Extensions.swift */; };
 		7B83752D264B9E3C00159105 /* SignInHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B83752C264B9E3C00159105 /* SignInHeaderView.swift */; };
 		7B83752F264E2B0300159105 /* IGTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B83752E264E2B0300159105 /* IGTextField.swift */; };
@@ -92,6 +93,7 @@
 		7B5EADEB268E7EBF00EC0192 /* ProfileHeaderCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderCountView.swift; sourceTree = "<group>"; };
 		7B5EADED2690231C00EC0192 /* ProfileHeaderCountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderCountViewModel.swift; sourceTree = "<group>"; };
 		7B5EADEF269405FC00EC0192 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		7B5EADF12695600B00EC0192 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		7B83752A264B955E00159105 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		7B83752C264B9E3C00159105 /* SignInHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInHeaderView.swift; sourceTree = "<group>"; };
 		7B83752E264E2B0300159105 /* IGTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGTextField.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 				7BFE15BA266C9097006A18B3 /* PostEditViewController.swift */,
 				7BFE15BE266F2249006A18B3 /* CaptionViewController.swift */,
 				7BB0414126786F85005044B0 /* SearchResultsViewController.swift */,
+				7B5EADF12695600B00EC0192 /* EditProfileViewController.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -469,6 +472,7 @@
 				7B9C59702660B2120000C217 /* PosterCollectionViewCellViewModel.swift in Sources */,
 				7BFE15AF2661F933006A18B3 /* PostActionsCollectionViewCell.swift in Sources */,
 				7B3D17442647548300831E13 /* DatabaseManager.swift in Sources */,
+				7B5EADF22695600B00EC0192 /* EditProfileViewController.swift in Sources */,
 				7B5EADEE2690231C00EC0192 /* ProfileHeaderCountViewModel.swift in Sources */,
 				7BFE15AD2661F8F5006A18B3 /* PostCollectionViewCell.swift in Sources */,
 				7B3D17572648378E00831E13 /* TabBarViewController.swift in Sources */,

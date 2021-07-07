@@ -46,8 +46,8 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
         imageView.frame = CGRect(x: 5, y: 5, width: imageSize, height: imageSize)
         imageView.layer.cornerRadius = imageSize / 2
         countContainerView.frame = CGRect(x: imageView.right + 5, y: 3, width: width - imageView.right - 10, height: imageSize)
-        bioLabel.sizeToFit()
-        bioLabel.frame = CGRect(x: 5, y: imageView.bottom + 10, width: width - 10, height: bioLabel.height)
+        let bioSize = bioLabel.sizeThatFits(bounds.size)
+        bioLabel.frame = CGRect(x: 5, y: imageView.bottom + 10, width: width - 10, height: bioSize.height + 50)
     }
     
     override func prepareForReuse() {
