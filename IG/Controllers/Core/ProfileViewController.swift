@@ -155,7 +155,10 @@ extension ProfileViewController: ProfileHeaderCountViewDelegate {
     }
     
     func profileHeaderCountViewDidTapPosts(_ containerView: ProfileHeaderCountView) {
-        
+        guard posts.count >= 18 else {
+            return
+        }
+        collectionView?.setContentOffset(CGPoint(x: 0, y: view.width * 0.7), animated: true)
     }
     
     func profileHeaderCountViewDidTapEditProfile(_ containerView: ProfileHeaderCountView) {
@@ -176,8 +179,55 @@ extension ProfileViewController: ProfileHeaderCountViewDelegate {
     func profileHeaderCountViewDidTapUnfollow(_ containerView: ProfileHeaderCountView) {
         
     }
+}
+
+extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
+    func profileHeaderCollectionReusableViewDidTapProfilePicture(_ header: ProfileHeaderCollectionReusableView) {
+        guard isCurrentUser else {
+            return
+        }
+        let sheet = UIAlertController(title: "Update Profile Picture", message: "Update your profile picture", preferredStyle: .actionSheet)
+        sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        sheet.addAction(UIAlertAction(title: "Take Photo", style: .default, handler: { [weak self] _ in
+            DispatchQueue.main.async {
+                let picker = UIImagePickerController()
+                picker.sourceType = .camera
+                picker.allowsEditing = true
+                picker.delegate = self
+                self?.present(picker, animated: true)
+            }
+        }))
+        sheet.addAction(UIAlertAction(title: "Choose Photo", style: .default, handler: { [weak self] _ in
+            DispatchQueue.main.async {
+                let picker = UIImagePickerController()
+                picker.sourceType = .photoLibrary
+                picker.allowsEditing = true
+                picker.delegate = self
+                self?.present(picker, animated: true)
+            }
+        }))
+        present(sheet, animated: true)
+    }
+}
+
+extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
     
-    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
+            return
+        }
+        StorageManager.shared.uploadProfilePicture(username: user.username, data: image.pngData()) { [weak self] success in
+            if success {
+                self?.headerViewModel = nil
+                self?.posts = []
+                self?.fetchProfileInfo()
+            }
+        }
+    }
 }
 
 extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -238,7 +288,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             headerView.configure(with: viewModel)
             headerView.countContainerView.delegate = self
         }
-        
+        headerView.delegate = self
         return headerView
     }
     
