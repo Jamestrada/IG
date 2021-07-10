@@ -158,7 +158,7 @@ extension ProfileViewController: ProfileHeaderCountViewDelegate {
         guard posts.count >= 18 else {
             return
         }
-        collectionView?.setContentOffset(CGPoint(x: 0, y: view.width * 0.7), animated: true)
+        collectionView?.setContentOffset(CGPoint(x: 0, y: view.width * 0.4), animated: true)
     }
     
     func profileHeaderCountViewDidTapEditProfile(_ containerView: ProfileHeaderCountView) {
@@ -173,11 +173,25 @@ extension ProfileViewController: ProfileHeaderCountViewDelegate {
     }
     
     func profileHeaderCountViewDidTapFollow(_ containerView: ProfileHeaderCountView) {
-        
+        DatabaseManager.shared.updateRelationship(state: .follow, for: user.username) { [weak self] success in
+            if !success {
+                print("Failed to follow")
+                DispatchQueue.main.async {
+                    self?.collectionView?.reloadData()
+                }
+            }
+        }
     }
     
     func profileHeaderCountViewDidTapUnfollow(_ containerView: ProfileHeaderCountView) {
-        
+        DatabaseManager.shared.updateRelationship(state: .unfollow, for: user.username) { [weak self] success in
+            if !success {
+                print("Failed to follow")
+                DispatchQueue.main.async {
+                    self?.collectionView?.reloadData()
+                }
+            }
+        }
     }
 }
 
