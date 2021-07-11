@@ -54,6 +54,8 @@
 		7B9E5BB526810EC5002E8222 /* CommentNotificationCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9E5BB426810EC5002E8222 /* CommentNotificationCellViewModel.swift */; };
 		7BB0414026731726005044B0 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB0413F26731726005044B0 /* Post.swift */; };
 		7BB0414226786F85005044B0 /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB0414126786F85005044B0 /* SearchResultsViewController.swift */; };
+		7BC6E93B269A990F00419BDF /* ListUserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC6E93A269A990F00419BDF /* ListUserTableViewCell.swift */; };
+		7BC6E93D269A9C6E00419BDF /* ListUserTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC6E93C269A9C6E00419BDF /* ListUserTableViewCellViewModel.swift */; };
 		7BFE15AB2661F839006A18B3 /* PosterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFE15AA2661F839006A18B3 /* PosterCollectionViewCell.swift */; };
 		7BFE15AD2661F8F5006A18B3 /* PostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFE15AC2661F8F5006A18B3 /* PostCollectionViewCell.swift */; };
 		7BFE15AF2661F933006A18B3 /* PostActionsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFE15AE2661F933006A18B3 /* PostActionsCollectionViewCell.swift */; };
@@ -119,6 +121,8 @@
 		7B9E5BB426810EC5002E8222 /* CommentNotificationCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentNotificationCellViewModel.swift; sourceTree = "<group>"; };
 		7BB0413F26731726005044B0 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		7BB0414126786F85005044B0 /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
+		7BC6E93A269A990F00419BDF /* ListUserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListUserTableViewCell.swift; sourceTree = "<group>"; };
+		7BC6E93C269A9C6E00419BDF /* ListUserTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListUserTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		7BFE15AA2661F839006A18B3 /* PosterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterCollectionViewCell.swift; sourceTree = "<group>"; };
 		7BFE15AC2661F8F5006A18B3 /* PostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCollectionViewCell.swift; sourceTree = "<group>"; };
 		7BFE15AE2661F933006A18B3 /* PostActionsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostActionsCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -248,6 +252,7 @@
 				7B9C59792660B3A90000C217 /* PostDatetimeCollectionViewCellViewModel.swift */,
 				7B5EADE9268D75BC00EC0192 /* ProfileHeaderViewModel.swift */,
 				7B5EADED2690231C00EC0192 /* ProfileHeaderCountViewModel.swift */,
+				7BC6E93C269A9C6E00419BDF /* ListUserTableViewCellViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -305,6 +310,7 @@
 				7B5EADE7268D753500EC0192 /* ProfileHeaderCollectionReusableView.swift */,
 				7B5EADEB268E7EBF00EC0192 /* ProfileHeaderCountView.swift */,
 				7B5EADF32698215900EC0192 /* IGFollowButton.swift */,
+				7BC6E93A269A990F00419BDF /* ListUserTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -472,6 +478,7 @@
 				7BFE15B52661F9B2006A18B3 /* PostDatetimeCollectionViewCell.swift in Sources */,
 				7B3D175926483A7300831E13 /* ExploreViewController.swift in Sources */,
 				7B3D17422647540E00831E13 /* AuthManager.swift in Sources */,
+				7BC6E93D269A9C6E00419BDF /* ListUserTableViewCellViewModel.swift in Sources */,
 				7B5EADE62684FF0B00EC0192 /* IGNotification.swift in Sources */,
 				7B9C59702660B2120000C217 /* PosterCollectionViewCellViewModel.swift in Sources */,
 				7BFE15AF2661F933006A18B3 /* PostActionsCollectionViewCell.swift in Sources */,
@@ -485,6 +492,7 @@
 				7B3D1746264754DC00831E13 /* StorageManager.swift in Sources */,
 				7B3D175F26483AE500831E13 /* ProfileViewController.swift in Sources */,
 				7B9E5BAD267FB7C3002E8222 /* NotificationsManager.swift in Sources */,
+				7BC6E93B269A990F00419BDF /* ListUserTableViewCell.swift in Sources */,
 				7BFE15B72666F7F3006A18B3 /* PostViewController.swift in Sources */,
 				7B9C597A2660B3A90000C217 /* PostDatetimeCollectionViewCellViewModel.swift in Sources */,
 				7BFE15AB2661F839006A18B3 /* PosterCollectionViewCell.swift in Sources */,

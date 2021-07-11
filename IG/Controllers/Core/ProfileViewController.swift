@@ -147,11 +147,13 @@ class ProfileViewController: UIViewController {
 
 extension ProfileViewController: ProfileHeaderCountViewDelegate {
     func profileHeaderCountViewDidTapFollowers(_ containerView: ProfileHeaderCountView) {
-        
+        let vc = ListViewController(type: .followers(user: user))
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func profileHeaderCountViewDidTapFollowing(_ containerView: ProfileHeaderCountView) {
-        
+        let vc = ListViewController(type: .following(user: user))
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func profileHeaderCountViewDidTapPosts(_ containerView: ProfileHeaderCountView) {
