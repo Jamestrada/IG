@@ -65,7 +65,25 @@ final class ListViewController: UIViewController {
     }
     
     private func configureViewModels() {
-        
+        switch type {
+        case .followers(user: let targetUser):
+            DatabaseManager.shared.followers(for: targetUser.username) { [weak self] usernames in
+                self?.viewModels = usernames.compactMap({ ListUserTableViewCellViewModel(imageUrl: nil, username: $0)})
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
+            }
+        case .following(user: let targetUser):
+            DatabaseManager.shared.following(for: targetUser.username) { [weak self] usernames in
+                self?.viewModels = usernames.compactMap({ ListUserTableViewCellViewModel(imageUrl: nil, username: $0)})
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
+            }
+        case .likers(usernames: let usernames):
+            viewModels = usernames.compactMap({ ListUserTableViewCellViewModel(imageUrl: nil, username: $0)})
+            tableView.reloadData()
+        }
     }
 }
 
@@ -93,5 +111,9 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
                 }
             }
         }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 70
     }
 }

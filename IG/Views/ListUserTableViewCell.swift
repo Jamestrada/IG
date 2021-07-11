@@ -31,6 +31,7 @@ class ListUserTableViewCell: UITableViewCell {
         clipsToBounds = true
         contentView.addSubview(profilePictureImageView)
         contentView.addSubview(usernameLabel)
+        accessoryType = .disclosureIndicator
     }
     
     required init?(coder: NSCoder) {
@@ -54,6 +55,10 @@ class ListUserTableViewCell: UITableViewCell {
     
     func configure(with viewModel: ListUserTableViewCellViewModel) {
         usernameLabel.text = viewModel.username
-        profilePictureImageView.sd_setImage(with: viewModel.imageUrl, completed: nil)
+        StorageManager.shared.profilePictureURL(for: viewModel.username) { [weak self] url in
+            DispatchQueue.main.async {
+                self?.profilePictureImageView.sd_setImage(with: url, completed: nil)
+            }
+        }
     }
 }
