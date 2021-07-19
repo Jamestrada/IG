@@ -10,6 +10,7 @@ import UIKit
 class PostViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     private let post: Post
+    private let owner: String
     
     private var collectionView: UICollectionView?
     
@@ -17,7 +18,8 @@ class PostViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     // MARK: - Init
     
-    init(post: Post) {
+    init(post: Post, owner: String) {
+        self.owner = owner
         self.post = post
         super.init(nibName: nil, bundle: nil)
     }
@@ -42,9 +44,7 @@ class PostViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     private func fetchPost() {
-        guard let username = UserDefaults.standard.string(forKey: "username") else {
-            return
-        }
+        let username = owner
         
         DatabaseManager.shared.getPost(with: post.id, from: username) { [weak self] post in
             guard let post = post else {
