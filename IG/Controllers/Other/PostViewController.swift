@@ -14,7 +14,7 @@ class PostViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     private var collectionView: UICollectionView?
     
-    private var viewModels: [HomeFeedCellType] = []
+    private var viewModels: [SinglePostCellType] = []
     
     private let commentBarView = CommentBarView()
     
@@ -91,19 +91,26 @@ class PostViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     private func createViewModel(model: Post, username: String, completion: @escaping (Bool) -> Void) {
         StorageManager.shared.profilePictureURL(for: username) { [weak self] profilePictureURL in
-            guard let postUrl = URL(string: model.postUrlString), let profilePictureUrl = profilePictureURL else {
+            guard let strongSelf = self, let postUrl = URL(string: model.postUrlString), let profilePictureUrl = profilePictureURL else {
+                completion(false)
                 return
             }
-            let postData: [HomeFeedCellType] = [
-                .poster(viewModel: PosterCollectionViewCellViewModel(username: username, profilePictureURL: profilePictureUrl)),
-                .post(viewModel: PostCollectionViewCellViewModel(postURL: postUrl)),
-                .actions(viewModel: PostActionsCollectionViewCellViewModel(isLiked: false)),
-                .likeCount(viewModel: PostLikesCollectionViewCellViewModel(likers: [])),
-                .caption(viewModel: PostCaptionCollectionViewCellViewModel(username: username, caption: model.caption)),
-                .timestamp(viewModel: PostDatetimeCollectionViewCellViewModel(date: DateFormatter.formatter.date(from: model.postedDate) ?? Date()))
-            ]
-            self?.viewModels = postData
-            completion(true)
+            DatabaseManager.shared.getComments(postID: strongSelf.post.id, owner: strongSelf.owner) { comments in
+                var postData: [SinglePostCellType] = [
+                    .poster(viewModel: PosterCollectionViewCellViewModel(username: username, profilePictureURL: profilePictureUrl)),
+                    .post(viewModel: PostCollectionViewCellViewModel(postURL: postUrl)),
+                    .actions(viewModel: PostActionsCollectionViewCellViewModel(isLiked: false)),
+                    .likeCount(viewModel: PostLikesCollectionViewCellViewModel(likers: [])),
+                    .caption(viewModel: PostCaptionCollectionViewCellViewModel(username: username, caption: model.caption))
+                ]
+                if let comment = comments.first {
+                    postData.append(.comment(viewModel: comment))
+                }
+                
+                postData.append(.timestamp(viewModel: PostDatetimeCollectionViewCellViewModel(date: DateFormatter.formatter.date(from: model.postedDate) ?? Date())))
+                self?.viewModels = postData
+                completion(true)
+            }
         }
     }
     
@@ -157,6 +164,12 @@ class PostViewController: UIViewController, UICollectionViewDelegate, UICollecti
             }
             cell.configure(with: viewModel)
             return cell
+        case .comment(let viewModel):
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CommentCollectionViewCell.identifier, for: indexPath) as? CommentCollectionViewCell else {
+                fatalError()
+            }
+            cell.configure(with: viewModel)
+            return cell
         }
     }
 }
@@ -201,9 +214,7 @@ extension PostViewController: PostActionsCollectionViewCellDelegate {
     }
     
     func postActionsCollectionViewCellDidTapComment(_ cell: PostActionsCollectionViewCell, index: Int) {
-//        let vc = PostViewController(post: <#T##Post#>)
-//        vc.title = "Post"
-//        navigationController?.pushViewController(vc, animated: true)
+        commentBarView.field.becomeFirstResponder()
     }
     
     func postActionsCollectionViewCellDidTapShare(_ cell: PostActionsCollectionViewCell, index: Int) {
@@ -257,7 +268,7 @@ extension PostViewController: PostCaptionCollectionViewCellDelegate {
 
 extension PostViewController {
     func configureCollectionView() {
-        let sectionHeight: CGFloat = 240 + view.width
+        let sectionHeight: CGFloat = 300 + view.width
         let collectionView = UICollectionView(
             frame: .zero,
             collectionViewLayout: UICollectionViewCompositionalLayout(sectionProvider: { index, _ in
@@ -272,6 +283,8 @@ extension PostViewController {
                 
                 let captionItem = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(60)))
                 
+                let commentItem = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(60)))
+                
                 let timestampItem = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(40)))
                 
                 // Group
@@ -279,7 +292,7 @@ extension PostViewController {
                     layoutSize: NSCollectionLayoutSize(
                         widthDimension: .fractionalWidth(1),
                         heightDimension: .absolute(sectionHeight)),
-                    subitems: [posterItem, postItem, actionsItem, likeCountItem, captionItem, timestampItem]
+                    subitems: [posterItem, postItem, actionsItem, likeCountItem, captionItem, commentItem, timestampItem]
                 )
                 
                 // Section
@@ -299,6 +312,7 @@ extension PostViewController {
         collectionView.register(PostCaptionCollectionViewCell.self, forCellWithReuseIdentifier: PostCaptionCollectionViewCell.identifier)
         collectionView.register(PostDatetimeCollectionViewCell.self, forCellWithReuseIdentifier: PostDatetimeCollectionViewCell.identifier)
         collectionView.register(CommentCollectionViewCell.self, forCellWithReuseIdentifier: CommentCollectionViewCell.identifier)
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 100, right: 0)
         self.collectionView = collectionView
     }
 }
