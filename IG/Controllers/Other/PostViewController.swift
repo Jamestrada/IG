@@ -135,7 +135,7 @@ class PostViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 fatalError()
             }
             cell.delegate = self
-            cell.configure(with: viewModel)
+            cell.configure(with: viewModel, index: indexPath.section)
             return cell
         case .actions(let viewModel):
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PostActionsCollectionViewCell.identifier, for: indexPath) as? PostActionsCollectionViewCell else {
@@ -203,14 +203,25 @@ extension PostViewController: PosterCollectionViewCellDelegate {
 }
 
 extension PostViewController: PostCollectionViewCellDelegate {
-    func postCollectionViewCellDidLike(_ cell: PostCollectionViewCell) {
-        print("did double tap to like")
+    func postCollectionViewCellDidLike(_ cell: PostCollectionViewCell, index: Int) {
+        DatabaseManager.shared.updateLikeState(state: .like, postID: post.id, owner: owner) { success in
+            guard success else {
+                return
+            }
+            print("Failed to like")
+        }
     }
 }
 
 extension PostViewController: PostActionsCollectionViewCellDelegate {
     func postActionsCollectionViewCellDidTapLike(_ cell: PostActionsCollectionViewCell, isLiked: Bool, index: Int) {
         // Call DB to update like state
+        DatabaseManager.shared.updateLikeState(state: isLiked ? .like : .unlike, postID: post.id, owner: owner) { success in
+            guard success else {
+                return
+            }
+            print("Failed to like")
+        }
     }
     
     func postActionsCollectionViewCellDidTapComment(_ cell: PostActionsCollectionViewCell, index: Int) {

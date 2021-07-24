@@ -36,7 +36,7 @@ class CommentCollectionViewCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        label.frame = CGRect(x: 5, y: 0, width: contentView.width - 10, height: contentView.height)
+        label.frame = CGRect(x: 15, y: 0, width: contentView.width - 20, height: contentView.height)
     }
     
     func configure(with model: Comment) {

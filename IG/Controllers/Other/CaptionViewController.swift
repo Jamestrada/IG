@@ -66,7 +66,7 @@ class CaptionViewController: UIViewController, UITextViewDelegate {
                 return
             }
             // New Post
-            let newPost = Post(id: newPostID, caption: caption, postedDate:  stringDate, postUrlString: url.absoluteString, likers: [])
+            let newPost = Post(id: newPostID, caption: caption, postedDate: stringDate, postUrlString: url.absoluteString, likers: [])
             
             // Update Database
             DatabaseManager.shared.createPost(newPost: newPost) { [weak self] finished in
