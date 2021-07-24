@@ -339,7 +339,9 @@ final class DatabaseManager {
             
             switch state {
             case .like:
-                post.likers.append(currentUsername)
+                if !post.likers.contains(currentUsername) {
+                    post.likers.append(currentUsername)
+                }
             case .unlike:
                 post.likers.removeAll(where: { $0 == currentUsername })
             }

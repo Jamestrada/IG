@@ -90,17 +90,23 @@ class PostViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     private func createViewModel(model: Post, username: String, completion: @escaping (Bool) -> Void) {
+        guard let currentUsername = UserDefaults.standard.string(forKey: "username") else {
+            return
+        }
+        
         StorageManager.shared.profilePictureURL(for: username) { [weak self] profilePictureURL in
             guard let strongSelf = self, let postUrl = URL(string: model.postUrlString), let profilePictureUrl = profilePictureURL else {
                 completion(false)
                 return
             }
+            
+            let isLiked = model.likers.contains(currentUsername)
             DatabaseManager.shared.getComments(postID: strongSelf.post.id, owner: strongSelf.owner) { comments in
                 var postData: [SinglePostCellType] = [
                     .poster(viewModel: PosterCollectionViewCellViewModel(username: username, profilePictureURL: profilePictureUrl)),
                     .post(viewModel: PostCollectionViewCellViewModel(postURL: postUrl)),
-                    .actions(viewModel: PostActionsCollectionViewCellViewModel(isLiked: false)),
-                    .likeCount(viewModel: PostLikesCollectionViewCellViewModel(likers: [])),
+                    .actions(viewModel: PostActionsCollectionViewCellViewModel(isLiked: isLiked)),
+                    .likeCount(viewModel: PostLikesCollectionViewCellViewModel(likers: model.likers)),
                     .caption(viewModel: PostCaptionCollectionViewCellViewModel(username: username, caption: model.caption))
                 ]
                 if let comment = comments.first {
@@ -149,7 +155,7 @@ class PostViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 fatalError()
             }
             cell.delegate = self
-            cell.configure(with: viewModel)
+            cell.configure(with: viewModel, index: indexPath.section)
             return cell
         case .caption(let viewModel):
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PostCaptionCollectionViewCell.identifier, for: indexPath) as? PostCaptionCollectionViewCell else {
@@ -264,8 +270,8 @@ extension PostViewController: CommentBarViewDelegate {
 }
 
 extension PostViewController: PostLikesCollectionViewCellDelegate {
-    func postLikesCollectionViewCellDidTapLikeCount(_ cell: PostLikesCollectionViewCell) {
-        let vc = ListViewController(type: .likers(usernames: []))
+    func postLikesCollectionViewCellDidTapLikeCount(_ cell: PostLikesCollectionViewCell, index: Int) {
+        let vc = ListViewController(type: .likers(usernames: post.likers))
         vc.title = "Liked By"
         navigationController?.pushViewController(vc, animated: true)
     }
