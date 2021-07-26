@@ -12,6 +12,7 @@
 		7B2FD24426A7DCB300FFCE98 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2FD24326A7DCB300FFCE98 /* Comment.swift */; };
 		7B2FD24626A9090100FFCE98 /* CommentBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2FD24526A9090100FFCE98 /* CommentBarView.swift */; };
 		7B2FD24826AA7C5900FFCE98 /* SinglePostCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2FD24726AA7C5900FFCE98 /* SinglePostCellType.swift */; };
+		7B2FD24A26AE503B00FFCE98 /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2FD24926AE503A00FFCE98 /* HapticsManager.swift */; };
 		7B3D173F2647526000831E13 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7B3D173E2647526000831E13 /* GoogleService-Info.plist */; };
 		7B3D17422647540E00831E13 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3D17412647540E00831E13 /* AuthManager.swift */; };
 		7B3D17442647548300831E13 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3D17432647548300831E13 /* DatabaseManager.swift */; };
@@ -82,6 +83,7 @@
 		7B2FD24326A7DCB300FFCE98 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		7B2FD24526A9090100FFCE98 /* CommentBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentBarView.swift; sourceTree = "<group>"; };
 		7B2FD24726AA7C5900FFCE98 /* SinglePostCellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePostCellType.swift; sourceTree = "<group>"; };
+		7B2FD24926AE503A00FFCE98 /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
 		7B3D173E2647526000831E13 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7B3D17412647540E00831E13 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		7B3D17432647548300831E13 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 				7B3D1745264754DC00831E13 /* StorageManager.swift */,
 				7B3D17472647551300831E13 /* AnalyticsManager.swift */,
 				7B9E5BAC267FB7C3002E8222 /* NotificationsManager.swift */,
+				7B2FD24926AE503A00FFCE98 /* HapticsManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -479,6 +482,7 @@
 				7B3D175B26483A9700831E13 /* CameraViewController.swift in Sources */,
 				7B567CEE2645FE9C00512ED0 /* HomeViewController.swift in Sources */,
 				7B5EADF42698215900EC0192 /* IGFollowButton.swift in Sources */,
+				7B2FD24A26AE503B00FFCE98 /* HapticsManager.swift in Sources */,
 				7B3D17482647551300831E13 /* AnalyticsManager.swift in Sources */,
 				7BFE15BD266F1E46006A18B3 /* PhotoCollectionViewCell.swift in Sources */,
 				7B3D175D26483AC100831E13 /* NotificationsViewController.swift in Sources */,

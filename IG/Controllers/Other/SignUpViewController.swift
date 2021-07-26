@@ -155,12 +155,14 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UIImagePicker
             DispatchQueue.main.async { // UI operation has to be in main dispatch queue
                 switch result {
                 case .success(let user):
+                    HapticManager.shared.vibrate(for: .success)
                     UserDefaults.standard.setValue(user.email, forKey: "email")
                     UserDefaults.standard.setValue(user.username, forKey: "username")
                     
                     self?.navigationController?.popToRootViewController(animated: true)
                     self?.completion?()
                 case .failure(let error):
+                    HapticManager.shared.vibrate(for: .error)
                     print("\n\nSign Up Error: \(error)")
                 }
             }
