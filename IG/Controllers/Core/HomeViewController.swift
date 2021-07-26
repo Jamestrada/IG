@@ -228,7 +228,10 @@ extension HomeViewController: PosterCollectionViewCellDelegate {
             }
         }))
         sheet.addAction(UIAlertAction(title: "Report Post", style: .destructive, handler: { _ in
+            // Email option to report post url
             
+            // Report analytics
+            AnalyticsManager.shared.logFeedInteraction(.reported)
         }))
         present(sheet, animated: true)
     }
@@ -241,6 +244,7 @@ extension HomeViewController: PosterCollectionViewCellDelegate {
 
 extension HomeViewController: PostCollectionViewCellDelegate {
     func postCollectionViewCellDidLike(_ cell: PostCollectionViewCell, index: Int) {
+        AnalyticsManager.shared.logFeedInteraction(.doubleTapToLike)
         let tuple = allPosts[index]
         DatabaseManager.shared.updateLikeState(state: .like, postID: tuple.post.id, owner: tuple.owner) { success in
             guard success else {
@@ -253,6 +257,7 @@ extension HomeViewController: PostCollectionViewCellDelegate {
 
 extension HomeViewController: PostActionsCollectionViewCellDelegate {
     func postActionsCollectionViewCellDidTapLike(_ cell: PostActionsCollectionViewCell, isLiked: Bool, index: Int) {
+        AnalyticsManager.shared.logFeedInteraction(.like)
         HapticManager.shared.vibrateForSelection()
         let tuple = allPosts[index]
         
@@ -266,6 +271,7 @@ extension HomeViewController: PostActionsCollectionViewCellDelegate {
     }
     
     func postActionsCollectionViewCellDidTapComment(_ cell: PostActionsCollectionViewCell, index: Int) {
+        AnalyticsManager.shared.logFeedInteraction(.comment)
         let tuple = allPosts[index]
         let vc = PostViewController(post: tuple.post, owner: tuple.owner)
         vc.title = "Post"
@@ -273,6 +279,7 @@ extension HomeViewController: PostActionsCollectionViewCellDelegate {
     }
     
     func postActionsCollectionViewCellDidTapShare(_ cell: PostActionsCollectionViewCell, index: Int) {
+        AnalyticsManager.shared.logFeedInteraction(.share)
         let section = viewModels[index]
         section.forEach { cellType in
             switch cellType {
