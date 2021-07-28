@@ -7,11 +7,18 @@
 
 import UIKit
 import Firebase
+import Appirater
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        Appirater.appLaunched(true)
+        Appirater.setAppId("Enter app id when published to the app store")
+        Appirater.setDebug(false)
+        Appirater.setDaysUntilPrompt(7)
+        
         FirebaseApp.configure()
         
         // mock notification for current user
@@ -27,6 +34,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        NotificationsManager.shared.create(notification: model, for: "james")
         
         return true
+    }
+    
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        Appirater.appEnteredForeground(true)
     }
 
     // MARK: UISceneSession Lifecycle

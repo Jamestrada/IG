@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Appirater
 
 class PostViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -44,6 +45,8 @@ class PostViewController: UIViewController, UICollectionViewDelegate, UICollecti
         commentBarView.delegate = self
         fetchPost()
         observeKeyboardChange()
+        
+//        Appirater.tryToShowPrompt()
     }
     
     override func viewDidLayoutSubviews() {

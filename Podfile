@@ -11,6 +11,7 @@ target 'IG' do
   pod 'Firebase/Analytics'
   pod 'Firebase/Storage'
   pod 'Firebase/Auth'
-  pod 'SDWebImage' 
+  pod 'SDWebImage'
+  pod 'Appirater' 
 
 end
