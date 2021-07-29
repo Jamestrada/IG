@@ -13,6 +13,7 @@
 		7B2FD24626A9090100FFCE98 /* CommentBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2FD24526A9090100FFCE98 /* CommentBarView.swift */; };
 		7B2FD24826AA7C5900FFCE98 /* SinglePostCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2FD24726AA7C5900FFCE98 /* SinglePostCellType.swift */; };
 		7B2FD24A26AE503B00FFCE98 /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2FD24926AE503A00FFCE98 /* HapticsManager.swift */; };
+		7B2FD25226B2724400FFCE98 /* IGTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2FD25126B2724400FFCE98 /* IGTests.swift */; };
 		7B3D173F2647526000831E13 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7B3D173E2647526000831E13 /* GoogleService-Info.plist */; };
 		7B3D17422647540E00831E13 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3D17412647540E00831E13 /* AuthManager.swift */; };
 		7B3D17442647548300831E13 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3D17432647548300831E13 /* DatabaseManager.swift */; };
@@ -73,17 +74,34 @@
 		7BFE15BB266C9097006A18B3 /* PostEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFE15BA266C9097006A18B3 /* PostEditViewController.swift */; };
 		7BFE15BD266F1E46006A18B3 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFE15BC266F1E46006A18B3 /* PhotoCollectionViewCell.swift */; };
 		7BFE15BF266F2249006A18B3 /* CaptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFE15BE266F2249006A18B3 /* CaptionViewController.swift */; };
+		85F20CF35506387F67906B67 /* Pods_IGTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D3FED0E308B8F3903FE64F0 /* Pods_IGTests.framework */; };
 		966C7598DD22CAF0CFCA3D35 /* Pods_IG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0CDA83C170E09C32DEB6B3B /* Pods_IG.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		7B2FD25426B2724400FFCE98 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B567CDE2645FE9C00512ED0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7B567CE52645FE9C00512ED0;
+			remoteInfo = IG;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		2D3FED0E308B8F3903FE64F0 /* Pods_IGTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IGTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		30B730D9963722385E1CFC91 /* Pods-IG.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IG.release.xcconfig"; path = "Target Support Files/Pods-IG/Pods-IG.release.xcconfig"; sourceTree = "<group>"; };
+		56B06870A3094665BE83AEC7 /* Pods-IGTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGTests.debug.xcconfig"; path = "Target Support Files/Pods-IGTests/Pods-IGTests.debug.xcconfig"; sourceTree = "<group>"; };
+		7B0B965A48AE8111556A2C51 /* Pods-IGTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGTests.release.xcconfig"; path = "Target Support Files/Pods-IGTests/Pods-IGTests.release.xcconfig"; sourceTree = "<group>"; };
 		7B2FD23F26A3C79500FFCE98 /* SettingsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModels.swift; sourceTree = "<group>"; };
 		7B2FD24126A63AAA00FFCE98 /* CommentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCollectionViewCell.swift; sourceTree = "<group>"; };
 		7B2FD24326A7DCB300FFCE98 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		7B2FD24526A9090100FFCE98 /* CommentBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentBarView.swift; sourceTree = "<group>"; };
 		7B2FD24726AA7C5900FFCE98 /* SinglePostCellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePostCellType.swift; sourceTree = "<group>"; };
 		7B2FD24926AE503A00FFCE98 /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
+		7B2FD24F26B2724400FFCE98 /* IGTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IGTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B2FD25126B2724400FFCE98 /* IGTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGTests.swift; sourceTree = "<group>"; };
+		7B2FD25326B2724400FFCE98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7B3D173E2647526000831E13 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7B3D17412647540E00831E13 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		7B3D17432647548300831E13 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
@@ -151,6 +169,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		7B2FD24C26B2724400FFCE98 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				85F20CF35506387F67906B67 /* Pods_IGTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7B567CE32645FE9C00512ED0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -166,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				B0CDA83C170E09C32DEB6B3B /* Pods_IG.framework */,
+				2D3FED0E308B8F3903FE64F0 /* Pods_IGTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -175,8 +202,19 @@
 			children = (
 				F70894DBBBDD01391B2E610C /* Pods-IG.debug.xcconfig */,
 				30B730D9963722385E1CFC91 /* Pods-IG.release.xcconfig */,
+				56B06870A3094665BE83AEC7 /* Pods-IGTests.debug.xcconfig */,
+				7B0B965A48AE8111556A2C51 /* Pods-IGTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		7B2FD25026B2724400FFCE98 /* IGTests */ = {
+			isa = PBXGroup;
+			children = (
+				7B2FD25126B2724400FFCE98 /* IGTests.swift */,
+				7B2FD25326B2724400FFCE98 /* Info.plist */,
+			);
+			path = IGTests;
 			sourceTree = "<group>";
 		};
 		7B3D1740264753F800831E13 /* Managers */ = {
@@ -196,6 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				7B567CE82645FE9C00512ED0 /* IG */,
+				7B2FD25026B2724400FFCE98 /* IGTests */,
 				7B567CE72645FE9C00512ED0 /* Products */,
 				47E54EAB2379CBCE50C7D7BA /* Pods */,
 				10B5451517A7C58524020240 /* Frameworks */,
@@ -206,6 +245,7 @@
 			isa = PBXGroup;
 			children = (
 				7B567CE62645FE9C00512ED0 /* IG.app */,
+				7B2FD24F26B2724400FFCE98 /* IGTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -362,6 +402,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		7B2FD24E26B2724400FFCE98 /* IGTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7B2FD25826B2724400FFCE98 /* Build configuration list for PBXNativeTarget "IGTests" */;
+			buildPhases = (
+				49BAD3C8D24A2B55EE2F6363 /* [CP] Check Pods Manifest.lock */,
+				7B2FD24B26B2724400FFCE98 /* Sources */,
+				7B2FD24C26B2724400FFCE98 /* Frameworks */,
+				7B2FD24D26B2724400FFCE98 /* Resources */,
+				6FBAF2729D7AB6ACDB08D9BD /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7B2FD25526B2724400FFCE98 /* PBXTargetDependency */,
+			);
+			name = IGTests;
+			productName = IGTests;
+			productReference = 7B2FD24F26B2724400FFCE98 /* IGTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		7B567CE52645FE9C00512ED0 /* IG */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7B567CFA2645FE9E00512ED0 /* Build configuration list for PBXNativeTarget "IG" */;
@@ -390,6 +450,10 @@
 				LastSwiftUpdateCheck = 1250;
 				LastUpgradeCheck = 1250;
 				TargetAttributes = {
+					7B2FD24E26B2724400FFCE98 = {
+						CreatedOnToolsVersion = 12.5.1;
+						TestTargetID = 7B567CE52645FE9C00512ED0;
+					};
 					7B567CE52645FE9C00512ED0 = {
 						CreatedOnToolsVersion = 12.5;
 					};
@@ -409,11 +473,19 @@
 			projectRoot = "";
 			targets = (
 				7B567CE52645FE9C00512ED0 /* IG */,
+				7B2FD24E26B2724400FFCE98 /* IGTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		7B2FD24D26B2724400FFCE98 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7B567CE42645FE9C00512ED0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -427,6 +499,45 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		49BAD3C8D24A2B55EE2F6363 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-IGTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6FBAF2729D7AB6ACDB08D9BD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-IGTests/Pods-IGTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-IGTests/Pods-IGTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-IGTests/Pods-IGTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		A4BBDFB46BA4E261636ACA83 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -469,6 +580,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		7B2FD24B26B2724400FFCE98 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B2FD25226B2724400FFCE98 /* IGTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7B567CE22645FE9C00512ED0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -541,6 +660,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		7B2FD25526B2724400FFCE98 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7B567CE52645FE9C00512ED0 /* IG */;
+			targetProxy = 7B2FD25426B2724400FFCE98 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		7B567CF42645FE9E00512ED0 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -553,6 +680,48 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		7B2FD25626B2724400FFCE98 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 56B06870A3094665BE83AEC7 /* Pods-IGTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8C6N42M8X3;
+				INFOPLIST_FILE = IGTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jamestrada.IGTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/IG.app/IG";
+			};
+			name = Debug;
+		};
+		7B2FD25726B2724400FFCE98 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7B0B965A48AE8111556A2C51 /* Pods-IGTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8C6N42M8X3;
+				INFOPLIST_FILE = IGTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jamestrada.IGTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/IG.app/IG";
+			};
+			name = Release;
+		};
 		7B567CF82645FE9E00512ED0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -714,6 +883,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		7B2FD25826B2724400FFCE98 /* Build configuration list for PBXNativeTarget "IGTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7B2FD25626B2724400FFCE98 /* Debug */,
+				7B2FD25726B2724400FFCE98 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		7B567CE12645FE9C00512ED0 /* Build configuration list for PBXProject "IG" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
