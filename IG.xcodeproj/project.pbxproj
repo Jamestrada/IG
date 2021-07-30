@@ -14,6 +14,7 @@
 		7B2FD24826AA7C5900FFCE98 /* SinglePostCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2FD24726AA7C5900FFCE98 /* SinglePostCellType.swift */; };
 		7B2FD24A26AE503B00FFCE98 /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2FD24926AE503A00FFCE98 /* HapticsManager.swift */; };
 		7B2FD25226B2724400FFCE98 /* IGTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2FD25126B2724400FFCE98 /* IGTests.swift */; };
+		7B34003F26B3ACF4001CBB47 /* ConversationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B34003E26B3ACF4001CBB47 /* ConversationsViewController.swift */; };
 		7B3D173F2647526000831E13 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7B3D173E2647526000831E13 /* GoogleService-Info.plist */; };
 		7B3D17422647540E00831E13 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3D17412647540E00831E13 /* AuthManager.swift */; };
 		7B3D17442647548300831E13 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3D17432647548300831E13 /* DatabaseManager.swift */; };
@@ -102,6 +103,7 @@
 		7B2FD24F26B2724400FFCE98 /* IGTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IGTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B2FD25126B2724400FFCE98 /* IGTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGTests.swift; sourceTree = "<group>"; };
 		7B2FD25326B2724400FFCE98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7B34003E26B3ACF4001CBB47 /* ConversationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsViewController.swift; sourceTree = "<group>"; };
 		7B3D173E2647526000831E13 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7B3D17412647540E00831E13 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		7B3D17432647548300831E13 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 				7BFE15BE266F2249006A18B3 /* CaptionViewController.swift */,
 				7BB0414126786F85005044B0 /* SearchResultsViewController.swift */,
 				7B5EADF12695600B00EC0192 /* EditProfileViewController.swift */,
+				7B34003E26B3ACF4001CBB47 /* ConversationsViewController.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -651,6 +654,7 @@
 				7B83752B264B955E00159105 /* Extensions.swift in Sources */,
 				7BB0414026731726005044B0 /* Post.swift in Sources */,
 				7B2FD24426A7DCB300FFCE98 /* Comment.swift in Sources */,
+				7B34003F26B3ACF4001CBB47 /* ConversationsViewController.swift in Sources */,
 				7B9E5BA9267FB5C1002E8222 /* LikeNotificationTableViewCell.swift in Sources */,
 				7BFE15B32661F973006A18B3 /* PostCaptionCollectionViewCell.swift in Sources */,
 				7B9E5BAF26810DC0002E8222 /* NotificationCellType.swift in Sources */,

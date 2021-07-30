@@ -21,6 +21,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         super.viewDidLoad()
         title = "IG"
         view.backgroundColor = .systemBackground
+        configureNavBar()
         configureCollectionView()
         fetchPosts()
         
@@ -90,6 +91,20 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 self.collectionView?.reloadData()
             }
         }
+    }
+    
+    private func configureNavBar() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "message"),
+            style: .done,
+            target: self,
+            action: #selector(didTapConversations)
+        )
+    }
+    
+    @objc func didTapConversations() {
+        let vc = ConversationsViewController()
+        present(UINavigationController(rootViewController: vc), animated: true)
     }
     
     private func sortData() {
