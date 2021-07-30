@@ -7,11 +7,15 @@
 
 import UIKit
 
-class TabBarViewController: UITabBarController {
+final class TabBarViewController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setUpControllers()
+    }
+    
+    private func setUpControllers() {
         guard let username = UserDefaults.standard.string(forKey: "username"),
               let email = UserDefaults.standard.string(forKey: "email") else {
             return
@@ -31,6 +35,9 @@ class TabBarViewController: UITabBarController {
         let nav4 = UINavigationController(rootViewController: activity)
         let nav5 = UINavigationController(rootViewController: profile)
         
+        nav1.navigationBar.tintColor = .label
+        nav5.navigationBar.tintColor = .label
+        
         if #available(iOS 14.0, *) {
             home.navigationItem.backButtonDisplayMode = .minimal
             explore.navigationItem.backButtonDisplayMode = .minimal
@@ -47,8 +54,8 @@ class TabBarViewController: UITabBarController {
         
         // Define tab items
         nav1.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), tag: 1)
-        nav2.tabBarItem = UITabBarItem(title: "Explore", image: UIImage(systemName: "magnifyingglass.circle"), tag: 2)
-        nav3.tabBarItem = UITabBarItem(title: "Camera", image: UIImage(systemName: "camera.fill"), tag: 3)
+        nav2.tabBarItem = UITabBarItem(title: "Explore", image: UIImage(systemName: "magnifyingglass"), tag: 2)
+        nav3.tabBarItem = UITabBarItem(title: "Camera", image: UIImage(systemName: "camera"), tag: 3)
         nav4.tabBarItem = UITabBarItem(title: "Notifications", image: UIImage(systemName: "bell"), tag: 4)
         nav5.tabBarItem = UITabBarItem(title: UserDefaults.standard.string(forKey: "username")?.uppercased(), image: UIImage(systemName: "person.circle"), tag: 5)
         
@@ -58,4 +65,14 @@ class TabBarViewController: UITabBarController {
         self.setViewControllers([nav1, nav2, nav3, nav4, nav5], animated: false)
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(animated)
+//        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+//    }
 }
