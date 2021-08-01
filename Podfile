@@ -12,7 +12,10 @@ target 'IG' do
   pod 'Firebase/Storage'
   pod 'Firebase/Auth'
   pod 'SDWebImage'
-  pod 'Appirater' 
+  pod 'Appirater'
+  pod 'MessageKit'
+  pod 'JGProgressHUD'
+  pod 'RealmSwift' 
 
 end
 
@@ -28,5 +31,8 @@ target 'IGTests' do
   pod 'Firebase/Auth'
   pod 'SDWebImage'
   pod 'Appirater' 
+  pod 'MessageKit'
+  pod 'JGProgressHUD'
+  pod 'RealmSwift'
 
 end

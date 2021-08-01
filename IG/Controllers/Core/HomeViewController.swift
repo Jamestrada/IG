@@ -104,7 +104,9 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     @objc func didTapConversations() {
         let vc = ConversationsViewController()
-        present(UINavigationController(rootViewController: vc), animated: true)
+        let nav = UINavigationController(rootViewController: vc)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true)
     }
     
     private func sortData() {
