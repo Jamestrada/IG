@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 class SignInViewController: UIViewController, UITextFieldDelegate {
+    
+    private let spinner = JGProgressHUD(style: .dark)
     
     // Subviews
     private let headerView = SignInHeaderView()
@@ -115,9 +118,12 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
+        spinner.show(in: view)
+        
         // Sign in with AuthManager
         AuthManager.shared.signIn(email: email, password: password) { [weak self] result in
             DispatchQueue.main.async {
+                self?.spinner.dismiss()
                 switch result {
                 case .success:
                     HapticManager.shared.vibrate(for: .success)

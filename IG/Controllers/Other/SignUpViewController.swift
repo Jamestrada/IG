@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 class SignUpViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    private let spinner = JGProgressHUD(style: .dark)
     
     // Subviews
     private let profilePictureImageView: UIImageView = {
@@ -149,10 +152,13 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UIImagePicker
             return
         }
         
+        spinner.show(in: view)
+        
         // Sign up with AuthManager
         let data = profilePictureImageView.image?.pngData()
         AuthManager.shared.signUp(username: username, email: email, password: password, profilePicture: data) { [weak self] result in
             DispatchQueue.main.async { // UI operation has to be in main dispatch queue
+                self?.spinner.dismiss()
                 switch result {
                 case .success(let user):
                     HapticManager.shared.vibrate(for: .success)

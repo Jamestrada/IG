@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 class ConversationsViewController: UIViewController {
+    
+    private let spinner = JGProgressHUD(style: .dark)
     
     private let tableView: UITableView = {
         let table = UITableView()
@@ -37,6 +40,11 @@ class ConversationsViewController: UIViewController {
         fetchConversations()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tableView.frame = view.bounds
+    }
+    
     @objc func didTapClose() {
         dismiss(animated: true, completion: nil)
     }
@@ -47,7 +55,7 @@ class ConversationsViewController: UIViewController {
     }
     
     private func fetchConversations() {
-        
+        tableView.isHidden = false
     }
     
 }
@@ -60,8 +68,16 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = "Hello World"
+        cell.accessoryType = .disclosureIndicator
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let vc = ChatViewController()
+        vc.title = "JamesWilliams"
+        vc.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
