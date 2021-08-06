@@ -34,6 +34,7 @@ class ConversationsViewController: UIViewController {
         title = "Conversations"
         view.backgroundColor = .systemBackground
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(didTapClose))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(didTapCompose))
         view.addSubview(tableView)
         view.addSubview(noConversationsLabel)
         setupTableView()
@@ -47,6 +48,12 @@ class ConversationsViewController: UIViewController {
     
     @objc func didTapClose() {
         dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func didTapCompose() {
+        let vc = NewConversationViewController()
+        let navVC = UINavigationController(rootViewController: vc)
+        present(navVC, animated: true)
     }
     
     private func setupTableView() {
