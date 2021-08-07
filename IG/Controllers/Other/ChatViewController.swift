@@ -25,19 +25,19 @@ class ChatViewController: MessagesViewController {
     
     private var messages = [Message]()
         
-        private let selfSender = Sender(senderId: "1", displayName: "James Estrada", photoURL: "")
+    private let selfSender = Sender(senderId: "1", displayName: "James Estrada", photoURL: "")
 
-        override func viewDidLoad() {
-            super.viewDidLoad()
-            
-            messages.append(Message(sender: selfSender, messageId: "1", sentDate: Date(), kind: .text("What's up from IG")))
-            messages.append(Message(sender: selfSender, messageId: "1", sentDate: Date(), kind: .text("What's up from IG. What's up from IG. What's up from IG. What's up from IG")))
-            view.backgroundColor = .systemBackground
-            
-            messagesCollectionView.messagesDataSource = self
-            messagesCollectionView.messagesLayoutDelegate = self
-            messagesCollectionView.messagesDisplayDelegate = self
-        }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        messages.append(Message(sender: selfSender, messageId: "1", sentDate: Date(), kind: .text("What's up from IG")))
+        messages.append(Message(sender: selfSender, messageId: "1", sentDate: Date(), kind: .text("What's up from IG. What's up from IG. What's up from IG. What's up from IG")))
+        view.backgroundColor = .systemBackground
+        
+        messagesCollectionView.messagesDataSource = self
+        messagesCollectionView.messagesLayoutDelegate = self
+        messagesCollectionView.messagesDisplayDelegate = self
+    }
 
 }
 

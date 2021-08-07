@@ -9,6 +9,12 @@ import Foundation
 import FirebaseStorage
 
 final class StorageManager {
+    
+    public enum StorageErrors: Error {
+        case failedToUpload
+        case failedToGetDownloadUrl
+    }
+    
     static let shared = StorageManager()
     
     private init() {}
@@ -46,6 +52,7 @@ final class StorageManager {
     
     public func uploadProfilePicture(username: String, data: Data?, completion: @escaping (Bool) -> Void) {
         guard let data = data else {
+            completion(false)
             return
         }
         storage.child("\(username)/profile_picture.png").putData(data, metadata: nil) { _, error in
