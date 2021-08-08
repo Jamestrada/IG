@@ -8,15 +8,11 @@
 import UIKit
 import JGProgressHUD
 
-class NewConversationViewController: UIViewController {
+class NewConversationViewController: UIViewController, SearchResultsViewControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate {
+    
+    private let searchVC = UISearchController(searchResultsController: SearchResultsViewController())
     
     private let spinner = JGProgressHUD()
-    
-    private let searchBar: UISearchBar = {
-        let searchBar = UISearchBar()
-        searchBar.placeholder = "Search for user..."
-        return searchBar
-    }()
     
     private let tableView: UITableView = {
         let table = UITableView()
@@ -37,20 +33,33 @@ class NewConversationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchBar.delegate = self
-        view.backgroundColor = .white
-        navigationController?.navigationBar.topItem?.titleView = searchBar
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(dismissSelf))
-        searchBar.becomeFirstResponder()
+        view.backgroundColor = .systemBackground
+        (searchVC.searchResultsController as? SearchResultsViewController)?.delegate = self
+        searchVC.searchBar.delegate = self
+        searchVC.searchBar.placeholder = "Search..."
+        searchVC.searchResultsUpdater = self
+        navigationItem.searchController = searchVC
+//        searchVC.searchBar.becomeFirstResponder()
     }
     
     @objc private func dismissSelf() {
         dismiss(animated: true, completion: nil)
     }
-}
-
-extension NewConversationViewController: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
+    
+    func searchResultsViewController(_ VC: SearchResultsViewController, didSelectResultWith user: User) {
+        //
+    }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let resultsVC = searchController.searchResultsController as? SearchResultsViewController,
+              let query = searchController.searchBar.text,
+              !query.trimmingCharacters(in: .whitespaces).isEmpty else {
+            return
+        }
+        DatabaseManager.shared.findUsers(with: query) { results in
+            DispatchQueue.main.async {
+                resultsVC.update(with: results)
+            }
+        }
     }
 }
