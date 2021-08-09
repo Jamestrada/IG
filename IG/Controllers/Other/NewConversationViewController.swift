@@ -8,7 +8,9 @@
 import UIKit
 import JGProgressHUD
 
-class NewConversationViewController: UIViewController, SearchResultsViewControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate {
+class NewConversationViewController: UIViewController, SearchResultsViewControllerDelegate, UISearchResultsUpdating {
+    
+//    public var completion: (([String: String]) -> (Void))?
     
     private let searchVC = UISearchController(searchResultsController: SearchResultsViewController())
     
@@ -35,11 +37,17 @@ class NewConversationViewController: UIViewController, SearchResultsViewControll
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         (searchVC.searchResultsController as? SearchResultsViewController)?.delegate = self
-        searchVC.searchBar.delegate = self
         searchVC.searchBar.placeholder = "Search..."
         searchVC.searchResultsUpdater = self
         navigationItem.searchController = searchVC
-//        searchVC.searchBar.becomeFirstResponder()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        DispatchQueue.main.async {
+            self.searchVC.searchBar.becomeFirstResponder()
+        }
     }
     
     @objc private func dismissSelf() {
@@ -47,7 +55,9 @@ class NewConversationViewController: UIViewController, SearchResultsViewControll
     }
     
     func searchResultsViewController(_ VC: SearchResultsViewController, didSelectResultWith user: User) {
-        //
+        let vc = ChatViewController(user: user)
+        vc.title = user.username
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func updateSearchResults(for searchController: UISearchController) {

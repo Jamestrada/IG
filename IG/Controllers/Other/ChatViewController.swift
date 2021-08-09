@@ -23,9 +23,22 @@ struct Sender: SenderType {
 
 class ChatViewController: MessagesViewController {
     
+    private let user: User
+    
     private var messages = [Message]()
         
     private let selfSender = Sender(senderId: "1", displayName: "James Estrada", photoURL: "")
+    
+    // MARK: - Init
+    
+    init(user: User) {
+        self.user = user
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
