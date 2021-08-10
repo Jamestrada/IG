@@ -7,6 +7,7 @@
 
 import UIKit
 import MessageKit
+import InputBarAccessoryView
 
 struct Message: MessageType {
     var sender: SenderType
@@ -22,6 +23,8 @@ struct Sender: SenderType {
 }
 
 class ChatViewController: MessagesViewController {
+    
+    public var isNewConversation = false
     
     private let user: User
     
@@ -43,15 +46,36 @@ class ChatViewController: MessagesViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        messages.append(Message(sender: selfSender, messageId: "1", sentDate: Date(), kind: .text("What's up from IG")))
-        messages.append(Message(sender: selfSender, messageId: "1", sentDate: Date(), kind: .text("What's up from IG. What's up from IG. What's up from IG. What's up from IG")))
+//        messages.append(Message(sender: selfSender, messageId: "1", sentDate: Date(), kind: .text("What's up from IG")))
+//        messages.append(Message(sender: selfSender, messageId: "1", sentDate: Date(), kind: .text("What's up from IG. What's up from IG. What's up from IG. What's up from IG")))
         view.backgroundColor = .systemBackground
         
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
+        messageInputBar.delegate = self
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        messageInputBar.inputTextView.becomeFirstResponder()
+    }
+}
+
+extension ChatViewController: InputBarAccessoryViewDelegate {
+    func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
+        guard !text.replacingOccurrences(of: " ", with: "").isEmpty else {
+            return
+        }
+        print("Sending: \(text)")
+        // Send message
+        if isNewConversation {
+            // Create conversation in database
+        }
+        else {
+            // Append to existing conversation data
+        }
+    }
 }
 
 extension ChatViewController: MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDelegate {

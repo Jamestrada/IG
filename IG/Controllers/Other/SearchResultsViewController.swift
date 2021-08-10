@@ -11,7 +11,7 @@ protocol SearchResultsViewControllerDelegate: AnyObject {
     func searchResultsViewController(_ VC: SearchResultsViewController, didSelectResultWith user: User)
 }
 
-class SearchResultsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+class SearchResultsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     public weak var delegate: SearchResultsViewControllerDelegate?
     

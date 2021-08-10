@@ -52,20 +52,9 @@ class ConversationsViewController: UIViewController {
     
     @objc func didTapCompose() {
         let vc = NewConversationViewController()
-//        vc.completion = { [weak self] result in
-//            print("\(result)")
-//            self?.createNewConversation(result: result)
-//        }
         let navVC = UINavigationController(rootViewController: vc)
         present(navVC, animated: true)
     }
-    
-//    private func createNewConversation(result: [String: String]) {
-//        let vc = ChatViewController()
-//        vc.title = "JamesWilliams"
-//        vc.navigationItem.largeTitleDisplayMode = .never
-//        navigationController?.pushViewController(vc, animated: true)
-//    }
     
     private func setupTableView() {
         tableView.delegate = self

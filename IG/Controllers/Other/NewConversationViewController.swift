@@ -10,8 +10,6 @@ import JGProgressHUD
 
 class NewConversationViewController: UIViewController, SearchResultsViewControllerDelegate, UISearchResultsUpdating {
     
-//    public var completion: (([String: String]) -> (Void))?
-    
     private let searchVC = UISearchController(searchResultsController: SearchResultsViewController())
     
     private let spinner = JGProgressHUD()
@@ -56,6 +54,7 @@ class NewConversationViewController: UIViewController, SearchResultsViewControll
     
     func searchResultsViewController(_ VC: SearchResultsViewController, didSelectResultWith user: User) {
         let vc = ChatViewController(user: user)
+        vc.isNewConversation = true
         vc.title = user.username
         navigationController?.pushViewController(vc, animated: true)
     }
