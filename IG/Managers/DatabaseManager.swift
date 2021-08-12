@@ -360,6 +360,36 @@ final class DatabaseManager {
 // MARK: - Messaging
 
 extension DatabaseManager {
+    
+    /*
+     
+        messages -> "asdfasdf" {
+                        "messages": [
+                            {
+                                "id": String,
+                                "type": text, photo, video
+                                "content": String
+                                "date": Date(),
+                                "sender_email": String
+                                "isRead": true/false
+                            }
+                        ]
+                    }
+     
+        user -> conversations -> [
+                [
+                    "conversation_id": "asdfasdf"
+                    "target_user":
+                    "latest_message": -> {
+                        "date": Date()
+                        "latest_message": "message"
+                        "is_read": true/false
+                    }
+                ]
+            ]
+     
+     */
+    
     /// Create a  new conversation with target user email and first message sent
     public func createNewConversation(with targetEmail: String, firstMessage: Message, completion: @escaping (Bool) -> Void) {
         
