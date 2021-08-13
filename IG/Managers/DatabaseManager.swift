@@ -392,6 +392,45 @@ extension DatabaseManager {
     
     /// Create a  new conversation with target user email and first message sent
     public func createNewConversation(with targetEmail: String, firstMessage: Message, completion: @escaping (Bool) -> Void) {
+//        guard let username = UserDefaults.standard.string(forKey: "username") else {
+//            completion(false)
+//            return
+//        }
+//        let reference = database.document("users/\(username)/posts/\(newPost.id)")
+//        guard let data = newPost.asDictionary() else {
+//            completion(false)
+//            return
+//        }
+//        reference.setData(data) { error in
+//            completion(error == nil)
+//        }
+        guard let currentEmail = UserDefaults.standard.value(forKey: "email") as? String else {
+            completion(false)
+            return
+        }
+        let ref = database.collection("users").document(currentEmail)
+        ref.getDocument { snapshot, error in
+            guard let userNode = snapshot?.data() else {
+                completion(false)
+                print("user not found")
+                return
+            }
+            if var conversations = userNode["conversations"] {
+                // conversation array exists for current user
+                // append
+            }
+            else {
+                let newConversationData: [String: Any] = [
+                    "id": "",
+                    "other_user_email": "",
+                    "latest_message": [
+                        "date": Date(),
+                        "message": "",
+                        "is_read": false
+                    ]
+                ]
+            }
+        }
         
     }
     
