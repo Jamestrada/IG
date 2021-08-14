@@ -410,28 +410,135 @@ extension DatabaseManager {
         }
         let ref = database.collection("users").document(currentEmail)
         ref.getDocument { snapshot, error in
-            guard let userNode = snapshot?.data() else {
+            guard var userNode = snapshot?.data() else {
                 completion(false)
                 print("user not found")
                 return
             }
-            if var conversations = userNode["conversations"] {
+            
+            let messageDate = firstMessage.sentDate
+            let dateString = DateFormatter.formatter.string(from: messageDate)
+            var message = ""
+            
+            switch firstMessage.kind {
+            case .text(let messageText):
+                message = messageText
+            case .attributedText(_):
+                break
+            case .photo(_):
+                break
+            case .video(_):
+                break
+            case .location(_):
+                break
+            case .emoji(_):
+                break
+            case .audio(_):
+                break
+            case .contact(_):
+                break
+            case .linkPreview(_):
+                break
+            case .custom(_):
+                break
+            }
+            
+            let conversationId = "conversation_\(firstMessage.messageId)"
+            
+            let newConversationData: [String: Any] = [
+                "id": conversationId,
+                "other_user_email": targetEmail,
+                "latest_message": [
+                    "date": dateString,
+                    "message": message,
+                    "is_read": false
+                ]
+            ]
+            
+            if var conversations = userNode["conversations"] as? [[String: Any]] {
                 // conversation array exists for current user
                 // append
+                conversations.append(newConversationData)
+                userNode["conversations"] = conversations
+                ref.setData(userNode) { [weak self] error in
+                    guard error == nil else {
+                        completion(false)
+                        return
+                    }
+                    self?.finishCreatingConversation(conversationID: conversationId, firstMessage: firstMessage, completion: completion)
+                }
             }
             else {
-                let newConversationData: [String: Any] = [
-                    "id": "",
-                    "other_user_email": "",
-                    "latest_message": [
-                        "date": Date(),
-                        "message": "",
-                        "is_read": false
-                    ]
+                // conversation array doesn't exist
+                // create
+                userNode["conversations"] = [
+                    newConversationData
                 ]
+                ref.setData(userNode) { [weak self] error in
+                    guard error == nil else {
+                        completion(false)
+                        return
+                    }
+                    self?.finishCreatingConversation(conversationID: conversationId, firstMessage: firstMessage, completion: completion)
+                }
             }
         }
         
+    }
+    
+    private func finishCreatingConversation(conversationID: String, firstMessage: Message, completion: @escaping (Bool) -> Void) {
+        let messageDate = firstMessage.sentDate
+        let dateString = DateFormatter.formatter.string(from: messageDate)
+        var message = ""
+        
+        switch firstMessage.kind {
+        case .text(let messageText):
+            message = messageText
+        case .attributedText(_):
+            break
+        case .photo(_):
+            break
+        case .video(_):
+            break
+        case .location(_):
+            break
+        case .emoji(_):
+            break
+        case .audio(_):
+            break
+        case .contact(_):
+            break
+        case .linkPreview(_):
+            break
+        case .custom(_):
+            break
+        }
+        
+        guard let currentUserEmail = UserDefaults.standard.value(forKey: "email") as? String else {
+            completion(false)
+            return
+        }
+        
+        let collectionMessage: [String: Any] = [
+            "id": firstMessage.messageId,
+            "type": firstMessage.kind.messageKindString,
+            "content": message,
+            "date": dateString,
+            "sender_email": currentUserEmail,
+            "is_read":false
+        ]
+        let value: [String: Any] = [
+            "messages": [
+                collectionMessage
+            ]
+        ]
+        database.document(conversationID).setData(value) { error in
+            guard error == nil else {
+                completion(false)
+                return
+            }
+            completion(true)
+        }
     }
     
     /// Fetches and returns all conversations for the user with passed in email
