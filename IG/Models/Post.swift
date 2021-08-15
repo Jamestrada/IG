@@ -15,7 +15,10 @@ struct Post: Codable {
     var likers: [String]
     
     var date: Date {
-        return DateFormatter.formatter.date(from: postedDate) ?? Date()
+        guard let date = DateFormatter.formatter.date(from: postedDate) else {
+            fatalError()
+        }
+        return date
     }
     
     var storageReference: String? {
