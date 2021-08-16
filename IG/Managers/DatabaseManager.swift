@@ -404,11 +404,12 @@ extension DatabaseManager {
 //        reference.setData(data) { error in
 //            completion(error == nil)
 //        }
-        guard let currentEmail = UserDefaults.standard.value(forKey: "email") as? String else {
+        guard let currentUsername = UserDefaults.standard.value(forKey: "username") as? String else {
             completion(false)
             return
         }
-        let ref = database.collection("users").document(currentEmail)
+        print(currentUsername)
+        let ref = database.collection("users").document(currentUsername)
         ref.getDocument { snapshot, error in
             guard var userNode = snapshot?.data() else {
                 completion(false)
@@ -416,6 +417,7 @@ extension DatabaseManager {
                 return
             }
             
+            print(userNode)
             let messageDate = firstMessage.sentDate
             let dateString = DateFormatter.formatter.string(from: messageDate)
             var message = ""
