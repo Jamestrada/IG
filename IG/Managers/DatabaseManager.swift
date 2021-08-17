@@ -392,11 +392,6 @@ extension DatabaseManager {
     
     /// Create a  new conversation with target user email and first message sent
     public func createNewConversation(with targetEmail: String, firstMessage: Message, completion: @escaping (Bool) -> Void) {
-//        guard let username = UserDefaults.standard.string(forKey: "username") else {
-//            completion(false)
-//            return
-//        }
-//        let reference = database.document("users/\(username)/posts/\(newPost.id)")
 //        guard let data = newPost.asDictionary() else {
 //            completion(false)
 //            return
@@ -409,7 +404,7 @@ extension DatabaseManager {
             return
         }
         print(currentUsername)
-        let ref = database.collection("users").document(currentUsername)
+        let ref = database.document("users/\(currentUsername)/conversations")
         ref.getDocument { snapshot, error in
             guard var userNode = snapshot?.data() else {
                 completion(false)
