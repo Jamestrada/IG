@@ -391,7 +391,7 @@ extension DatabaseManager {
      */
     
     /// Create a  new conversation with target user email and first message sent
-    public func createNewConversation(with targetEmail: String, firstMessage: Message, completion: @escaping (Bool) -> Void) {
+    public func createNewConversation(with targetEmail: String, name: String, firstMessage: Message, completion: @escaping (Bool) -> Void) {
 //        guard let data = newPost.asDictionary() else {
 //            completion(false)
 //            return
@@ -445,6 +445,7 @@ extension DatabaseManager {
             let newConversationData: [String: Any] = [
                 "id": conversationId,
                 "other_user_email": targetEmail,
+                "name": name,
                 "latest_message": [
                     "date": dateString,
                     "message": message,
@@ -462,7 +463,7 @@ extension DatabaseManager {
                         completion(false)
                         return
                     }
-                    self?.finishCreatingConversation(conversationID: conversationId, firstMessage: firstMessage, completion: completion)
+                    self?.finishCreatingConversation(name: name, conversationID: conversationId, firstMessage: firstMessage, completion: completion)
                 }
             }
             else {
@@ -476,14 +477,14 @@ extension DatabaseManager {
                         completion(false)
                         return
                     }
-                    self?.finishCreatingConversation(conversationID: conversationId, firstMessage: firstMessage, completion: completion)
+                    self?.finishCreatingConversation(name: name, conversationID: conversationId, firstMessage: firstMessage, completion: completion)
                 }
             }
         }
         
     }
     
-    private func finishCreatingConversation(conversationID: String, firstMessage: Message, completion: @escaping (Bool) -> Void) {
+    private func finishCreatingConversation(name: String, conversationID: String, firstMessage: Message, completion: @escaping (Bool) -> Void) {
         let messageDate = firstMessage.sentDate
         let dateString = DateFormatter.formatter.string(from: messageDate)
         var message = ""
@@ -518,6 +519,7 @@ extension DatabaseManager {
         
         let collectionMessage: [String: Any] = [
             "id": firstMessage.messageId,
+            "name": name,
             "type": firstMessage.kind.messageKindString,
             "content": message,
             "date": dateString,
