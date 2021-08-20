@@ -54,6 +54,24 @@ class ConversationsViewController: UIViewController {
         view.addSubview(noConversationsLabel)
         setupTableView()
         fetchConversations()
+        startListeningForConversations()
+    }
+    
+    private func startListeningForConversations() {
+        guard let username = UserDefaults.standard.value(forKey: "username") as? String else {
+            return
+        }
+        DatabaseManager.shared.getAllConversations(for: username) { [weak self] result in
+            switch result {
+            case .success(let conversations):
+                guard !conversations.isEmpty else {
+                    return
+                }
+                self?.conversations = conversations
+            case .failure(let error):
+                print("failed to get conversations: \(error)")
+            }
+        }
     }
     
     override func viewDidLayoutSubviews() {
