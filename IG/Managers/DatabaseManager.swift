@@ -53,6 +53,17 @@ final class DatabaseManager {
         }
     }
     
+    public func createUser(newUser: User, completion: @escaping (Bool) -> Void) {
+        let reference = database.document("users/\(newUser.username)")
+        guard let data = newUser.asDictionary() else {
+            completion(false)
+            return
+        }
+        reference.setData(data) { error in
+            completion(error == nil)
+        }
+    }
+    
     public func findUser(username: String, completion: @escaping (User?) -> Void) {
         let ref = database.collection("users")
         ref.getDocuments { snapshot, error in
@@ -72,17 +83,6 @@ final class DatabaseManager {
         }
         let reference = database.document("users/\(username)/posts/\(newPost.id)")
         guard let data = newPost.asDictionary() else {
-            completion(false)
-            return
-        }
-        reference.setData(data) { error in
-            completion(error == nil)
-        }
-    }
-    
-    public func createUser(newUser: User, completion: @escaping (Bool) -> Void) {
-        let reference = database.document("users/\(newUser.username)")
-        guard let data = newUser.asDictionary() else {
             completion(false)
             return
         }
@@ -541,8 +541,8 @@ extension DatabaseManager {
     }
     
     /// Fetches and returns all conversations for the user with passed in email
-    public func getAllConversations(for email: String, completion: @escaping (Result<[Conversation], Error>) -> Void) {
-        
+    public func getAllConversations(for username: String, completion: @escaping (Result<[Conversation], Error>) -> Void) {
+        database.collection("\(username)/conversations")
     }
     
     /// Gets all messages for a given conversation
