@@ -541,8 +541,27 @@ extension DatabaseManager {
     }
     
     /// Fetches and returns all conversations for the user with passed in email
-    public func getAllConversations(for username: String, completion: @escaping (Result<[Conversation], Error>) -> Void) {
-        database.collection("\(username)/conversations")
+    public func getAllConversations(for username: String, completion: @escaping ([Conversation]) -> Void) {
+        let ref = database.collection("users").document(username).collection("conversations")
+        ref.getDocuments { snapshot, error in
+            guard let value = snapshot?.documents as? [[String: Any]], error == nil else {
+                completion([])
+                return
+            }
+            let conversations: [Conversation] = value.compactMap { dictionary in
+                guard let conversationId = dictionary["id"] as? String,
+                      let name = dictionary["name"] as? String,
+                      let targetUserEmail = dictionary["other_user_email"] as? String,
+                      let latestMessage = dictionary["latest_message"] as? [String: Any],
+                      let date = latestMessage["date"] as? String,
+                      let message = latestMessage["message"] as? String,
+                      let isRead = latestMessage["is_read"] as? Bool else {
+                    return nil
+                }
+                let latestMessageObject = LatestMessage(date: date, message: message, isRead: isRead)
+                return Conversation(id: conversationId, name: name, targetUserEmail: targetUserEmail, latestMessage: latestMessageObject)
+            }
+        }
     }
     
     /// Gets all messages for a given conversation
