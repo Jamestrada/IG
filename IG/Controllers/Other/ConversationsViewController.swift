@@ -11,7 +11,7 @@ import JGProgressHUD
 struct Conversation {
     let id: String
     let name: String
-    let targetUserEmail: String
+    let targetUser: User
     let latestMessage: LatestMessage
 }
 
@@ -120,8 +120,8 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
         tableView.deselectRow(at: indexPath, animated: true)
         let model = conversations[indexPath.row]
         
-        let vc = ChatViewController(with: model.targetUserEmail)
-        vc.title = model.name
+        let vc = ChatViewController(user: model.targetUser)
+        vc.title = model.targetUser.username
         vc.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(vc, animated: true)
     }

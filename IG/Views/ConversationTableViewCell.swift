@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class ConversationTableViewCell: UITableViewCell {
     
@@ -56,7 +57,14 @@ class ConversationTableViewCell: UITableViewCell {
                                         height: (contentView.height - 20) / 2)
     }
     
-    public func configure(with model: String) {
+    public func configure(with model: Conversation) {
+        self.userMessageLabel.text = model.latestMessage.message
+        self.usernameLabel.text = model.name
         
+        StorageManager.shared.profilePictureURL(for: model.targetUser.username) {[weak self] url in
+            DispatchQueue.main.async {
+                self?.userImageView.sd_setImage(with: url, completed: nil)
+            }
+        }
     }
 }

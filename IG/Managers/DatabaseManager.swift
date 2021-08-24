@@ -541,11 +541,11 @@ extension DatabaseManager {
     }
     
     /// Fetches and returns all conversations for the user with passed in email
-    public func getAllConversations(for username: String, completion: @escaping ([Conversation]) -> Void) {
+    public func getAllConversations(for username: String, completion: @escaping (Result<[Conversation], Error>) -> Void) {
         let ref = database.collection("users").document(username).collection("conversations")
         ref.getDocuments { snapshot, error in
             guard let value = snapshot?.documents as? [[String: Any]], error == nil else {
-                completion([])
+                completion(.failure("Failed to fetch" as! Error))
                 return
             }
             let conversations: [Conversation] = value.compactMap { dictionary in
@@ -559,7 +559,7 @@ extension DatabaseManager {
                     return nil
                 }
                 let latestMessageObject = LatestMessage(date: date, message: message, isRead: isRead)
-                return Conversation(id: conversationId, name: name, targetUserEmail: targetUserEmail, latestMessage: latestMessageObject)
+                return Conversation(id: conversationId, name: name, targetUser: targetUserEmail, latestMessage: latestMessageObject)
             }
         }
     }
