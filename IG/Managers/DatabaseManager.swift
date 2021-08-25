@@ -391,7 +391,7 @@ extension DatabaseManager {
      */
     
     /// Create a  new conversation with target user email and first message sent
-    public func createNewConversation(with targetEmail: String, name: String, firstMessage: Message, completion: @escaping (Bool) -> Void) {
+    public func createNewConversation(with targetUser: User, name: String, firstMessage: Message, completion: @escaping (Bool) -> Void) {
 //        guard let data = newPost.asDictionary() else {
 //            completion(false)
 //            return
@@ -444,7 +444,7 @@ extension DatabaseManager {
             
             let newConversationData: [String: Any] = [
                 "id": conversationId,
-                "other_user_email": targetEmail,
+                "target_user": targetUser,
                 "name": name,
                 "latest_message": [
                     "date": dateString,
@@ -551,7 +551,7 @@ extension DatabaseManager {
             let conversations: [Conversation] = value.compactMap { dictionary in
                 guard let conversationId = dictionary["id"] as? String,
                       let name = dictionary["name"] as? String,
-                      let targetUserEmail = dictionary["other_user_email"] as? String,
+                      let targetUser = dictionary["target_user"] as? User,
                       let latestMessage = dictionary["latest_message"] as? [String: Any],
                       let date = latestMessage["date"] as? String,
                       let message = latestMessage["message"] as? String,
@@ -559,7 +559,7 @@ extension DatabaseManager {
                     return nil
                 }
                 let latestMessageObject = LatestMessage(date: date, message: message, isRead: isRead)
-                return Conversation(id: conversationId, name: name, targetUser: targetUserEmail, latestMessage: latestMessageObject)
+                return Conversation(id: conversationId, name: name, targetUser: targetUser, latestMessage: latestMessageObject)
             }
         }
     }
