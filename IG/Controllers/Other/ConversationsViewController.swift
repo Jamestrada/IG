@@ -120,7 +120,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
         tableView.deselectRow(at: indexPath, animated: true)
         let model = conversations[indexPath.row]
         
-        let vc = ChatViewController(user: model.targetUser)
+        let vc = ChatViewController(user: model.targetUser, id: model.id)
         vc.title = model.targetUser.username
         vc.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(vc, animated: true)
