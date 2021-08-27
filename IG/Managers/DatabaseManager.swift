@@ -566,8 +566,29 @@ extension DatabaseManager {
     }
     
     /// Gets all messages for a given conversation
-    public func getAllMessagesForConversation(with id: String, completion: @escaping (Result<String, Error>) -> Void) {
-        
+    public func getAllMessagesForConversation(with id: String, completion: @escaping (Result<[Message], Error>) -> Void) {
+        let ref = database.collection("users").document(id).collection("messages")
+        ref.getDocuments { snapshot, error in
+            guard let value = snapshot?.documents as? [[String: Any]], error == nil else {
+                completion(.failure("Failed to fetch" as! Error))
+                return
+            }
+            let messages: [Message] = value.compactMap { dictionary in
+                guard let name = dictionary["name"] as? String,
+                      let isRead = dictionary["is_read"] as? Bool,
+                      let messageId = dictionary["id"] as? String,
+                      let content = dictionary["content"] as? String,
+                      let senderEmail = dictionary["sender_email"] as? String,
+                      let dateString = dictionary["date"] as? String,
+                      let type = dictionary["type"] as? String,
+                      let date = DateFormatter.formatter.date(from: dateString) else {
+                    return nil
+                }
+                let sender = Sender(senderId: senderEmail, displayName: name, photoURL: "")
+                return Message(sender: sender, messageId: messageId, sentDate: date, kind: .text(content))
+            }
+            completion(.success(messages))
+        }
     }
     
     /// Sends a message with target conversation and message
