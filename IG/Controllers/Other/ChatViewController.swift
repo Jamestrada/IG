@@ -60,10 +60,10 @@ class ChatViewController: MessagesViewController {
     private var messages = [Message]()
         
     private var selfSender: Sender? {
-        guard let email = UserDefaults.standard.value(forKey: "email") as? String else {
+        guard let username = UserDefaults.standard.value(forKey: "username") as? String else {
             return nil
         }
-        return Sender(senderId: email, displayName: "James Estrada", photoURL: "")
+        return Sender(senderId: username, displayName: "James Estrada", photoURL: "")
     }
     
     // MARK: - Init

@@ -453,6 +453,21 @@ extension DatabaseManager {
                 ]
             ]
             
+            let recipient_newConversationData: [String: Any] = [
+                "id": conversationId,
+                "target_user": currentUsername,
+                "name": "Self",
+                "latest_message": [
+                    "date": dateString,
+                    "message": message,
+                    "is_read": false
+                ]
+            ]
+            
+            // Update recipient conversation entry
+            // self.database.document("users/\(targetUser)/conversations")
+            
+            // Update current user conversation entry
             if var conversations = userNode["conversations"] as? [[String: Any]] {
                 // conversation array exists for current user
                 // append
