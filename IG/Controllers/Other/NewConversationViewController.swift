@@ -53,7 +53,7 @@ class NewConversationViewController: UIViewController, SearchResultsViewControll
     }
     
     func searchResultsViewController(_ VC: SearchResultsViewController, didSelectResultWith user: User) {
-        let vc = ChatViewController(user: user)
+        let vc = ChatViewController(user: user, id: "123")
         vc.isNewConversation = true
         vc.title = user.username
         navigationController?.pushViewController(vc, animated: true)
