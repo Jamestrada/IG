@@ -444,7 +444,7 @@ extension DatabaseManager {
             
             let newConversationData: [String: Any] = [
                 "id": conversationId,
-                "target_user": targetUser,
+                "target_user": targetUser.username,
                 "name": name,
                 "latest_message": [
                     "date": dateString,
@@ -455,8 +455,8 @@ extension DatabaseManager {
             
             let recipient_newConversationData: [String: Any] = [
                 "id": conversationId,
-                "target_user": currentUsername,
-                "name": "Self",
+                "target_user": targetUser.username,
+                "name": currentUsername,
                 "latest_message": [
                     "date": dateString,
                     "message": message,
