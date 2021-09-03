@@ -618,6 +618,9 @@ extension DatabaseManager {
     
     /// Sends a message with target conversation and message
     public func sendMessage(to conversation: String, message: Message, completion: @escaping (Bool) -> Void) {
-        
+        // Add new message to messages
+        // Update sender latest message
+        // Update recipient latest message
+        let ref = database.collection("users").document(conversation).collection("messages")
     }
 }
