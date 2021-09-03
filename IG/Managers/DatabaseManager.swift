@@ -622,5 +622,12 @@ extension DatabaseManager {
         // Update sender latest message
         // Update recipient latest message
         let ref = database.collection("users").document(conversation).collection("messages")
+        ref.getDocuments { snapshot, error in
+           guard let value = snapshot?.documents as? [[String: Any]], error == nil else {
+               completion(.failure("Failed to fetch" as! Error))
+               return
+           }
+        }
+
     }
 }
