@@ -551,11 +551,13 @@ extension DatabaseManager {
             "sender_email": currentUserEmail,
             "is_read":false
         ]
+        
         let value: [String: Any] = [
             "messages": [
                 collectionMessage
             ]
         ]
+        
         database.document(conversationID).setData(value) { error in
             guard error == nil else {
                 completion(false)
@@ -617,17 +619,68 @@ extension DatabaseManager {
     }
     
     /// Sends a message with target conversation and message
-    public func sendMessage(to conversation: String, message: Message, completion: @escaping (Bool) -> Void) {
+    public func sendMessage(to conversation: String, name: String, newMessage: Message, completion: @escaping (Bool) -> Void) {
         // Add new message to messages
         // Update sender latest message
         // Update recipient latest message
         let ref = database.collection("users").document(conversation).collection("messages")
-        ref.getDocuments { snapshot, error in
-           guard let value = snapshot?.documents as? [[String: Any]], error == nil else {
-               completion(.failure("Failed to fetch" as! Error))
-               return
-           }
+        ref.getDocuments { [weak self] snapshot, error in
+            guard let strongSelf = self else {
+                return
+            }
+            guard var currentMessages = snapshot?.documents as? [[String: Any]] else {
+                completion(false)
+                return
+            }
+            let messageDate = newMessage.sentDate
+            let dateString = DateFormatter.formatter.string(from: messageDate)
+            var message = ""
+            
+            switch newMessage.kind {
+            case .text(let messageText):
+                message = messageText
+            case .attributedText(_):
+                break
+            case .photo(_):
+                break
+            case .video(_):
+                break
+            case .location(_):
+                break
+            case .emoji(_):
+                break
+            case .audio(_):
+                break
+            case .contact(_):
+                break
+            case .linkPreview(_):
+                break
+            case .custom(_):
+                break
+            }
+            
+            guard let currentUserEmail = UserDefaults.standard.value(forKey: "email") as? String else {
+                completion(false)
+                return
+            }
+            
+            let newMessageEntry: [String: Any] = [
+                "id": newMessage.messageId,
+                "name": name,
+                "type": newMessage.kind.messageKindString,
+                "content": message,
+                "date": dateString,
+                "sender_email": currentUserEmail,
+                "is_read":false
+            ]
+            
+            currentMessages.append(newMessageEntry)
+//            strongSelf.database.document("users/\(conversation)/messages").setData(currentMessages as? [String: Any] ?? "") { error in
+//                guard error == nil else {
+//                    return
+//                }
+//                completion(true)
+//            }
         }
-
     }
 }
