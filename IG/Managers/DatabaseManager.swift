@@ -674,13 +674,18 @@ extension DatabaseManager {
                 "is_read":false
             ]
             
-            currentMessages.append(newMessageEntry)
-//            strongSelf.database.document("users/\(conversation)/messages").setData(currentMessages as? [String: Any] ?? "") { error in
-//                guard error == nil else {
-//                    return
-//                }
-//                completion(true)
-//            }
+            let value: [String: Any] = [
+                "messages": [
+                    currentMessages.append(newMessageEntry)
+                ]
+            ]
+            
+            strongSelf.database.document("users/\(conversation)/messages").setData(value) { error in
+                guard error == nil else {
+                    return
+                }
+                completion(true)
+            }
         }
     }
 }
