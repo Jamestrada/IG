@@ -619,10 +619,16 @@ extension DatabaseManager {
     }
     
     /// Sends a message with target conversation and message
-    public func sendMessage(to conversation: String, name: String, newMessage: Message, completion: @escaping (Bool) -> Void) {
+    public func sendMessage(to conversation: String, otherUser: User, name: String, newMessage: Message, completion: @escaping (Bool) -> Void) {
         // Add new message to messages
         // Update sender latest message
         // Update recipient latest message
+        
+        guard let currentUser = UserDefaults.standard.value(forKey: "username") as? String else {
+            completion(false)
+            return
+        }
+        
         let ref = database.collection("users").document(conversation).collection("messages")
         ref.getDocuments { [weak self] snapshot, error in
             guard let strongSelf = self else {
@@ -683,6 +689,11 @@ extension DatabaseManager {
             strongSelf.database.document("users/\(conversation)/messages").setData(value) { error in
                 guard error == nil else {
                     return
+                }
+                strongSelf.database.document("users/\(currentUser)/conversations").getDocument { snapshot, error in
+                    guard var currentUserConversations = snapshot?.documents as? [[String: Any]], error == nil else {
+                        return
+                    }
                 }
                 completion(true)
             }
