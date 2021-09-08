@@ -691,9 +691,32 @@ extension DatabaseManager {
                     return
                 }
                 strongSelf.database.document("users/\(currentUser)/conversations").getDocument { snapshot, error in
-                    guard var currentUserConversations = snapshot?.documents as? [[String: Any]], error == nil else {
+                    guard var currentUserConversations = snapshot?.data(), error == nil else {
                         return
                     }
+                    
+                    let updatedValue: [String: Any] = [
+                        "date": dateString,
+                        "message": message,
+                        "is_read": false
+                    ]
+                    
+                    var targetConversation: [String: Any]?
+                    var position = 0
+                    
+                    for conversationDictionary in currentUserConversations {
+                        if let currentId = conversationDictionary["id"] as? String, currentId == conversation {
+                            targetConversation = conversation
+                            break
+                        }
+                        position += 1
+                    }
+                    targetConversation?["latest_message"] = updatedValue
+                    guard let finalConversation = targetConversation else {
+                        completion(false)
+                        return
+                    }
+                    currentUserConversations[position] = targetConversation
                 }
                 completion(true)
             }
