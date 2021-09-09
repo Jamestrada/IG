@@ -691,7 +691,7 @@ extension DatabaseManager {
                     return
                 }
                 strongSelf.database.document("users/\(currentUser)/conversations").getDocument { snapshot, error in
-                    guard var currentUserConversations = snapshot?.data(), error == nil else {
+                    guard var currentUserConversations = snapshot?.data() as? [[String: Any]], error == nil else {
                         return
                     }
                     
@@ -706,7 +706,7 @@ extension DatabaseManager {
                     
                     for conversationDictionary in currentUserConversations {
                         if let currentId = conversationDictionary["id"] as? String, currentId == conversation {
-                            targetConversation = conversation
+                            targetConversation = conversationDictionary
                             break
                         }
                         position += 1
@@ -716,7 +716,14 @@ extension DatabaseManager {
                         completion(false)
                         return
                     }
-                    currentUserConversations[position] = targetConversation
+                    currentUserConversations[position] = finalConversation
+                    strongSelf.database.document("users/\(currentUser)/conversations").setData(currentUserConversations as? [String: Any] ?? ["":""]) { error in
+                        guard error == nil else {
+                            completion(false)
+                            return
+                        }
+                        completion(true)
+                    }
                 }
                 completion(true)
             }
