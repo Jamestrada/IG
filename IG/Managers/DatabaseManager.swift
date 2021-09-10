@@ -722,10 +722,45 @@ extension DatabaseManager {
                             completion(false)
                             return
                         }
-                        completion(true)
+                        
+                        // Update latest message for recipient
+                        strongSelf.database.document("users/\(otherUser.username)/conversations").getDocument { snapshot, error in
+                            guard var otherUserConversations = snapshot?.data() as? [[String: Any]], error == nil else {
+                                return
+                            }
+                            
+                            let updatedValue: [String: Any] = [
+                                "date": dateString,
+                                "message": message,
+                                "is_read": false
+                            ]
+                            
+                            var targetConversation: [String: Any]?
+                            var position = 0
+                            
+                            for conversationDictionary in otherUserConversations {
+                                if let currentId = conversationDictionary["id"] as? String, currentId == conversation {
+                                    targetConversation = conversationDictionary
+                                    break
+                                }
+                                position += 1
+                            }
+                            targetConversation?["latest_message"] = updatedValue
+                            guard let finalConversation = targetConversation else {
+                                completion(false)
+                                return
+                            }
+                            otherUserConversations[position] = finalConversation
+                            strongSelf.database.document("users/\(otherUser.username)/conversations").setData(otherUserConversations as? [String: Any] ?? ["":""]) { error in
+                                guard error == nil else {
+                                    completion(false)
+                                    return
+                                }
+                                completion(true)
+                            }
+                        }
                     }
                 }
-                completion(true)
             }
         }
     }
