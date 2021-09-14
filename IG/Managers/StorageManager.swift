@@ -50,12 +50,24 @@ final class StorageManager {
         }
     }
     
+    /// Uploads profile picture to firebase storage
     public func uploadProfilePicture(username: String, data: Data?, completion: @escaping (Bool) -> Void) {
         guard let data = data else {
             completion(false)
             return
         }
         storage.child("\(username)/profile_picture.png").putData(data, metadata: nil) { _, error in
+            completion(error == nil)
+        }
+    }
+    
+    /// Uploads image that will be sent in a conversation message
+    public func uploadMessagePhoto(username: String, data: Data?, fileName: String, completion: @escaping (Bool) -> Void) {
+        guard let data = data else {
+            completion(false)
+            return
+        }
+        storage.child("\(username)/message_images/\(fileName)").putData(data, metadata: nil) { _, error in
             completion(error == nil)
         }
     }
