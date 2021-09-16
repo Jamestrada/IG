@@ -49,6 +49,13 @@ struct Sender: SenderType {
     public var photoURL: String
 }
 
+struct Media: MediaItem {
+    var url: URL?
+    var image: UIImage?
+    var placeholderImage: UIImage
+    var size: CGSize
+}
+
 class ChatViewController: MessagesViewController {
     
     public var isNewConversation = false
@@ -181,7 +188,7 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
             return
         }
         
-        let fileName = "photo_message_" + messageId
+        let fileName = "photo_message_" + messageId.replacingOccurrences(of: " ", with: "-") + ".png"
         
         // Upload image
         StorageManager.shared.uploadMessagePhoto(username: user.username, data: imageData, fileName: "") { [weak self] result in
@@ -193,7 +200,10 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
             case true:
                 // Send message
                 print("Uploaded message")
-                let message = Message(sender: selfSender, messageId: messageId, sentDate: Date(), kind: .photo(d))
+//                guard let url = URL(string: urlString)
+                
+                let media = Media(url: "", image: nil, placeholderImage: UIImage(systemName: "plus"), size: .zero)
+                let message = Message(sender: selfSender, messageId: messageId, sentDate: Date(), kind: .photo(media))
                 DatabaseManager.shared.sendMessage(to: conversationId, otherUser: strongSelf.user, name: strongSelf.user.username, newMessage: message) { success in
                     <#code#>
                 }

@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseFirestore
+import MessageKit
 
 final class DatabaseManager {
     static let shared = DatabaseManager()
@@ -611,8 +612,25 @@ extension DatabaseManager {
                       let date = DateFormatter.formatter.date(from: dateString) else {
                     return nil
                 }
+                
+                var kind: MessageKind?
+                if type == "photo" {
+                    // photo
+                    guard let imageUrl = URL(string: content) else {
+                        return nil
+                    }
+                    kind = .photo(media)
+                }
+                else {
+                    kind = .text(content)
+                }
+                
+                guard let finalKind = kind else {
+                    return nil
+                }
+                
                 let sender = Sender(senderId: senderEmail, displayName: name, photoURL: "")
-                return Message(sender: sender, messageId: messageId, sentDate: date, kind: .text(content))
+                return Message(sender: sender, messageId: messageId, sentDate: date, kind: finalKind)
             }
             completion(.success(messages))
         }
