@@ -8,6 +8,7 @@
 import UIKit
 import MessageKit
 import InputBarAccessoryView
+import SDWebImage
 
 struct Message: MessageType {
     public var sender: SenderType
@@ -184,7 +185,8 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
         guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage,
               let imageData = image.pngData(),
               let messageId = createMessageId(),
-              let conversationId = conversationId else {
+              let conversationId = conversationId,
+              let selfSender = selfSender else {
             return
         }
         
@@ -201,8 +203,11 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
                 // Send message
                 print("Uploaded message")
 //                guard let url = URL(string: urlString)
+                guard let placeholder = UIImage(systemName: "plus ") else {
+                    return
+                }
                 
-                let media = Media(url: "", image: nil, placeholderImage: UIImage(systemName: "plus"), size: .zero)
+                let media = Media(url: nil, image: nil, placeholderImage: placeholder, size: .zero)
                 let message = Message(sender: selfSender, messageId: messageId, sentDate: Date(), kind: .photo(media))
                 DatabaseManager.shared.sendMessage(to: conversationId, otherUser: strongSelf.user, name: strongSelf.user.username, newMessage: message) { success in
                     <#code#>
@@ -279,5 +284,22 @@ extension ChatViewController: MessagesDataSource, MessagesLayoutDelegate, Messag
     
     func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {
         return messages.count
+    }
+    
+    func configureMediaMessageImageView(_ imageView: UIImageView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
+        guard let message = message as? Message else {
+            return
+        }
+        
+        switch message.kind {
+        case .photo(let media):
+            // pull url out
+            guard let imageUrl = media.url else {
+                return
+            }
+            imageView.sd_setImage(with: imageUrl, completed: nil)
+        default:
+            break
+        }
     }
 }
