@@ -122,7 +122,7 @@ class ChatViewController: MessagesViewController {
             self?.presentPhotoInputActionsheet()
         }))
         actionSheet.addAction(UIAlertAction(title: "Video", style: .default, handler: { [weak self] _ in
-            
+            self?.presentVideoInputActionsheet()
         }))
         actionSheet.addAction(UIAlertAction(title: "Audio", style: .default, handler: { [weak self] _ in
             
@@ -133,7 +133,7 @@ class ChatViewController: MessagesViewController {
     }
     
     private func presentPhotoInputActionsheet() {
-        let actionSheet = UIAlertController(title: "Attach Photo", message: "What would you like to attach a photo from?", preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: "Attach Photo", message: "Where would you like to attach a photo from?", preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { [weak self] _ in
             let picker = UIImagePickerController()
             picker.sourceType = .camera
@@ -145,6 +145,31 @@ class ChatViewController: MessagesViewController {
             let picker = UIImagePickerController()
             picker.sourceType = .photoLibrary
             picker.delegate = self
+            picker.allowsEditing = true
+            self?.present(picker, animated: true)
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        present(actionSheet, animated: true)
+    }
+    
+    private func presentVideoInputActionsheet() {
+        let actionSheet = UIAlertController(title: "Attach Video", message: "Where would you like to attach a video from?", preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { [weak self] _ in
+            let picker = UIImagePickerController()
+            picker.sourceType = .camera
+            picker.delegate = self
+            picker.mediaTypes = ["public.movie"] // limit user to select only videos
+            picker.videoQuality = .typeMedium // limit video quality
+            picker.allowsEditing = true
+            self?.present(picker, animated: true)
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Library", style: .default, handler: { [weak self] _ in
+            let picker = UIImagePickerController()
+            picker.sourceType = .photoLibrary
+            picker.delegate = self
+            picker.mediaTypes = ["public.movie"] // limit user to select only videos
+            picker.videoQuality = .typeMedium // limit video quality
             picker.allowsEditing = true
             self?.present(picker, animated: true)
         }))
