@@ -71,4 +71,11 @@ final class StorageManager {
             completion(error == nil)
         }
     }
+    
+    /// Uploads video that will be sent in a conversation message
+    public func uploadMessageVideo(username: String, fileUrl: URL, fileName: String, completion: @escaping (Bool) -> Void) {
+        storage.child("\(username)/message_videos/\(fileName)").putFile(from: fileUrl, metadata: nil) { _, error in
+            completion(error == nil)
+        }
+    }
 }

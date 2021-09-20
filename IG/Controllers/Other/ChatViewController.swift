@@ -208,38 +208,67 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true, completion: nil)
-        guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage,
-              let imageData = image.pngData(),
-              let messageId = createMessageId(),
+        guard let messageId = createMessageId(),
               let conversationId = conversationId,
               let selfSender = selfSender else {
             return
         }
         
-        let fileName = "photo_message_" + messageId.replacingOccurrences(of: " ", with: "-") + ".png"
-        
-        // Upload image
-        StorageManager.shared.uploadMessagePhoto(username: user.username, data: imageData, fileName: "") { [weak self] result in
-            guard let strongSelf = self else {
-                return
-            }
+        if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage, let imageData = image.pngData() {
+            let fileName = "photo_message_" + messageId.replacingOccurrences(of: " ", with: "-") + ".png"
             
-            switch result {
-            case true:
-                // Send message
-                print("Uploaded message")
-//                guard let url = URL(string: urlString)
-                guard let placeholder = UIImage(systemName: "plus ") else {
+            // Upload image
+            StorageManager.shared.uploadMessagePhoto(username: user.username, data: imageData, fileName: fileName) { [weak self] result in
+                guard let strongSelf = self else {
                     return
                 }
                 
-                let media = Media(url: nil, image: nil, placeholderImage: placeholder, size: .zero)
-                let message = Message(sender: selfSender, messageId: messageId, sentDate: Date(), kind: .photo(media))
-                DatabaseManager.shared.sendMessage(to: conversationId, otherUser: strongSelf.user, name: strongSelf.user.username, newMessage: message) { success in
-                    //
+                switch result {
+                case true:
+                    // Send message
+                    print("Uploaded message")
+    //                guard let url = URL(string: urlString)
+                    guard let placeholder = UIImage(systemName: "plus ") else {
+                        return
+                    }
+                    
+                    let media = Media(url: nil, image: nil, placeholderImage: placeholder, size: .zero)
+                    let message = Message(sender: selfSender, messageId: messageId, sentDate: Date(), kind: .photo(media))
+                    DatabaseManager.shared.sendMessage(to: conversationId, otherUser: strongSelf.user, name: strongSelf.user.username, newMessage: message) { success in
+                        //
+                    }
+                case false:
+                    print("message photo upload error")
                 }
-            case false:
-                print("message photo upload error")
+            }
+        }
+        else if let videoUrl = info[.mediaURL] as? URL {
+            let fileName = "photo_message_" + messageId.replacingOccurrences(of: " ", with: "-") + ".mov"
+            
+            // Upload video
+            
+            StorageManager.shared.uploadMessageVideo(username: user.username, fileUrl: videoUrl, fileName: fileName) { [weak self] result in
+                guard let strongSelf = self else {
+                    return
+                }
+                
+                switch result {
+                case true:
+                    // Send message
+                    print("Uploaded message video")
+    //                guard let url = URL(string: urlString)
+                    guard let placeholder = UIImage(systemName: "plus ") else {
+                        return
+                    }
+                    
+                    let media = Media(url: nil, image: nil, placeholderImage: placeholder, size: .zero)
+                    let message = Message(sender: selfSender, messageId: messageId, sentDate: Date(), kind: .video(media))
+                    DatabaseManager.shared.sendMessage(to: conversationId, otherUser: strongSelf.user, name: strongSelf.user.username, newMessage: message) { success in
+                        //
+                    }
+                case false:
+                    print("message photo upload error")
+                }
             }
         }
     }
