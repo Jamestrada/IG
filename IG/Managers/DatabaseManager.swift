@@ -24,7 +24,11 @@ final class DatabaseManager {
                 return
             }
             let subset = users.filter({
-                $0.username.lowercased().hasPrefix(usernamePrefix.lowercased())
+                guard let username = UserDefaults.standard.value(forKey: "username") as? String,
+                      !username.lowercased().hasPrefix(usernamePrefix.lowercased()) else {
+                    return false
+                }
+                return $0.username.lowercased().hasPrefix(usernamePrefix.lowercased())
             })
             completion(subset)
         }
