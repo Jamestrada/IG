@@ -14,6 +14,7 @@
 		7B2FD24826AA7C5900FFCE98 /* SinglePostCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2FD24726AA7C5900FFCE98 /* SinglePostCellType.swift */; };
 		7B2FD24A26AE503B00FFCE98 /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2FD24926AE503A00FFCE98 /* HapticsManager.swift */; };
 		7B2FD25226B2724400FFCE98 /* IGTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2FD25126B2724400FFCE98 /* IGTests.swift */; };
+		7B32D84E26FD936F00023D6A /* NewConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B32D84D26FD936F00023D6A /* NewConversationCell.swift */; };
 		7B34003F26B3ACF4001CBB47 /* ConversationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B34003E26B3ACF4001CBB47 /* ConversationsViewController.swift */; };
 		7B34004126B8F574001CBB47 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B34004026B8F574001CBB47 /* ChatViewController.swift */; };
 		7B3D173F2647526000831E13 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7B3D173E2647526000831E13 /* GoogleService-Info.plist */; };
@@ -107,6 +108,7 @@
 		7B2FD24F26B2724400FFCE98 /* IGTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IGTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B2FD25126B2724400FFCE98 /* IGTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGTests.swift; sourceTree = "<group>"; };
 		7B2FD25326B2724400FFCE98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7B32D84D26FD936F00023D6A /* NewConversationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationCell.swift; sourceTree = "<group>"; };
 		7B34003E26B3ACF4001CBB47 /* ConversationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsViewController.swift; sourceTree = "<group>"; };
 		7B34004026B8F574001CBB47 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		7B3D173E2647526000831E13 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -384,6 +386,7 @@
 				7B2FD24126A63AAA00FFCE98 /* CommentCollectionViewCell.swift */,
 				7B2FD24526A9090100FFCE98 /* CommentBarView.swift */,
 				7BF30EE926CE1D7E00897480 /* ConversationTableViewCell.swift */,
+				7B32D84D26FD936F00023D6A /* NewConversationCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -614,6 +617,7 @@
 				7B5EADEC268E7EBF00EC0192 /* ProfileHeaderCountView.swift in Sources */,
 				7BD0698B26F5B20C00C9923E /* PhotoViewerViewController.swift in Sources */,
 				7B5EADE8268D753500EC0192 /* ProfileHeaderCollectionReusableView.swift in Sources */,
+				7B32D84E26FD936F00023D6A /* NewConversationCell.swift in Sources */,
 				7B3D175B26483A9700831E13 /* CameraViewController.swift in Sources */,
 				7B567CEE2645FE9C00512ED0 /* HomeViewController.swift in Sources */,
 				7B5EADF42698215900EC0192 /* IGFollowButton.swift in Sources */,
