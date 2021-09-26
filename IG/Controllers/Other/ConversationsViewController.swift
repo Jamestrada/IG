@@ -43,6 +43,8 @@ class ConversationsViewController: UIViewController {
         label.isHidden = true
         return label
     }()
+    
+    private var loginObserver: NSObjectProtocol?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +57,14 @@ class ConversationsViewController: UIViewController {
         setupTableView()
         fetchConversations()
         startListeningForConversations()
+        
+        loginObserver = Notification.default.addObserver(forName: .didLogInNotification, object: nil, queue: .main, using: {[ weak self] _ in
+            guard let strongSelf = self else {
+                return
+            }
+                                                                                                                            
+            strongSelf.startListeningForConversation()                                                                                                        
+                                                                                                                          
     }
     
     private func startListeningForConversations() {
