@@ -58,12 +58,13 @@ class ConversationsViewController: UIViewController {
         fetchConversations()
         startListeningForConversations()
         
-        loginObserver = Notification.default.addObserver(forName: .didLogInNotification, object: nil, queue: .main, using: {[ weak self] _ in
+        loginObserver = NotificationCenter.default.addObserver(forName: .didLogInNotification, object: nil, queue: .main, using: { [weak self] _ in
             guard let strongSelf = self else {
                 return
             }
-                                                                                                                            
-            strongSelf.startListeningForConversation()                                                                                                        
+            
+            strongSelf.startListeningForConversations()
+        })
                                                                                                                           
     }
     
@@ -71,6 +72,11 @@ class ConversationsViewController: UIViewController {
         guard let username = UserDefaults.standard.value(forKey: "username") as? String else {
             return
         }
+        
+        if let observer = loginObserver {
+            NotificationCenter.default.removeObserver(observer)
+        }
+        
         DatabaseManager.shared.getAllConversations(for: username) { [weak self] result in
             switch result {
             case .success(let conversations):

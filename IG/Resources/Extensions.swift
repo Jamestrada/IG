@@ -70,4 +70,5 @@ extension String {
 
 extension Notification.Name {
     static let didPostNotification = Notification.Name("didPostNotification")
+    static let didLogInNotification = Notification.Name("didLogInNotification")
 }
