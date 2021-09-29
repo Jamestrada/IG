@@ -803,4 +803,15 @@ extension DatabaseManager {
             }
         }
     }
+    
+    public func deleteConversation(conversationId: String, completion: @escaping (Bool) -> Void) {
+        guard let currentUser = UserDefaults.standard.value(forKey: "username") as? String else {
+            completion(false)
+            return
+        }
+        
+        // Get all conversations for current user
+        // Delete conversation in collection with target id
+        // Reset conversations for the user in database
+    }
 }
