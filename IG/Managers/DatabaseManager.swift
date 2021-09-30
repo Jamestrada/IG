@@ -809,9 +809,35 @@ extension DatabaseManager {
             completion(false)
             return
         }
+        print("Deleting conversation with id: \(conversationId)")
         
         // Get all conversations for current user
-        // Delete conversation in collection with target id
-        // Reset conversations for the user in database
+        let ref = database.document("users/\(currentUser)/conversations")
+        ref.getDocument { snapshot, error in
+            if var conversations = snapshot?.data() as? [[String: Any]] {
+                var positionToRemove = 0
+                for conversation in conversations {
+                    if let id = conversation["id"] as? String, id == conversationId {
+                        print("Found conversation to delete")
+                        break
+                    }
+                    positionToRemove += 1
+                }
+                
+                // Delete conversation in collection with target id
+                conversations.remove(at: positionToRemove)
+                
+                // Reset conversations for the user in database
+                ref.setData(conversations as? [String: Any] ?? ["":""]) { error in
+                    guard error == nil else {
+                        print("failed to write new conversation array")
+                        completion(false)
+                        return
+                    }
+                    print("deleted conversation")
+                    completion(true)
+                }
+            }
+        }
     }
 }
