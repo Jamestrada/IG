@@ -474,7 +474,7 @@ extension DatabaseManager {
                 if var conversations = snapshot?.data() as? [[String: Any]] {
                     // append
                     conversations.append(recipient_newConversationData)
-                    self?.database.document("users/\(targetUser)/conversations/\(conversationId)")
+                    self?.database.document("users/\(targetUser)/conversations/").setData(conversations as? [String: Any] ?? ["":""])
                 }
                 else {
                     // create
