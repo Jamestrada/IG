@@ -376,6 +376,32 @@ extension DatabaseManager {
         }
     }
     
+    public func conversationExists(with targetUsername: String, completion: @escaping (Result<String, Error>) -> Void) {
+        guard let senderUsername = UserDefaults.standard.value(forKey: "username") as? String else {
+            return
+        }
+        database.document("users/\(targetUsername)/conversations").getDocument { snapshot, error in
+            guard let collection = snapshot?.data() as? [[String: Any]] else {
+                return
+            }
+            // iterate and find conversation with target sender
+            if let conversation = collection.first(where: {
+                guard let targetSender = $0["other_username"] as? String else {
+                    return false
+                }
+                return senderUsername == targetSender
+            }) {
+                // get id
+                guard let id = conversation["id"] as? String else {
+                    return
+                }
+                completion(.success(id))
+                return
+            }
+            return
+        }
+    }
+    
     /*
      
         messages -> "asdfasdf" {
