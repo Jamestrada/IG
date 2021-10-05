@@ -709,6 +709,7 @@ extension DatabaseManager {
             }
             let messageDate = newMessage.sentDate
             let dateString = DateFormatter.formatter.string(from: messageDate)
+            
             var message = ""
             
             switch newMessage.kind {
@@ -766,33 +767,50 @@ extension DatabaseManager {
                     return
                 }
                 strongSelf.database.document("users/\(currentUser)/conversations").getDocument { snapshot, error in
-                    guard var currentUserConversations = snapshot?.data() as? [[String: Any]], error == nil else {
-                        return
-                    }
-                    
-                    let updatedValue: [String: Any] = [
-                        "date": dateString,
-                        "message": message,
-                        "is_read": false
-                    ]
-                    
-                    var targetConversation: [String: Any]?
-                    var position = 0
-                    
-                    for conversationDictionary in currentUserConversations {
-                        if let currentId = conversationDictionary["id"] as? String, currentId == conversation {
-                            targetConversation = conversationDictionary
-                            break
+                    var databaseEntryConversations = [[String: Any]]()
+                    if var currentUserConversations = snapshot?.data() as? [[String: Any]], error == nil {
+                        let updatedValue: [String: Any] = [
+                            "date": dateString,
+                            "message": message,
+                            "is_read": false
+                        ]
+                        
+                        var targetConversation: [String: Any]?
+                        var position = 0
+                        
+                        for conversationDictionary in currentUserConversations {
+                            if let currentId = conversationDictionary["id"] as? String, currentId == conversation {
+                                targetConversation = conversationDictionary
+                                break
+                            }
+                            position += 1
                         }
-                        position += 1
+                        targetConversation?["latest_message"] = updatedValue
+                        guard let finalConversation = targetConversation else {
+                            completion(false)
+                            return
+                        }
+                        currentUserConversations[position] = finalConversation
+                        databaseEntryConversations = currentUserConversations
                     }
-                    targetConversation?["latest_message"] = updatedValue
-                    guard let finalConversation = targetConversation else {
-                        completion(false)
-                        return
+                    else{
+                        let newConversationData: [String: Any] = [
+                            "id": conversation,
+                            "target_user": otherUser.username,
+                            "name": name,
+                            "latest_message": [
+                                "date": dateString,
+                                "message": message,
+                                "is_read": false
+                            ]
+                        ]
+                        databaseEntryConversations = [
+                            newConversationData
+                        ]
                     }
-                    currentUserConversations[position] = finalConversation
-                    strongSelf.database.document("users/\(currentUser)/conversations").setData(currentUserConversations as? [String: Any] ?? ["":""]) { error in
+                    
+                    
+                    strongSelf.database.document("users/\(currentUser)/conversations").setData(databaseEntryConversations as? [String: Any] ?? ["":""]) { error in
                         guard error == nil else {
                             completion(false)
                             return
