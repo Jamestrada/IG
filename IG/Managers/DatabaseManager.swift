@@ -797,7 +797,7 @@ extension DatabaseManager {
                         let newConversationData: [String: Any] = [
                             "id": conversation,
                             "target_user": otherUser.username,
-                            "name": name,
+                            "name": otherUser.username,
                             "latest_message": [
                                 "date": dateString,
                                 "message": message,

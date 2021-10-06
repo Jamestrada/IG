@@ -65,6 +65,7 @@
 		7BA4EF2C26BCFE4900E255EE /* NewConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA4EF2B26BCFE4900E255EE /* NewConversationViewController.swift */; };
 		7BB0414026731726005044B0 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB0413F26731726005044B0 /* Post.swift */; };
 		7BB0414226786F85005044B0 /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB0414126786F85005044B0 /* SearchResultsViewController.swift */; };
+		7BBDA0D4270D6B1C009ECF5F /* LocationPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBDA0D3270D6B1C009ECF5F /* LocationPickerViewController.swift */; };
 		7BC6E93B269A990F00419BDF /* ListUserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC6E93A269A990F00419BDF /* ListUserTableViewCell.swift */; };
 		7BC6E93D269A9C6E00419BDF /* ListUserTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC6E93C269A9C6E00419BDF /* ListUserTableViewCellViewModel.swift */; };
 		7BD0698B26F5B20C00C9923E /* PhotoViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD0698A26F5B20C00C9923E /* PhotoViewerViewController.swift */; };
@@ -161,6 +162,7 @@
 		7BA4EF2B26BCFE4900E255EE /* NewConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationViewController.swift; sourceTree = "<group>"; };
 		7BB0413F26731726005044B0 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		7BB0414126786F85005044B0 /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
+		7BBDA0D3270D6B1C009ECF5F /* LocationPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPickerViewController.swift; sourceTree = "<group>"; };
 		7BC6E93A269A990F00419BDF /* ListUserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListUserTableViewCell.swift; sourceTree = "<group>"; };
 		7BC6E93C269A9C6E00419BDF /* ListUserTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListUserTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		7BD0698A26F5B20C00C9923E /* PhotoViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewerViewController.swift; sourceTree = "<group>"; };
@@ -292,6 +294,7 @@
 				7B34004026B8F574001CBB47 /* ChatViewController.swift */,
 				7BA4EF2B26BCFE4900E255EE /* NewConversationViewController.swift */,
 				7BD0698A26F5B20C00C9923E /* PhotoViewerViewController.swift */,
+				7BBDA0D3270D6B1C009ECF5F /* LocationPickerViewController.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -653,6 +656,7 @@
 				7B9C59782660B3430000C217 /* PostCaptionCollectionViewCellViewModel.swift in Sources */,
 				7B3D1746264754DC00831E13 /* StorageManager.swift in Sources */,
 				7B3D175F26483AE500831E13 /* ProfileViewController.swift in Sources */,
+				7BBDA0D4270D6B1C009ECF5F /* LocationPickerViewController.swift in Sources */,
 				7B9E5BAD267FB7C3002E8222 /* NotificationsManager.swift in Sources */,
 				7BC6E93B269A990F00419BDF /* ListUserTableViewCell.swift in Sources */,
 				7BFE15B72666F7F3006A18B3 /* PostViewController.swift in Sources */,

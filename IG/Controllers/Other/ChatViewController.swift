@@ -10,12 +10,18 @@ import MessageKit
 import InputBarAccessoryView
 import SDWebImage
 import AVKit
+import CoreLocation
 
 struct Message: MessageType {
     public var sender: SenderType
     public var messageId: String
     public var sentDate: Date
     public var kind: MessageKind
+}
+
+struct Location: LocationItem {
+    var location: CLLocation
+    var size: CGSize
 }
 
 extension MessageKind {
@@ -128,9 +134,24 @@ class ChatViewController: MessagesViewController {
         actionSheet.addAction(UIAlertAction(title: "Audio", style: .default, handler: { [weak self] _ in
             
         }))
+        actionSheet.addAction(UIAlertAction(title: "Location", style: .default, handler: { [weak self] _ in
+            self?.presentLocationPicker()
+        }))
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         present(actionSheet, animated: true)
+    }
+    
+    private func presentLocationPicker() {
+        let vc = LocationPickerViewController()
+        vc.navigationItem.largeTitleDisplayMode = .never
+        vc.completion = { [weak self] selectedCoordinates in
+            let longitude: Double = selectedCoordinates.longitude
+            let latitude: Double = selectedCoordinates.latitude
+            
+            print("long=\(longitude) | lat=\(latitude)")
+        }
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     private func presentPhotoInputActionsheet() {
