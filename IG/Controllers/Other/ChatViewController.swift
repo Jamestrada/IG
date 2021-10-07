@@ -146,10 +146,26 @@ class ChatViewController: MessagesViewController {
         let vc = LocationPickerViewController()
         vc.navigationItem.largeTitleDisplayMode = .never
         vc.completion = { [weak self] selectedCoordinates in
+            guard let strongSelf = self else {
+                return
+            }
+            
+            guard let messageId = strongSelf.createMessageId(),
+                  let conversationId = strongSelf.conversationId,
+                  let selfSender = strongSelf.selfSender else {
+                return
+            }
+            
             let longitude: Double = selectedCoordinates.longitude
             let latitude: Double = selectedCoordinates.latitude
             
             print("long=\(longitude) | lat=\(latitude)")
+            
+            let location = Location(location: CLLocation(latitude: latitude, longitude: longitude), size: .zero)
+            let message = Message(sender: selfSender, messageId: messageId, sentDate: Date(), kind: .location(location))
+            DatabaseManager.shared.sendMessage(to: conversationId, otherUser: strongSelf.user, name: strongSelf.user.username, newMessage: message) { success in
+                //
+            }
         }
         navigationController?.pushViewController(vc, animated: true)
     }
