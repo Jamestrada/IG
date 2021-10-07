@@ -46,6 +46,10 @@ class LocationPickerViewController: UIViewController {
         let coordinates = map.convert(locationInView, toCoordinateFrom: map)
         self.coordinates = coordinates
         
+        for annotation in map.annotations {
+            map.removeAnnotation(annotation)
+        }
+        
         // drop a pin on that location
         let pin = MKPointAnnotation()
         pin.coordinate = coordinates
