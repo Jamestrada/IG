@@ -9,6 +9,7 @@ target 'IG' do
   pod 'Firebase/Core'
   pod 'Firebase/Firestore'
   pod 'Firebase/Analytics'
+  pod 'Firebase/Crashlytics'
   pod 'Firebase/Storage'
   pod 'Firebase/Auth'
   pod 'SDWebImage'

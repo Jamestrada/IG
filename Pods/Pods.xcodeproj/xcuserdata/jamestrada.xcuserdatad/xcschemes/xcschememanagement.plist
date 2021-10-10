@@ -34,12 +34,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Firebase-iOS13.0.xcscheme</key>
+		<key>Firebase-99ba4414.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Firebase-iOS14.5.xcscheme</key>
+		<key>Firebase-Analytics-Auth-Core-CoreOnly-Firestore-Storage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -80,6 +80,11 @@
 			<false/>
 		</dict>
 		<key>FirebaseCoreDiagnostics-iOS14.5.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FirebaseCrashlytics.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
