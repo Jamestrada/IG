@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7B2FD24026A3C79500FFCE98 /* SettingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2FD23F26A3C79500FFCE98 /* SettingsModels.swift */; };
+		7B2FD24026A3C79500FFCE98 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2FD23F26A3C79500FFCE98 /* Settings.swift */; };
 		7B2FD24226A63AAA00FFCE98 /* CommentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2FD24126A63AAA00FFCE98 /* CommentCollectionViewCell.swift */; };
 		7B2FD24426A7DCB300FFCE98 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2FD24326A7DCB300FFCE98 /* Comment.swift */; };
 		7B2FD24626A9090100FFCE98 /* CommentBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2FD24526A9090100FFCE98 /* CommentBarView.swift */; };
@@ -69,6 +69,8 @@
 		7BC6E93B269A990F00419BDF /* ListUserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC6E93A269A990F00419BDF /* ListUserTableViewCell.swift */; };
 		7BC6E93D269A9C6E00419BDF /* ListUserTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC6E93C269A9C6E00419BDF /* ListUserTableViewCellViewModel.swift */; };
 		7BD0698B26F5B20C00C9923E /* PhotoViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD0698A26F5B20C00C9923E /* PhotoViewerViewController.swift */; };
+		7BD6FC552714A9DC00192979 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6FC542714A9DC00192979 /* Conversation.swift */; };
+		7BD6FC572714AA2800192979 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6FC562714AA2800192979 /* Chat.swift */; };
 		7BF30EEA26CE1D7E00897480 /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF30EE926CE1D7E00897480 /* ConversationTableViewCell.swift */; };
 		7BFE15AB2661F839006A18B3 /* PosterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFE15AA2661F839006A18B3 /* PosterCollectionViewCell.swift */; };
 		7BFE15AD2661F8F5006A18B3 /* PostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFE15AC2661F8F5006A18B3 /* PostCollectionViewCell.swift */; };
@@ -100,7 +102,7 @@
 		30B730D9963722385E1CFC91 /* Pods-IG.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IG.release.xcconfig"; path = "Target Support Files/Pods-IG/Pods-IG.release.xcconfig"; sourceTree = "<group>"; };
 		56B06870A3094665BE83AEC7 /* Pods-IGTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGTests.debug.xcconfig"; path = "Target Support Files/Pods-IGTests/Pods-IGTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7B0B965A48AE8111556A2C51 /* Pods-IGTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IGTests.release.xcconfig"; path = "Target Support Files/Pods-IGTests/Pods-IGTests.release.xcconfig"; sourceTree = "<group>"; };
-		7B2FD23F26A3C79500FFCE98 /* SettingsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModels.swift; sourceTree = "<group>"; };
+		7B2FD23F26A3C79500FFCE98 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		7B2FD24126A63AAA00FFCE98 /* CommentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCollectionViewCell.swift; sourceTree = "<group>"; };
 		7B2FD24326A7DCB300FFCE98 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		7B2FD24526A9090100FFCE98 /* CommentBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentBarView.swift; sourceTree = "<group>"; };
@@ -166,6 +168,8 @@
 		7BC6E93A269A990F00419BDF /* ListUserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListUserTableViewCell.swift; sourceTree = "<group>"; };
 		7BC6E93C269A9C6E00419BDF /* ListUserTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListUserTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		7BD0698A26F5B20C00C9923E /* PhotoViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewerViewController.swift; sourceTree = "<group>"; };
+		7BD6FC542714A9DC00192979 /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
+		7BD6FC562714AA2800192979 /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		7BF30EE926CE1D7E00897480 /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
 		7BFE15AA2661F839006A18B3 /* PosterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterCollectionViewCell.swift; sourceTree = "<group>"; };
 		7BFE15AC2661F8F5006A18B3 /* PostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -308,9 +312,11 @@
 				7B9E5BAE26810DC0002E8222 /* NotificationCellType.swift */,
 				7B5EADE52684FF0B00EC0192 /* IGNotification.swift */,
 				7B5EADEF269405FC00EC0192 /* UserInfo.swift */,
-				7B2FD23F26A3C79500FFCE98 /* SettingsModels.swift */,
+				7B2FD23F26A3C79500FFCE98 /* Settings.swift */,
 				7B2FD24326A7DCB300FFCE98 /* Comment.swift */,
 				7B2FD24726AA7C5900FFCE98 /* SinglePostCellType.swift */,
+				7BD6FC542714A9DC00192979 /* Conversation.swift */,
+				7BD6FC562714AA2800192979 /* Chat.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -633,7 +639,7 @@
 			files = (
 				7BFE15B92666FC39006A18B3 /* ListViewController.swift in Sources */,
 				7BB0414226786F85005044B0 /* SearchResultsViewController.swift in Sources */,
-				7B2FD24026A3C79500FFCE98 /* SettingsModels.swift in Sources */,
+				7B2FD24026A3C79500FFCE98 /* Settings.swift in Sources */,
 				7BFE15BB266C9097006A18B3 /* PostEditViewController.swift in Sources */,
 				7B5EADEC268E7EBF00EC0192 /* ProfileHeaderCountView.swift in Sources */,
 				7BD0698B26F5B20C00C9923E /* PhotoViewerViewController.swift in Sources */,
@@ -644,12 +650,14 @@
 				7B5EADF42698215900EC0192 /* IGFollowButton.swift in Sources */,
 				7B2FD24A26AE503B00FFCE98 /* HapticsManager.swift in Sources */,
 				7B3D17482647551300831E13 /* AnalyticsManager.swift in Sources */,
+				7BD6FC572714AA2800192979 /* Chat.swift in Sources */,
 				7BFE15BD266F1E46006A18B3 /* PhotoCollectionViewCell.swift in Sources */,
 				7B3D175D26483AC100831E13 /* NotificationsViewController.swift in Sources */,
 				7B83752D264B9E3C00159105 /* SignInHeaderView.swift in Sources */,
 				7B9A6DD92658CE810012B166 /* SettingsViewController.swift in Sources */,
 				7B837539264F960400159105 /* SignUpViewController.swift in Sources */,
 				7BFE15B12661F95A006A18B3 /* PostLikesCollectionViewCell.swift in Sources */,
+				7BD6FC552714A9DC00192979 /* Conversation.swift in Sources */,
 				7B9E5BB326810EAC002E8222 /* LikeNotificationCellViewModel.swift in Sources */,
 				7B9E5BB126810E19002E8222 /* FollowNotificationCellViewModel.swift in Sources */,
 				7B9E5BB526810EC5002E8222 /* CommentNotificationCellViewModel.swift in Sources */,

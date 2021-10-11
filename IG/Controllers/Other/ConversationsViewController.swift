@@ -8,20 +8,7 @@
 import UIKit
 import JGProgressHUD
 
-struct Conversation {
-    let id: String
-    let name: String
-    let targetUser: User
-    let latestMessage: LatestMessage
-}
-
-struct LatestMessage {
-    let date: String
-    let message: String
-    let isRead: Bool
-}
-
-class ConversationsViewController: UIViewController {
+final class ConversationsViewController: UIViewController {
     
     private let spinner = JGProgressHUD(style: .dark)
     
