@@ -21,6 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
+        // Force sign out if problems with signed in user in Firebase occur (black screen after launch screen)
+//        AuthManager.shared.signOut { _ in
+//
+//        }
+        
         // mock notification for current user
 //        let id = NotificationsManager.newIdentifier()
 //        let model = IGNotification(identifier: id,

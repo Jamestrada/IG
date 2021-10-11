@@ -10,7 +10,7 @@ import UIKit
 class SignInHeaderView: UIView {
     private let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "logo")
+        imageView.image = UIImage(named: "white_logo")
         imageView.contentMode = .scaleAspectFit // fit in the frame
         return imageView
     }()
