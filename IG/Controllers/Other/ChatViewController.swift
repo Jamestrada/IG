@@ -66,6 +66,9 @@ struct Media: MediaItem {
 
 class ChatViewController: MessagesViewController {
     
+    private var senderPhotoURL: URL?
+    private var recipientPhotoURL: URL?
+    
     public var isNewConversation = false
     
     private let conversationId: String?
@@ -395,6 +398,16 @@ extension ChatViewController: MessagesDataSource, MessagesLayoutDelegate, Messag
         default:
             break
         }
+    }
+    
+    func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
+        let sender = message.sender
+        if sender.senderId == selfSender?.senderId {
+            // sender
+            return .link
+        }
+        //recipient
+        return .secondarySystemBackground
     }
 }
 
