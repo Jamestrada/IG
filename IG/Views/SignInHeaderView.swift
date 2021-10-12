@@ -37,6 +37,6 @@ class SignInHeaderView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         gradientLayer?.frame = layer.bounds
-        imageView.frame = CGRect(x: width / 4, y: 20, width: width / 2, height: height - 40)
+        imageView.frame = CGRect(x: width / 3, y: 20, width: width / 3, height: height - 40)
     }
 }

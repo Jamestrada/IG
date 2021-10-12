@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 class CaptionViewController: UIViewController, UITextViewDelegate {
     
     private let image: UIImage
+    
+    private let spinner = JGProgressHUD(style: .dark)
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
@@ -59,6 +62,9 @@ class CaptionViewController: UIViewController, UITextViewDelegate {
         guard let newPostID = createNewPostID(), let stringDate = String.date(from: Date()) else {
             return
         }
+        
+        spinner.show(in: view)
+        
         // Upload Post
         StorageManager.shared.uploadPost(data: image.pngData(), id: newPostID) { newPostDownloadURL in
             guard let url = newPostDownloadURL else {
@@ -74,6 +80,7 @@ class CaptionViewController: UIViewController, UITextViewDelegate {
                     return
                 }
                 DispatchQueue.main.async {
+                    self?.spinner.dismiss()
                     self?.tabBarController?.tabBar.isHidden = false
                     self?.tabBarController?.selectedIndex = 0
                     self?.navigationController?.popToRootViewController(animated: false)

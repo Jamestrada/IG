@@ -23,7 +23,7 @@ struct Post: Codable {
     
     var storageReference: String? {
         guard let username = UserDefaults.standard.string(forKey: "username") else {
-            return nil
+            return nil 
         }
         return "\(username)/posts/\(id).png"
     }

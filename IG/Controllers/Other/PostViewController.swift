@@ -205,9 +205,16 @@ extension PostViewController: PosterCollectionViewCellDelegate {
         present(sheet, animated: true)
     }
     
-    func posterCollectionViewCellDidTapUsername(_ cell: PosterCollectionViewCell) {
-        let vc = ProfileViewController(user: User(username: "nomad.james", email: "nomadJames@gmail.com"))
-        navigationController?.pushViewController(vc, animated: true)
+    func posterCollectionViewCellDidTapUsername(_ cell: PosterCollectionViewCell, index: Int) {
+        DatabaseManager.shared.findUser(username: owner) { [weak self] user in
+            DispatchQueue.main.async {
+                guard let user = user else {
+                    return
+                }
+                let vc = ProfileViewController(user: user)
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
     }
 }
 
