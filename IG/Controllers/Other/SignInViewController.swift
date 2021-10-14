@@ -79,6 +79,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         passwordField.delegate = self
         
         addButtonActions()
+//        signInButton.isEnabled = false
     }
     
     override func viewDidLayoutSubviews() {
@@ -133,10 +134,17 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
                     
                 case .failure(let error):
                     HapticManager.shared.vibrate(for: .error)
+                    self?.presentValidationError()
                     print(error)
                 }
             }
         }
+    }
+    
+    private func presentValidationError() {
+        let alert = UIAlertController(title: "Woops", message: "Wrong email or password", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+        present(alert, animated: true)
     }
     
     @objc func didTapCreateAccount() {

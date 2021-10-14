@@ -329,7 +329,8 @@ final class DatabaseManager {
     // MARK: - Liking
     
     enum LikeState {
-        case like, unlike
+        case like
+        case unlike
     }
     
     public func updateLikeState(state: LikeState, postID: String, owner: String, completion: @escaping (Bool) -> Void) {
