@@ -70,7 +70,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Sign In"
         view.backgroundColor = .systemBackground
         headerView.backgroundColor = .red
         addSubviews()

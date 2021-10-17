@@ -89,7 +89,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UIImagePicker
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Create Account"
         view.backgroundColor = .systemBackground
         addSubviews()
         
