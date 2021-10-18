@@ -15,6 +15,21 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     // Subviews
     private let headerView = SignInHeaderView()
     
+    public lazy var scrollView: UIScrollView = {
+        let sv = UIScrollView()
+        sv.contentInsetAdjustmentBehavior = .never
+        sv.contentSize = view.frame.size
+        sv.keyboardDismissMode = .interactive
+        return sv
+    }()
+    
+    private let containerStackView: UIStackView = {
+        let form = UIStackView()
+        form.isLayoutMarginsRelativeArrangement = true
+        form.axis = .vertical
+        return form
+    }()
+    
     private let emailField: IGTextField = {
         let field = IGTextField()
         let outerView = UIView(frame: CGRect(x: 10, y: 0, width: 40, height: 20))
@@ -67,12 +82,16 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     }()
     
     // MARK: - Lifecycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        scrollView.alwaysBounceVertical = true
         view.backgroundColor = .systemBackground
         headerView.backgroundColor = .red
         addSubviews()
+        
+        scrollView.addSubview(containerStackView)
+        view.addSubview(scrollView)
         
         emailField.delegate = self
         passwordField.delegate = self
@@ -84,6 +103,14 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if containerStackView.frame.height > view.frame.height {
+            scrollView.contentSize.height = containerStackView.frame.size.height
+        }
     }
     
     deinit {
@@ -119,11 +146,11 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func addSubviews() {
-        view.addSubview(headerView)
-        view.addSubview(emailField)
-        view.addSubview(passwordField)
-        view.addSubview(signInButton)
-        view.addSubview(createAccountButton)
+        containerStackView.addArrangedSubview(headerView)
+        containerStackView.addArrangedSubview(emailField)
+        containerStackView.addArrangedSubview(passwordField)
+        containerStackView.addArrangedSubview(signInButton)
+        containerStackView.addArrangedSubview(createAccountButton)
     }
     
     private func addButtonActions() {
