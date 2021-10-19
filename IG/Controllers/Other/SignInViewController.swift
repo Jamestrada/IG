@@ -11,6 +11,7 @@ import JGProgressHUD
 class SignInViewController: UIViewController, UITextFieldDelegate {
     
     private let spinner = JGProgressHUD(style: .dark)
+    private var lowestElement: UIView!
     
     // Subviews
     private let headerView = SignInHeaderView()
@@ -21,13 +22,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         sv.contentSize = view.frame.size
         sv.keyboardDismissMode = .interactive
         return sv
-    }()
-    
-    private let containerStackView: UIStackView = {
-        let form = UIStackView()
-        form.isLayoutMarginsRelativeArrangement = true
-        form.axis = .vertical
-        return form
     }()
     
     private let emailField: IGTextField = {
@@ -89,8 +83,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         view.backgroundColor = .systemBackground
         headerView.backgroundColor = .red
         addSubviews()
-        
-        scrollView.addSubview(containerStackView)
+    
         view.addSubview(scrollView)
         
         emailField.delegate = self
@@ -105,13 +98,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        if containerStackView.frame.height > view.frame.height {
-            scrollView.contentSize.height = containerStackView.frame.size.height
-        }
-    }
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -146,16 +132,28 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func addSubviews() {
-        containerStackView.addArrangedSubview(headerView)
-        containerStackView.addArrangedSubview(emailField)
-        containerStackView.addArrangedSubview(passwordField)
-        containerStackView.addArrangedSubview(signInButton)
-        containerStackView.addArrangedSubview(createAccountButton)
+        view.addSubview(headerView)
+        view.addSubview(emailField)
+        view.addSubview(passwordField)
+        view.addSubview(signInButton)
+        view.addSubview(createAccountButton)
     }
     
     private func addButtonActions() {
         signInButton.addTarget(self, action: #selector(didTapSignIn), for: .touchUpInside)
         createAccountButton.addTarget(self, action: #selector(didTapCreateAccount), for: .touchUpInside)
+    }
+    
+    lazy private var distanceToBottom = self.distanceFromLowestElementToBottom()
+        
+    private func distanceFromLowestElementToBottom() -> CGFloat {
+        if lowestElement != nil {
+            guard let frame = lowestElement.superview?.convert(lowestElement.frame, to: view) else { return 0 }
+            let distance = view.frame.height - frame.origin.y - frame.height
+            return distance
+        }
+        
+        return view.frame.height - view.frame.maxY
     }
     
     // MARK: - Actions
