@@ -11,10 +11,8 @@ import JGProgressHUD
 class SignInViewController: UIViewController, UITextFieldDelegate {
     
     private let spinner = JGProgressHUD(style: .dark)
-    private var lowestElement: UIView!
     
-    // Subviews
-    private let headerView = SignInHeaderView()
+    private var lowestElement: UIView!
     
     public lazy var scrollView: UIScrollView = {
         let sv = UIScrollView()
@@ -23,6 +21,9 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         sv.keyboardDismissMode = .interactive
         return sv
     }()
+    
+    // Subviews
+    private let headerView = SignInHeaderView()
     
     private let emailField: IGTextField = {
         let field = IGTextField()
@@ -80,7 +81,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.alwaysBounceVertical = true
-        view.backgroundColor = .systemBackground
+        scrollView.backgroundColor = .systemBackground
         headerView.backgroundColor = .red
         addSubviews()
     
@@ -92,56 +93,9 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         addButtonActions()
 //        signInButton.isEnabled = false
         
-        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard)))
+//        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard)))
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    @objc func hideKeyboard() {
-        self.view.endEditing(true)
-    }
-    
-    @objc func keyboardWillShow(notification: Notification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if emailField.isFirstResponder {
-                let keyboardHeight = keyboardSize.height
-                let bottomSpace = self.view.frame.height - (signInButton.frame.origin.y + signInButton.frame.height)
-                self.view.frame.origin.y -= keyboardHeight - bottomSpace + 10
-            }
-        }
-    }
-    
-    @objc func keyboardWillHide() {
-        self.view.frame.origin.y = 0
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        headerView.frame = CGRect(x: 0, y: view.safeAreaInsets.top, width: view.width, height: (view.height - view.safeAreaInsets.top) / 3)
-        emailField.frame = CGRect(x: 25, y: headerView.bottom + 20, width: view.width - 50, height: 50)
-        passwordField.frame = CGRect(x: 25, y: emailField.bottom + 10, width: view.width - 50, height: 50)
-        signInButton.frame = CGRect(x: 35, y: passwordField.bottom + 20, width: view.width - 70, height: 50)
-        createAccountButton.frame = CGRect(x: 35, y: signInButton.bottom + 20, width: view.width - 70, height: 50)
-    }
-    
-    private func addSubviews() {
-        view.addSubview(headerView)
-        view.addSubview(emailField)
-        view.addSubview(passwordField)
-        view.addSubview(signInButton)
-        view.addSubview(createAccountButton)
-    }
-    
-    private func addButtonActions() {
-        signInButton.addTarget(self, action: #selector(didTapSignIn), for: .touchUpInside)
-        createAccountButton.addTarget(self, action: #selector(didTapCreateAccount), for: .touchUpInside)
+        setupKeyboardNotifications()
     }
     
     lazy private var distanceToBottom = self.distanceFromLowestElementToBottom()
@@ -154,6 +108,62 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         }
         
         return view.frame.height - view.frame.maxY
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+//    @objc func hideKeyboard() {
+//        self.view.endEditing(true)
+//    }
+    
+    private func setupKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyboardWillShow(notification: Notification) {
+        guard let value = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
+            return
+        }
+        let keyboardSize = value.cgRectValue
+        
+        if distanceToBottom > 0 {
+            scrollView.contentInset.bottom -= distanceToBottom
+        }
+        
+        scrollView.contentInset.bottom = keyboardSize.height
+        scrollView.verticalScrollIndicatorInsets.bottom = keyboardSize.height
+    }
+    
+    @objc func keyboardWillHide() {
+        scrollView.contentInset.bottom = 0
+        scrollView.verticalScrollIndicatorInsets.bottom = 0
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        scrollView.frame = view.bounds
+        headerView.frame = CGRect(x: 0, y: view.safeAreaInsets.top, width: view.width, height: (view.height - view.safeAreaInsets.top) / 3)
+        emailField.frame = CGRect(x: 25, y: headerView.bottom + 20, width: view.width - 50, height: 50)
+        passwordField.frame = CGRect(x: 25, y: emailField.bottom + 10, width: view.width - 50, height: 50)
+        signInButton.frame = CGRect(x: 35, y: passwordField.bottom + 20, width: view.width - 70, height: 50)
+        createAccountButton.frame = CGRect(x: 35, y: signInButton.bottom + 20, width: view.width - 70, height: 50)
+    }
+    
+    private func addSubviews() {
+        scrollView.addSubview(headerView)
+        scrollView.addSubview(emailField)
+        scrollView.addSubview(passwordField)
+        scrollView.addSubview(signInButton)
+        scrollView.addSubview(createAccountButton)
+    }
+    
+    private func addButtonActions() {
+        signInButton.addTarget(self, action: #selector(didTapSignIn), for: .touchUpInside)
+        createAccountButton.addTarget(self, action: #selector(didTapCreateAccount), for: .touchUpInside)
     }
     
     // MARK: - Actions

@@ -12,6 +12,16 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UIImagePicker
     
     private let spinner = JGProgressHUD(style: .dark)
     
+    private var lowestElement: UIView!
+    
+    public lazy var scrollView: UIScrollView = {
+        let sv = UIScrollView()
+        sv.contentInsetAdjustmentBehavior = .never
+        sv.contentSize = view.frame.size
+        sv.keyboardDismissMode = .interactive
+        return sv
+    }()
+    
     // Subviews
     private let profilePictureImageView: UIImageView = {
         let imageView = UIImageView()
@@ -89,8 +99,11 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UIImagePicker
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+        scrollView.alwaysBounceVertical = true
+        scrollView.backgroundColor = .systemBackground
         addSubviews()
+        
+        view.addSubview(scrollView)
         
         usernameField.delegate = self
         emailField.delegate = self
@@ -98,10 +111,54 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UIImagePicker
         
         addButtonActions()
         addImageGesture()
+        
+        setupKeyboardNotifications()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    lazy private var distanceToBottom = self.distanceFromLowestElementToBottom()
+        
+    private func distanceFromLowestElementToBottom() -> CGFloat {
+        if lowestElement != nil {
+            guard let frame = lowestElement.superview?.convert(lowestElement.frame, to: view) else { return 0 }
+            let distance = view.frame.height - frame.origin.y - frame.height
+            return distance
+        }
+        
+        return view.frame.height - view.frame.maxY
+    }
+    
+    private func setupKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyboardWillShow(notification: Notification) {
+        guard let value = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
+            return
+        }
+        let keyboardSize = value.cgRectValue
+        
+        if distanceToBottom > 0 {
+            scrollView.contentInset.bottom -= distanceToBottom
+        }
+        
+        scrollView.contentInset.bottom = keyboardSize.height
+        scrollView.verticalScrollIndicatorInsets.bottom = keyboardSize.height
+    }
+    
+    @objc func keyboardWillHide() {
+        scrollView.contentInset.bottom = 0
+        scrollView.verticalScrollIndicatorInsets.bottom = 0
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        scrollView.frame = view.bounds
         let imageSize: CGFloat = 140
         
         profilePictureImageView.frame = CGRect(x: (view.width - imageSize) / 2, y: view.safeAreaInsets.top + 15, width: imageSize, height: imageSize)
@@ -112,11 +169,11 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UIImagePicker
     }
     
     private func addSubviews() {
-        view.addSubview(profilePictureImageView)
-        view.addSubview(usernameField)
-        view.addSubview(emailField)
-        view.addSubview(passwordField)
-        view.addSubview(signUpButton)
+        scrollView.addSubview(profilePictureImageView)
+        scrollView.addSubview(usernameField)
+        scrollView.addSubview(emailField)
+        scrollView.addSubview(passwordField)
+        scrollView.addSubview(signUpButton)
     }
     
     private func addImageGesture() {
