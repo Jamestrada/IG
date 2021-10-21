@@ -63,7 +63,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     private let signInButton: UIButton = {
         let button = UIButton()
         button.setTitle("Sign In", for: .normal)
-        button.backgroundColor = .systemBlue
+        button.backgroundColor = .systemGray
         button.layer.cornerRadius = 8
         button.layer.masksToBounds = true
         return button
@@ -90,8 +90,8 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         emailField.delegate = self
         passwordField.delegate = self
         
-        addButtonActions()
-//        signInButton.isEnabled = false
+        addActions()
+        signInButton.isEnabled = false
         
 //        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard)))
         
@@ -161,12 +161,29 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         scrollView.addSubview(createAccountButton)
     }
     
-    private func addButtonActions() {
+    private func addActions() {
+        emailField.addTarget(self, action: #selector(textFieldChangedValue(_:)), for: .editingChanged)
+        passwordField.addTarget(self, action: #selector(textFieldChangedValue(_:)), for: .editingChanged)
         signInButton.addTarget(self, action: #selector(didTapSignIn), for: .touchUpInside)
         createAccountButton.addTarget(self, action: #selector(didTapCreateAccount), for: .touchUpInside)
     }
     
     // MARK: - Actions
+    
+    @objc func textFieldChangedValue(_ textField: UITextField) {
+        guard let emailCount = emailField.text?.count,
+              let passwordCount = passwordField.text?.count else {
+            return
+        }
+        if emailCount >= 3 && passwordCount >= 6 {
+            signInButton.isEnabled = true
+            signInButton.backgroundColor = .systemBlue
+        }
+        else {
+            signInButton.isEnabled = false
+            signInButton.backgroundColor = .systemGray
+        }
+    }
     
     @objc func didTapSignIn() {
         // dismiss keyboard when tapping the sign in button regardless of field the user is on
