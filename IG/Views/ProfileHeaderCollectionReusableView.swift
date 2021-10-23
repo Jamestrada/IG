@@ -31,7 +31,6 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
     private let bioLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.text = "Nomad James\nWanderer of the World"
         label.font = .systemFont(ofSize: 18)
         return label
     }()
@@ -77,7 +76,7 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
         if let name = viewModel.name {
             text = name + "\n"
         }
-        text += viewModel.bio ?? "Welcome to my profile!"
+        text += viewModel.bio ?? ""
         bioLabel.text = text
         // Container
         let containerViewModel = ProfileHeaderCountViewModel(
