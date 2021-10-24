@@ -369,13 +369,24 @@ final class DatabaseManager {
 extension DatabaseManager {
     
     public func userExists(with username: String, completion: @escaping ((Bool) -> Void)) {
-        database.document("users/\(username)").getDocument { snapshot, error in
-            guard snapshot?.data() as? [String: Any] != nil else {
-                completion(false)
-                return
+        
+        database.collection("users").getDocuments { snapshot, error in
+            if error == nil {
+                if let snapshot = snapshot {
+                    snapshot.documents.map { user in
+                        completion(user as? String ?? "" == username)
+                    }
+                }
             }
-            completion(true)
         }
+        
+//        database.document("users/\(username)").getDocument { snapshot, error in
+//            guard snapshot?.data() as? [String: Any] != nil else {
+//                completion(false)
+//                return
+//            }
+//            completion(true)
+//        }
     }
     
     public func conversationExists(with targetUsername: String, completion: @escaping (Result<String, Error>) -> Void) {
