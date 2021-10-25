@@ -225,6 +225,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UIImagePicker
                     self?.completion?()
                 case .failure(let error):
                     HapticManager.shared.vibrate(for: .error)
+                    let alert = UIAlertController(title: "Sign Up Failed", message: "Something went wrong when trying to register. Please try again.", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+                    self?.present(alert, animated: true)
                     print("\n\nSign Up Error: \(error)")
                 }
             }
