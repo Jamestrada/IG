@@ -215,7 +215,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UIImagePicker
                 let alert = UIAlertController(title: "Woops", message: "That username is already taken. Try another one.", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
                 self.present(alert, animated: true)
-                self?.spinner.dismiss()
+                self.spinner.dismiss()
                 return
             }
             // Sign up with AuthManager
