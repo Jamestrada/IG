@@ -210,25 +210,34 @@ class SignUpViewController: UIViewController, UITextFieldDelegate, UIImagePicker
         
         spinner.show(in: view)
         
-        // Sign up with AuthManager
-        let data = profilePictureImageView.image?.pngData()
-        AuthManager.shared.signUp(username: username, email: email, password: password, profilePicture: data) { [weak self] result in
-            DispatchQueue.main.async { // UI operation has to be in main dispatch queue
+        DatabaseManager.shared.userExists(with: username) { exists in
+            guard exists else {
+                let alert = UIAlertController(title: "Woops", message: "That username is already taken. Try another one.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+                self.present(alert, animated: true)
                 self?.spinner.dismiss()
-                switch result {
-                case .success(let user):
-                    HapticManager.shared.vibrate(for: .success)
-                    UserDefaults.standard.setValue(user.email, forKey: "email")
-                    UserDefaults.standard.setValue(user.username, forKey: "username")
-                    
-                    self?.navigationController?.popToRootViewController(animated: true)
-                    self?.completion?()
-                case .failure(let error):
-                    HapticManager.shared.vibrate(for: .error)
-                    let alert = UIAlertController(title: "Sign Up Failed", message: "Something went wrong when trying to register. Please try again.", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
-                    self?.present(alert, animated: true)
-                    print("\n\nSign Up Error: \(error)")
+                return
+            }
+            // Sign up with AuthManager
+            let data = self.profilePictureImageView.image?.pngData()
+            AuthManager.shared.signUp(username: username, email: email, password: password, profilePicture: data) { [weak self] result in
+                DispatchQueue.main.async { // UI operation has to be in main dispatch queue
+                    self?.spinner.dismiss()
+                    switch result {
+                    case .success(let user):
+                        HapticManager.shared.vibrate(for: .success)
+                        UserDefaults.standard.setValue(user.email, forKey: "email")
+                        UserDefaults.standard.setValue(user.username, forKey: "username")
+
+                        self?.navigationController?.popToRootViewController(animated: true)
+                        self?.completion?()
+                    case .failure(let error):
+                        HapticManager.shared.vibrate(for: .error)
+                        let alert = UIAlertController(title: "Sign Up Failed", message: "Something went wrong when trying to register. Please try again.", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+                        self?.present(alert, animated: true)
+                        print("\n\nSign Up Error: \(error)")
+                    }
                 }
             }
         }

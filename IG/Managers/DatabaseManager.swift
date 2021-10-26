@@ -371,14 +371,31 @@ extension DatabaseManager {
     public func userExists(with username: String, completion: @escaping ((Bool) -> Void)) {
         
         database.collection("users").getDocuments { snapshot, error in
-            if error == nil {
-                if let snapshot = snapshot {
-                    snapshot.documents.map { user in
-                        completion(user as? String ?? "" == username)
-                    }
+            guard error == nil,
+            let users = snapshot?.documents else {
+                completion(false)
+                return
+            }
+            
+            for user in users {
+                if username == user.documentID {
+                    completion(false)
+                    print("failed")
+                    return
                 }
             }
+            completion(true)
         }
+        
+//        database.collection("users").getDocuments { snapshot, error in
+//            if error == nil {
+//                if let snapshot = snapshot {
+//                    snapshot.documents.map { user in
+//                        completion(user as? String ?? "" == username)
+//                    }
+//                }
+//            }
+//        }
         
 //        database.document("users/\(username)").getDocument { snapshot, error in
 //            guard snapshot?.data() as? [String: Any] != nil else {
