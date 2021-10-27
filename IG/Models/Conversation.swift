@@ -9,7 +9,7 @@ import Foundation
 
 struct Conversation {
     let id: String
-    let name: String
+    let username: String
     let targetUser: User
     let latestMessage: LatestMessage
 }

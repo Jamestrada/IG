@@ -46,7 +46,7 @@ class NewConversationCell: UITableViewCell {
     }
     
     public func configure(with model: Conversation) {
-        self.usernameLabel.text = model.name
+        usernameLabel.text = model.targetUser.username
         
         StorageManager.shared.profilePictureURL(for: model.targetUser.username) {[weak self] url in
             DispatchQueue.main.async {

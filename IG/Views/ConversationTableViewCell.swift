@@ -59,7 +59,7 @@ class ConversationTableViewCell: UITableViewCell {
     
     public func configure(with model: Conversation) {
         self.userMessageLabel.text = model.latestMessage.message
-        self.usernameLabel.text = model.name
+        self.usernameLabel.text = model.username
         
         StorageManager.shared.profilePictureURL(for: model.targetUser.username) {[weak self] url in
             DispatchQueue.main.async {

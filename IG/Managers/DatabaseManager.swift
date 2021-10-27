@@ -20,13 +20,13 @@ final class DatabaseManager {
     public func findUsers(with usernamePrefix: String, completion: @escaping ([User]) -> Void) {
         let ref = database.collection("users")
         ref.getDocuments { snapshot, error in
-            guard let users = snapshot?.documents.compactMap({ User(with: $0.data()) }), error == nil else {
+            guard let users = snapshot?.documents.compactMap({ User(with: $0.data()) }), error == nil,
+                  let username = UserDefaults.standard.value(forKey: "username") as? String else {
                 completion([])
                 return
             }
             let subset = users.filter({
-                guard let username = UserDefaults.standard.value(forKey: "username") as? String,
-                      !username.lowercased().hasPrefix(usernamePrefix.lowercased()) else {
+                guard !username.lowercased().hasPrefix(usernamePrefix.lowercased()) || username != usernamePrefix else {
                     return false
                 }
                 return $0.username.lowercased().hasPrefix(usernamePrefix.lowercased())
@@ -657,7 +657,7 @@ extension DatabaseManager {
                     return nil
                 }
                 let latestMessageObject = LatestMessage(date: date, message: message, isRead: isRead)
-                return Conversation(id: conversationId, name: name, targetUser: targetUser, latestMessage: latestMessageObject)
+                return Conversation(id: conversationId, username: name, targetUser: targetUser, latestMessage: latestMessageObject)
             }
             completion(.success(conversations))
         }
