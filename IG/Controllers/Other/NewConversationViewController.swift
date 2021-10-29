@@ -20,16 +20,6 @@ final class NewConversationViewController: UIViewController, SearchResultsViewCo
         table.register(NewConversationCell.self, forCellReuseIdentifier: NewConversationCell.identifier)
         return table
     }()
-    
-    private let noResultsLabel: UILabel = {
-        let label = UILabel()
-        label.isHidden = true
-        label.text = "No Results"
-        label.textAlignment = .center
-        label.textColor = .green
-        label.font = .systemFont(ofSize: 21, weight: .medium)
-        return label
-    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
