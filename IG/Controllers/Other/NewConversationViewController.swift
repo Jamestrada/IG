@@ -45,11 +45,13 @@ final class NewConversationViewController: UIViewController, SearchResultsViewCo
     }
     
     func searchResultsViewController(_ VC: SearchResultsViewController, didSelectResultWith user: User) {
-//        self.completion?(user)
-        let vc = ChatViewController(user: user, id: "123")
-        vc.isNewConversation = true
-        vc.title = "from searchresultsviewcontroller"
-        navigationController?.pushViewController(vc, animated: true)
+
+        self.completion?(user)
+        
+//        let vc = ChatViewController(user: user, id: "123")
+//        vc.isNewConversation = true
+//        vc.title = "from searchresultsviewcontroller"
+//        navigationController?.pushViewController(vc, animated: true)
     }
     
     func updateSearchResults(for searchController: UISearchController) {

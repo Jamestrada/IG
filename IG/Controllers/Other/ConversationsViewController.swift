@@ -93,20 +93,20 @@ final class ConversationsViewController: UIViewController {
     @objc func didTapCompose() {
         let vc = NewConversationViewController()
         vc.completion = { [weak self] result in
-            let vc = ChatViewController(user: result, id: "123")
-            vc.isNewConversation = true
-            vc.title = result.username
-            self?.navigationController?.pushViewController(vc, animated: true)
+            print("\(result)")
+            self?.createNewConversation(result: result)
         }
         let navVC = UINavigationController(rootViewController: vc)
         present(navVC, animated: true) // presents the searchresultsVC
     }
     
     private func createNewConversation(result: User) {
-        let vc = ChatViewController(user: result, id: "123")
-        vc.isNewConversation = true
-        vc.title = result.username
-        navigationController?.pushViewController(vc, animated: true)
+        dismiss(animated: true) {
+            let vc = ChatViewController(user: result, id: "123")
+            vc.isNewConversation = true
+            vc.title = result.username
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     private func setupTableView() {
