@@ -476,7 +476,8 @@ extension DatabaseManager {
             return
         }
         print(currentUsername)
-        let ref = database.document("users/\(currentUsername)/conversations")
+        
+        let ref = database.document("users/\(currentUsername)/conversations/\(firstMessage.messageId)")
         ref.getDocument { [weak self] snapshot, error in
             guard var userNode = snapshot?.data() else {
                 completion(false)

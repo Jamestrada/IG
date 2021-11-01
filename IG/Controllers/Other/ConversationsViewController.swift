@@ -93,7 +93,6 @@ final class ConversationsViewController: UIViewController {
     @objc func didTapCompose() {
         let vc = NewConversationViewController()
         vc.completion = { [weak self] result in
-            print("\(result)")
             self?.createNewConversation(result: result)
         }
         let navVC = UINavigationController(rootViewController: vc)
