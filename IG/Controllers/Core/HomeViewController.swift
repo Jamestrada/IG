@@ -95,7 +95,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     private func configureNavBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage(systemName: "message"),
+            image: UIImage(systemName: "bubble.left"),
             style: .done,
             target: self,
             action: #selector(didTapConversations)
