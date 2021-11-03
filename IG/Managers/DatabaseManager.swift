@@ -478,14 +478,14 @@ extension DatabaseManager {
         print(currentUsername)
         
         let ref = database.document("users/\(currentUsername)/conversations/\(firstMessage.messageId)")
-        ref.getDocument { [weak self] snapshot, error in
-            guard var userNode = snapshot?.data() else {
-                completion(false)
-                print("user not found")
-                return
-            }
+//        ref.getDocument { [weak self] snapshot, error in
+//            guard var userNode = snapshot?.data() else {
+//                completion(false)
+//                print("user not found")
+//                return
+//            }
             
-            print(userNode)
+//            print(userNode)
             let messageDate = firstMessage.sentDate
             let dateString = DateFormatter.formatter.string(from: messageDate)
             var message = ""
@@ -536,49 +536,51 @@ extension DatabaseManager {
                     "is_read": false
                 ]
             ]
+        
+        ref.setData(newConversationData)
             
             // Update recipient conversation entry
-            self?.database.document("users/\(targetUser)/conversations").getDocument { [weak self] snapshot, error in
-                if var conversations = snapshot?.data() as? [[String: Any]] {
-                    // append
-                    conversations.append(recipient_newConversationData)
-                    self?.database.document("users/\(targetUser)/conversations/").setData(conversations as? [String: Any] ?? ["":""])
-                }
-                else {
-                    // create
-                    self?.database.document("users/\(targetUser)/conversations").setData(recipient_newConversationData)
-                }
-            }
-            
-            // Update current user conversation entry
-            if var conversations = userNode["conversations"] as? [[String: Any]] {
-                // conversation array exists for current user
-                // append
-                conversations.append(newConversationData)
-                userNode["conversations"] = conversations
-                ref.setData(userNode) { [weak self] error in
-                    guard error == nil else {
-                        completion(false)
-                        return
-                    }
-                    self?.finishCreatingConversation(name: name, conversationID: conversationId, firstMessage: firstMessage, completion: completion)
-                }
-            }
-            else {
-                // conversation array doesn't exist
-                // create
-                userNode["conversations"] = [
-                    newConversationData
-                ]
-                ref.setData(userNode) { [weak self] error in
-                    guard error == nil else {
-                        completion(false)
-                        return
-                    }
-                    self?.finishCreatingConversation(name: name, conversationID: conversationId, firstMessage: firstMessage, completion: completion)
-                }
-            }
-        }
+//            self?.database.document("users/\(targetUser)/conversations").getDocument { [weak self] snapshot, error in
+//                if var conversations = snapshot?.data() as? [[String: Any]] {
+//                    // append
+//                    conversations.append(recipient_newConversationData)
+//                    self?.database.document("users/\(targetUser)/conversations/").setData(conversations as? [String: Any] ?? ["":""])
+//                }
+//                else {
+//                    // create
+//                    self?.database.document("users/\(targetUser)/conversations").setData(recipient_newConversationData)
+//                }
+//            }
+//
+//            // Update current user conversation entry
+//            if var conversations = userNode["conversations"] as? [[String: Any]] {
+//                // conversation array exists for current user
+//                // append
+//                conversations.append(newConversationData)
+//                userNode["conversations"] = conversations
+//                ref.setData(userNode) { [weak self] error in
+//                    guard error == nil else {
+//                        completion(false)
+//                        return
+//                    }
+//                    self?.finishCreatingConversation(name: name, conversationID: conversationId, firstMessage: firstMessage, completion: completion)
+//                }
+//            }
+//            else {
+//                // conversation array doesn't exist
+//                // create
+//                userNode["conversations"] = [
+//                    newConversationData
+//                ]
+//                ref.setData(userNode) { [weak self] error in
+//                    guard error == nil else {
+//                        completion(false)
+//                        return
+//                    }
+//                    self?.finishCreatingConversation(name: name, conversationID: conversationId, firstMessage: firstMessage, completion: completion)
+//                }
+//            }
+//        }
         
     }
     
