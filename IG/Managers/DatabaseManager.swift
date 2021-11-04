@@ -477,15 +477,15 @@ extension DatabaseManager {
         }
         print(currentUsername)
         
-        let ref = database.document("users/\(currentUsername)/conversations/\(firstMessage.messageId)")
-//        ref.getDocument { [weak self] snapshot, error in
-//            guard var userNode = snapshot?.data() else {
-//                completion(false)
-//                print("user not found")
-//                return
-//            }
+        let ref = database.document("users/\(currentUsername)")
+        ref.getDocument { [weak self] snapshot, error in
+            guard var userNode = snapshot?.data() else {
+                completion(false)
+                print("user not found")
+                return
+            }
             
-//            print(userNode)
+            print(userNode)
             let messageDate = firstMessage.sentDate
             let dateString = DateFormatter.formatter.string(from: messageDate)
             var message = ""
@@ -537,21 +537,24 @@ extension DatabaseManager {
                 ]
             ]
         
-        ref.setData(newConversationData)
+//        ref.setData(newConversationData)
             
             // Update recipient conversation entry
-//            self?.database.document("users/\(targetUser)/conversations").getDocument { [weak self] snapshot, error in
-//                if var conversations = snapshot?.data() as? [[String: Any]] {
-//                    // append
+            
+            ref.collection("conversations").document(firstMessage.messageId).getDocument { [weak self] snapshot, error in
+                if var conversations = snapshot?.data() {
+                    // append
 //                    conversations.append(recipient_newConversationData)
+                    ref.setData(conversations)
 //                    self?.database.document("users/\(targetUser)/conversations/").setData(conversations as? [String: Any] ?? ["":""])
-//                }
-//                else {
-//                    // create
+                }
+                else {
+                    // create
+                    ref.setData(recipient_newConversationData)
 //                    self?.database.document("users/\(targetUser)/conversations").setData(recipient_newConversationData)
-//                }
-//            }
-//
+                }
+            }
+
 //            // Update current user conversation entry
 //            if var conversations = userNode["conversations"] as? [[String: Any]] {
 //                // conversation array exists for current user
@@ -580,7 +583,7 @@ extension DatabaseManager {
 //                    self?.finishCreatingConversation(name: name, conversationID: conversationId, firstMessage: firstMessage, completion: completion)
 //                }
 //            }
-//        }
+        }
         
     }
     

@@ -21,7 +21,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         super.viewDidLoad()
         title = "IG"
         view.backgroundColor = .systemBackground
-//        configureNavBar()
+        configureNavBar()
         configureCollectionView()
         fetchPosts()
         
