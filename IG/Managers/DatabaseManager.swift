@@ -541,18 +541,15 @@ extension DatabaseManager {
             
             // Update recipient conversation entry
             
-            self?.database.collection("users/\(targetUser)/conversations").getDocuments { [weak self] snapshot, error in
-                if var conversations = snapshot?.documents as? [[String: Any]] {
-                    print(conversations)
-                    // append
-//                    conversations.append(recipient_newConversationData)
-//                    ref.setData(conversations)
-//                    self?.database.document("users/\(targetUser)/conversations/").setData(conversations as? [String: Any] ?? ["":""])
+            self?.database.collection("users/\(targetUser.username)/conversations").getDocuments { [weak self] snapshot, error in
+                if var conversations = snapshot?.documents.isEmpty {
+                    // create
+                    self?.database.document("users/\(targetUser.username)/conversations/\(firstMessage.messageId)").setData(recipient_newConversationData)
                 }
                 else {
-                    // create
-                    self?.database.collection("users/\(targetUser)/conversations").addDocument(data: recipient_newConversationData)
-//                    self?.database.document("users/\(targetUser)/conversations").setData(recipient_newConversationData)
+                    // append
+//                    conversations.append(recipient_newConversationData)
+//                    self?.database.document("users/\(targetUser)/conversations/").setData(conversations as? [String: Any] ?? ["":""])
                 }
             }
 
