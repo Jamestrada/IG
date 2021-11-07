@@ -39,6 +39,7 @@ final class ConversationsViewController: UIViewController {
         view.backgroundColor = .systemBackground
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(didTapClose))
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(didTapCompose))
+        navigationItem.rightBarButtonItem?.tintColor = .label
 //        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(didTapCompose))
         view.addSubview(tableView)
         view.addSubview(noConversationsLabel)

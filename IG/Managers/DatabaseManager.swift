@@ -542,14 +542,17 @@ extension DatabaseManager {
             // Update recipient conversation entry
             
             self?.database.collection("users/\(targetUser.username)/conversations").getDocuments { [weak self] snapshot, error in
-                if var conversations = snapshot?.documents.isEmpty {
+                guard var conversations = snapshot?.documents else {
+                    return
+                }
+                if conversations.isEmpty {
                     // create
                     self?.database.document("users/\(targetUser.username)/conversations/\(firstMessage.messageId)").setData(recipient_newConversationData)
                 }
                 else {
                     // append
 //                    conversations.append(recipient_newConversationData)
-//                    self?.database.document("users/\(targetUser)/conversations/").setData(conversations as? [String: Any] ?? ["":""])
+//                    self?.database.document("users/\(targetUser.username)/conversations/\(firstMessage.messageId)").setData(recipient_newConversationData)
                 }
             }
 
