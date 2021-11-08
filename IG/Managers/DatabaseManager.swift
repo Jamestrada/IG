@@ -541,20 +541,23 @@ extension DatabaseManager {
             
             // Update recipient conversation entry
             
-            self?.database.collection("users/\(targetUser.username)/conversations").getDocuments { [weak self] snapshot, error in
-                guard var conversations = snapshot?.documents else {
-                    return
-                }
-                if conversations.isEmpty {
-                    // create
-                    self?.database.document("users/\(targetUser.username)/conversations/\(firstMessage.messageId)").setData(recipient_newConversationData)
-                }
-                else {
-                    // append
+            self?.database.collection("users/\(targetUser.username)/conversations").addDocument(data: recipient_newConversationData)
+            
+//            self?.database.collection("users/\(targetUser.username)/conversations").getDocuments { [weak self] snapshot, error in
+//
+//                guard var conversations = snapshot?.documents else {
+//                    return
+//                }
+//                if conversations.isEmpty {
+//                    // create
+//                    self?.database.document("users/\(targetUser.username)/conversations/\(firstMessage.messageId)").setData(recipient_newConversationData)
+//                }
+//                else {
+//                    // append
 //                    conversations.append(recipient_newConversationData)
 //                    self?.database.document("users/\(targetUser.username)/conversations/\(firstMessage.messageId)").setData(recipient_newConversationData)
-                }
-            }
+//                }
+//            }
 
 //            // Update current user conversation entry
 //            if var conversations = userNode["conversations"] as? [[String: Any]] {
