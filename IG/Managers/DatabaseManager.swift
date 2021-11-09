@@ -640,7 +640,7 @@ extension DatabaseManager {
             ]
         ]
         
-        database.document(conversationID).setData(value) { error in
+        database.collection("conversations").document(conversationID).setData(value) { error in
             guard error == nil else {
                 completion(false)
                 return
