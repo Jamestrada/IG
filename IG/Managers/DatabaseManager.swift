@@ -485,7 +485,7 @@ extension DatabaseManager {
                 return
             }
             
-//            print(userNode)
+            print(userNode)
             let messageDate = firstMessage.sentDate
             let dateString = DateFormatter.formatter.string(from: messageDate)
             var message = ""
@@ -536,30 +536,21 @@ extension DatabaseManager {
                     "is_read": false
                 ]
             ]
-        
-//        ref.setData(newConversationData)
             
-            // Update recipient conversation entry
-            
+            /// Update recipient conversation entry
             self?.database.collection("users/\(targetUser.username)/conversations").addDocument(data: recipient_newConversationData)
-            
-//            self?.database.collection("users/\(targetUser.username)/conversations").getDocuments { [weak self] snapshot, error in
-//
-//                guard var conversations = snapshot?.documents else {
-//                    return
-//                }
-//                if conversations.isEmpty {
-//                    // create
-//                    self?.database.document("users/\(targetUser.username)/conversations/\(firstMessage.messageId)").setData(recipient_newConversationData)
-//                }
-//                else {
-//                    // append
-//                    conversations.append(recipient_newConversationData)
-//                    self?.database.document("users/\(targetUser.username)/conversations/\(firstMessage.messageId)").setData(recipient_newConversationData)
-//                }
-//            }
 
-//            // Update current user conversation entry
+            /// Update current user conversation entry
+            self?.database.collection("users/\(currentUsername)/conversations").addDocument(data: newConversationData, completion: { error in
+                if let error = error {
+                    print("Error adding document: \(error)")
+                    completion(false)
+                    return
+                } else {
+                    self?.finishCreatingConversation(name: name, conversationID: conversationId, firstMessage: firstMessage, completion: completion)
+                }
+            })
+            
 //            if var conversations = userNode["conversations"] as? [[String: Any]] {
 //                // conversation array exists for current user
 //                // append
@@ -640,13 +631,21 @@ extension DatabaseManager {
             ]
         ]
         
-        database.collection("conversations").document(conversationID).setData(value) { error in
+        
+        database.collection("conversations/\(conversationID)/messages").addDocument(data: collectionMessage) { error in
             guard error == nil else {
                 completion(false)
                 return
             }
             completion(true)
         }
+//        database.collection("conversations").document(conversationID).setData(value) { error in
+//            guard error == nil else {
+//                completion(false)
+//                return
+//            }
+//            completion(true)
+//        }
     }
     
     /// Fetches and returns all conversations for the user with passed in email
