@@ -583,6 +583,11 @@ extension DatabaseManager {
     }
     
     private func finishCreatingConversation(name: String, conversationID: String, firstMessage: Message, completion: @escaping (Bool) -> Void) {
+        guard let sender = UserDefaults.standard.value(forKey: "username") as? String else {
+            completion(false)
+            return
+        }
+        let recipient = name
         let messageDate = firstMessage.sentDate
         let dateString = DateFormatter.formatter.string(from: messageDate)
         var message = ""
@@ -631,6 +636,7 @@ extension DatabaseManager {
             ]
         ]
         
+        database.document("conversations/\(conversationID)").setData(["sender": sender, "recipient": recipient])
         
         database.collection("conversations/\(conversationID)/messages").addDocument(data: collectionMessage) { error in
             guard error == nil else {
