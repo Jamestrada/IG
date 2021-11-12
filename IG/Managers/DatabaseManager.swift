@@ -658,8 +658,8 @@ extension DatabaseManager {
     public func getAllConversations(for username: String, completion: @escaping (Result<[Conversation], Error>) -> Void) {
         let ref = database.collection("users").document(username).collection("conversations")
         ref.getDocuments { snapshot, error in
-            guard let value = snapshot?.documents as? [[String: Any]], error == nil else {
-                completion(.failure("Failed to fetch" as! Error))
+            guard let value = snapshot?.documents, error == nil else {
+//                completion(.failure("Failed to fetch" as! Error))
                 return
             }
             let conversations: [Conversation] = value.compactMap { dictionary in
