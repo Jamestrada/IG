@@ -83,9 +83,9 @@ final class ChatViewController: MessagesViewController {
         actionSheet.addAction(UIAlertAction(title: "Video", style: .default, handler: { [weak self] _ in
             self?.presentVideoInputActionsheet()
         }))
-        actionSheet.addAction(UIAlertAction(title: "Audio", style: .default, handler: { [weak self] _ in
-            
-        }))
+//        actionSheet.addAction(UIAlertAction(title: "Audio", style: .default, handler: { [weak self] _ in
+//
+//        }))
         actionSheet.addAction(UIAlertAction(title: "Location", style: .default, handler: { [weak self] _ in
             self?.presentLocationPicker()
         }))
