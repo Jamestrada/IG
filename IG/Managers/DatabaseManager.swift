@@ -636,9 +636,9 @@ extension DatabaseManager {
             ]
         ]
         
-        database.document("conversations/\(conversationID)").setData(["sender": sender, "recipient": recipient])
+//        database.document("conversations/\(conversationID)").setData(["sender": sender, "recipient": recipient])
         
-        database.collection("conversations/\(conversationID)/messages").addDocument(data: collectionMessage) { error in
+        self.database.collection("conversations/\(conversationID)/messages").addDocument(data: collectionMessage) { error in
             guard error == nil else {
                 completion(false)
                 return
