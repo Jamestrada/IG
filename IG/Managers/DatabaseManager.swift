@@ -636,15 +636,15 @@ extension DatabaseManager {
             ]
         ]
         
-//        database.document("conversations/\(conversationID)").setData(["sender": sender, "recipient": recipient])
+        self.database.document("conversations/\(conversationID)").setData(value)
         
-        self.database.collection("conversations/\(conversationID)/messages").addDocument(data: collectionMessage) { error in
-            guard error == nil else {
-                completion(false)
-                return
-            }
-            completion(true)
-        }
+//        self.database.collection("conversations/\(conversationID)/messages").addDocument(data: collectionMessage) { error in
+//            guard error == nil else {
+//                completion(false)
+//                return
+//            }
+//            completion(true)
+//        }
 //        database.collection("conversations").document(conversationID).setData(value) { error in
 //            guard error == nil else {
 //                completion(false)
