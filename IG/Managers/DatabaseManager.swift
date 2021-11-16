@@ -636,7 +636,15 @@ extension DatabaseManager {
             ]
         ]
         
-        self.database.document("conversations/\(conversationID)").setData(value)
+//        self.database.document("conversations/\(conversationID)").setData(value)
+        
+        self.database.collection("conversations").document("\(conversationID)").setData(value, completion: { error in
+            guard error == nil else {
+                completion(false)
+                return
+            }
+            completion(true)
+        })
         
 //        self.database.collection("conversations/\(conversationID)/messages").addDocument(data: collectionMessage) { error in
 //            guard error == nil else {
