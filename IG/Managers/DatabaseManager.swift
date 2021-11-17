@@ -17,6 +17,10 @@ final class DatabaseManager {
     
     let database = Firestore.firestore()
     
+    /// Find users with prefix
+    /// - Parameters:
+    ///  - usernamePrefix: Query prefix
+    ///  - completion: Result callback
     public func findUsers(with usernamePrefix: String, completion: @escaping ([User]) -> Void) {
         let ref = database.collection("users")
         ref.getDocuments { snapshot, error in
@@ -36,6 +40,10 @@ final class DatabaseManager {
         }
     }
     
+    /// Find posts from a given user
+    /// - Parameters:
+    ///   - username: Username to query
+    ///   - completion: Result callback
     public func posts(for username: String, completion: @escaping (Result<[Post], Error>) -> Void) {
         let ref = database.collection("users").document(username).collection("posts")
         ref.getDocuments { snapshot, error in
@@ -48,6 +56,10 @@ final class DatabaseManager {
         }
     }
     
+    /// Find single user with email
+    /// - Parameters:
+    ///   - email: Source email
+    ///   - completion: Result callback
     public func findUser(with email: String, completion: @escaping (User?) -> Void) {
         let ref = database.collection("users")
         ref.getDocuments { snapshot, error in
@@ -60,6 +72,10 @@ final class DatabaseManager {
         }
     }
     
+    /// Create new user
+    /// - Parameters:
+    ///   - newUser: User model
+    ///   - completion: Result callback
     public func createUser(newUser: User, completion: @escaping (Bool) -> Void) {
         let reference = database.document("users/\(newUser.username)")
         guard let data = newUser.asDictionary() else {
@@ -71,6 +87,10 @@ final class DatabaseManager {
         }
     }
     
+    /// Find user with username
+    /// - Parameters:
+    ///   - username: Source username
+    ///   - completion: Result callback
     public func findUser(username: String, completion: @escaping (User?) -> Void) {
         let ref = database.collection("users")
         ref.getDocuments { snapshot, error in
@@ -83,6 +103,10 @@ final class DatabaseManager {
         }
     }
     
+    /// Create new post
+    /// - Parameters:
+    ///   - newPost: New Post model
+    ///   - completion: Result callback
     public func createPost(newPost: Post, completion: @escaping (Bool) -> Void) {
         guard let username = UserDefaults.standard.string(forKey: "username") else {
             completion(false)
@@ -98,6 +122,8 @@ final class DatabaseManager {
         }
     }
     
+    /// Gets posts for explore page
+    /// - Parameter completion: Result callback
     public func explorePosts(completion: @escaping ([(post: Post, user: User)]) -> Void) {
         let ref = database.collection("users")
         ref.getDocuments { snapshot, error in
@@ -132,6 +158,8 @@ final class DatabaseManager {
         }
     }
     
+    /// Get notifications for current user
+    /// - Parameter completion: Result callback
     public func getNotifications(completion: @escaping ([IGNotification]) -> Void) {
         guard let username = UserDefaults.standard.string(forKey: "username") else {
             completion([])
@@ -147,11 +175,21 @@ final class DatabaseManager {
         }
     }
     
+    /// Creates new notification
+    /// - Parameters:
+    ///   - identifer: New notification ID
+    ///   - data: Notification data
+    ///   - username: target username
     public func insertNotification(identifier: String, data: [String: Any], for username: String) {
         let ref = database.collection("users").document(username).collection("notifications").document(identifier)
         ref.setData(data)
     }
     
+    /// Get a post with id and username
+    /// - Parameters:
+    ///   - identifer: Query id
+    ///   - username: Query username
+    ///   - completion: Result callback
     public func getPost(with identifier: String, from username: String, completion: @escaping(Post?) -> Void) {
         let ref = database.collection("users").document(username).collection("posts").document(identifier)
         ref.getDocument { snaptshot, error in
@@ -163,11 +201,17 @@ final class DatabaseManager {
         }
     }
     
+    /// Follow states that are supported
     enum RelationshipState {
         case follow
         case unfollow
     }
     
+    /// Update relationship of follow for user
+    /// - Parameters:
+    ///   - state: State to update to
+    ///   - targetUsername: Other user username
+    ///   - completion: Result callback
     public func updateRelationship(state: RelationshipState, for targetUsername: String, completion: @escaping (Bool) -> Void) {
         guard let currentUsername = UserDefaults.standard.string(forKey: "username") else {
             completion(false)
@@ -194,6 +238,10 @@ final class DatabaseManager {
         }
     }
     
+    /// Get user counts for target usre
+    /// - Parameters:
+    ///   - username: Username to query
+    ///   - completion: Callback
     public func getUserCounts(username: String, completion: @escaping ((followers: Int, following: Int, posts: Int)) -> Void) {
         let userRef = database.collection("users").document(username)
         var followers = 0
@@ -241,6 +289,10 @@ final class DatabaseManager {
         }
     }
     
+    /// Check if current user is following another
+    /// - Parameters:
+    ///   - targetUsername: Other user to check
+    ///   - completion: Result callback
     public func isFollowing(targetUsername: String, completion: @escaping (Bool) -> Void) {
         guard let currentUsername = UserDefaults.standard.string(forKey: "username") else {
             completion(false)
@@ -258,6 +310,10 @@ final class DatabaseManager {
         }
     }
     
+    /// Get followers for user
+    /// - Parameters:
+    ///   - username: Username to query
+    ///   - completion: Result callback
     public func followers(for username: String, completion: @escaping ([String]) -> Void) {
         let ref = database.collection("users").document(username).collection("followers")
         ref.getDocuments { snapshot, error in
@@ -270,6 +326,9 @@ final class DatabaseManager {
     }
     
     /// Gets users that the username follows
+    /// - Parameters:
+    ///   - username: Query usernam
+    ///   - completion: Result callback
     public func following(for username: String, completion: @escaping ([String]) -> Void) {
         let ref = database.collection("users").document(username).collection("following")
         ref.getDocuments { snapshot, error in
@@ -282,6 +341,11 @@ final class DatabaseManager {
     }
     
     // MARK: - User info
+    
+    /// Get user info
+    /// - Parameters:
+    ///   - username: username to query for
+    ///   - completion: Result callback
     public func getUserInfo(username: String, completion: @escaping (UserInfo?) -> Void) {
         let ref = database.collection("users").document(username).collection("information").document("basic")
         ref.getDocument { snapshot, error in
@@ -293,6 +357,10 @@ final class DatabaseManager {
         }
     }
     
+    /// Set user info
+    /// - Parameters:
+    ///   - userInfo: UserInfo model
+    ///   - completion: Callback
     public func setUserInfo(userInfo: UserInfo, completion: @escaping (Bool) -> Void) {
         guard let username = UserDefaults.standard.string(forKey: "username"), let data = userInfo.asDictionary() else {
             return
@@ -305,6 +373,12 @@ final class DatabaseManager {
     
     // MARK: - Comment
     
+    /// Create a comment
+    /// - Parameters:
+    ///   - comment: Comment mmodel
+    ///   - postID: post id
+    ///   - owner: username who owns post
+    ///   - completion: Result callback
     public func createComments(comment: Comment, postID: String, owner: String, completion: @escaping (Bool) -> Void) {
         let newIdentifier = "\(postID)_\(comment.username)_\(Date().timeIntervalSince1970)_\(Int.random(in: 0...1000))"
         let ref = database.collection("users").document(owner).collection("posts").document(postID).collection("comments").document(newIdentifier)
@@ -316,6 +390,11 @@ final class DatabaseManager {
         }
     }
     
+    /// Get comments for a given post
+    /// - Parameters:
+    ///   - postID: Post id to query
+    ///   - owner: Username who owns post
+    ///   - completion: Result callback
     public func getComments(postID: String, owner: String, completion: @escaping ([Comment]) -> Void) {
         let ref = database.collection("users").document(owner).collection("posts").document(postID).collection("comments")
         ref.getDocuments { snapshot, error in
@@ -329,11 +408,18 @@ final class DatabaseManager {
     
     // MARK: - Liking
     
+    /// Like states that are supported
     enum LikeState {
         case like
         case unlike
     }
     
+    /// Update like state on post
+    /// - Parameters:
+    ///   - state: State to update to
+    ///   - postID: Post to update for
+    ///   - owner: Owner username of post
+    ///   - completion: Result callback
     public func updateLikeState(state: LikeState, postID: String, owner: String, completion: @escaping (Bool) -> Void) {
         guard let currentUsername = UserDefaults.standard.string(forKey: "username") else {
             return

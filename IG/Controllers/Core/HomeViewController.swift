@@ -66,6 +66,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                             
                         case .failure(let error):
                             print(error)
+                            break
                         }
                     }
                 }
