@@ -624,10 +624,10 @@ extension DatabaseManager {
             ]
             
             /// Update recipient conversation entry
-            self?.database.collection("users/\(targetUser.username)/conversations").addDocument(data: recipient_newConversationData)
+            self?.database.document("users/\(targetUser.username)/conversations/\(currentUsername)").setData(recipient_newConversationData)
 
             /// Update current user conversation entry
-            self?.database.collection("users/\(currentUsername)/conversations").addDocument(data: newConversationData, completion: { error in
+            self?.database.document("users/\(currentUsername)/conversations/\(targetUser.username)").setData(newConversationData, completion: { error in
                 if let error = error {
                     print("Error adding document: \(error)")
                     completion(false)
