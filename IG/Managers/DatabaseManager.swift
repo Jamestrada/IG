@@ -627,15 +627,18 @@ extension DatabaseManager {
             self?.database.document("users/\(targetUser.username)/conversations/\(currentUsername)").setData(recipient_newConversationData)
 
             /// Update current user conversation entry
-            self?.database.document("users/\(currentUsername)/conversations/\(targetUser.username)").setData(newConversationData, completion: { error in
-                if let error = error {
-                    print("Error adding document: \(error)")
-                    completion(false)
-                    return
-                } else {
-                    self?.finishCreatingConversation(name: name, conversationID: conversationId, firstMessage: firstMessage, completion: completion)
-                }
-            })
+            
+            self?.database.document("users/\(currentUsername)/conversations/\(targetUser.username)").setData(newConversationData)
+            
+//            self?.database.document("users/\(currentUsername)/conversations/\(targetUser.username)").setData(newConversationData, completion: { error in
+//                if let error = error {
+//                    print("Error adding document: \(error)")
+//                    completion(false)
+//                    return
+//                } else {
+//                    self?.finishCreatingConversation(name: name, conversationID: conversationId, firstMessage: firstMessage, completion: completion)
+//                }
+//            })
             
 //            if var conversations = userNode["conversations"] as? [[String: Any]] {
 //                // conversation array exists for current user
