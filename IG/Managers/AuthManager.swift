@@ -24,6 +24,13 @@ final class AuthManager {
         return auth.currentUser != nil
     }
     
+    /// Attempt Sign Up
+    /// - Parameters:
+    ///   - email: Email
+    ///   - username: Username
+    ///   - password: Password
+    ///   - profilePicture: Optional profile picture
+    ///   - completion: Callback
     public func signUp(username: String, email: String, password: String, profilePicture: Data?, completion: @escaping (Result<User, Error>) -> Void) {
         let newUser = User(username: username, email: email)
         
@@ -49,6 +56,8 @@ final class AuthManager {
         }
     }
     
+    /// Attempt Sign Out
+    /// - Parameter completion: Callback upon sign out
     public func signOut(completion: @escaping (Bool) -> Void) {
         do {
             try auth.signOut()
@@ -59,6 +68,11 @@ final class AuthManager {
         }
     }
     
+    /// Attempt Sign In
+    /// - Parameters:
+    ///   - email: Email of user
+    ///   - password: Password of user
+    ///   - completion: Callback
     public func signIn(email: String, password: String, completion: @escaping (Result<User, Error>) -> Void) {
         DatabaseManager.shared.findUser(with: email) { [weak self] user in
             guard let user = user else {
