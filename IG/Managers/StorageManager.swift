@@ -21,6 +21,11 @@ final class StorageManager {
     
     private let storage = Storage.storage().reference()
     
+    /// Upload post's image
+        /// - Parameters:
+        ///   - data: Image data
+        ///   - id: New post id
+        ///   - completion: Result callback
     public func uploadPost(data: Data?, id: String, completion: @escaping (URL?) -> Void) {
         guard let username = UserDefaults.standard.string(forKey: "username"), let data = data else {
             return
