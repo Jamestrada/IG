@@ -17,6 +17,8 @@ final class DatabaseManager {
     
     let database = Firestore.firestore()
     
+    var firestoreListener: ListenerRegistration?
+    
     /// Find users with prefix
     /// - Parameters:
     ///  - usernamePrefix: Query prefix
@@ -624,11 +626,23 @@ extension DatabaseManager {
             ]
             
             /// Update recipient conversation entry
-            self?.database.document("users/\(targetUser.username)/conversations/\(currentUsername)").setData(recipient_newConversationData)
+            self?.database.document("users/\(targetUser.username)/conversations/\(currentUsername)").setData(recipient_newConversationData) { error in
+                if let error = error {
+                    print("Failed to save recent message: \(error)")
+                    return
+                }
+                print("Succesfully saved recent message")
+            }
 
             /// Update current user conversation entry
             
-            self?.database.document("users/\(currentUsername)/conversations/\(targetUser.username)").setData(newConversationData)
+            self?.database.document("users/\(currentUsername)/conversations/\(targetUser.username)").setData(newConversationData) { error in
+                if let error = error {
+                    print("Failed to save recent message: \(error)")
+                    return
+                }
+                print("Succesfully saved recent message")
+            }
             
 //            self?.database.document("users/\(currentUsername)/conversations/\(targetUser.username)").setData(newConversationData, completion: { error in
 //                if let error = error {
@@ -753,6 +767,7 @@ extension DatabaseManager {
     
     /// Fetches and returns all conversations for the user with passed in email
     public func getAllConversations(for username: String, completion: @escaping (Result<[Conversation], Error>) -> Void) {
+        firestoreListener?.remove()
         let ref = database.collection("users").document(username).collection("conversations")
         ref.getDocuments { snapshot, error in
             guard let value = snapshot?.documents, error == nil else {
