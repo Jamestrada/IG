@@ -551,7 +551,7 @@ extension DatabaseManager {
      */
     
     /// Create a  new conversation with target user email and first message sent
-    public func createNewConversation(with targetUser: User, name: String, firstMessage: Message, completion: @escaping (Bool) -> Void) {
+    public func createNewConversation(with targetUser: User, receiver: String, firstMessage: Message, completion: @escaping (Bool) -> Void) {
 //        guard let data = newPost.asDictionary() else {
 //            completion(false)
 //            return
@@ -606,7 +606,7 @@ extension DatabaseManager {
             let newConversationData: [String: Any] = [
                 "id": conversationId,
                 "target_user": targetUser.username,
-                "name": name,
+                "name": receiver,
                 "latest_message": [
                     "date": dateString,
                     "message": message,
@@ -644,6 +644,8 @@ extension DatabaseManager {
                 print("Succesfully saved recent message")
             }
             
+            self?.finishCreatingConversation(receiver: receiver, conversationID: conversationId, firstMessage: firstMessage, completion: completion)
+            
 //            self?.database.document("users/\(currentUsername)/conversations/\(targetUser.username)").setData(newConversationData, completion: { error in
 //                if let error = error {
 //                    print("Error adding document: \(error)")
@@ -678,19 +680,19 @@ extension DatabaseManager {
 //                        completion(false)
 //                        return
 //                    }
-//                    self?.finishCreatingConversation(name: name, conversationID: conversationId, firstMessage: firstMessage, completion: completion)
+//
 //                }
 //            }
         }
         
     }
     
-    private func finishCreatingConversation(name: String, conversationID: String, firstMessage: Message, completion: @escaping (Bool) -> Void) {
+    private func finishCreatingConversation(receiver: String, conversationID: String, firstMessage: Message, completion: @escaping (Bool) -> Void) {
         guard let sender = UserDefaults.standard.value(forKey: "username") as? String else {
             completion(false)
             return
         }
-        let recipient = name
+        let recipient = receiver
         let messageDate = firstMessage.sentDate
         let dateString = DateFormatter.formatter.string(from: messageDate)
         var message = ""
@@ -725,7 +727,7 @@ extension DatabaseManager {
         
         let collectionMessage: [String: Any] = [
             "id": firstMessage.messageId,
-            "name": name,
+            "name": receiver,
             "type": firstMessage.kind.messageKindString,
             "content": message,
             "date": dateString,
@@ -741,13 +743,23 @@ extension DatabaseManager {
         
 //        self.database.document("conversations/\(conversationID)").setData(value)
         
-        self.database.collection("conversations").document("\(conversationID)").setData(value, completion: { error in
-            guard error == nil else {
-                completion(false)
+        let document = self.database.collection("conversations").document(sender).collection(receiver).document()
+        document.setData(collectionMessage) { error in
+            if let error = error {
+                print("Failed to save mesage into Firestore: \(error)")
                 return
             }
-            completion(true)
-        })
+            print("Succesfully saved current user sending message")
+        }
+        
+        
+//        self.database.collection("conversations").document("\(conversationID)").setData(value, completion: { error in
+//            guard error == nil else {
+//                completion(false)
+//                return
+//            }
+//            completion(true)
+//        })
         
 //        self.database.collection("conversations/\(conversationID)/messages").addDocument(data: collectionMessage) { error in
 //            guard error == nil else {
