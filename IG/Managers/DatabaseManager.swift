@@ -552,13 +552,6 @@ extension DatabaseManager {
     
     /// Create a  new conversation with target user email and first message sent
     public func createNewConversation(with targetUser: User, receiver: String, firstMessage: Message, completion: @escaping (Bool) -> Void) {
-//        guard let data = newPost.asDictionary() else {
-//            completion(false)
-//            return
-//        }
-//        reference.setData(data) { error in
-//            completion(error == nil)
-//        }
         guard let currentUsername = UserDefaults.standard.value(forKey: "username") as? String else {
             completion(false)
             return
@@ -567,7 +560,7 @@ extension DatabaseManager {
         
         let ref = database.document("users/\(currentUsername)")
         ref.getDocument { [weak self] snapshot, error in
-            guard var userNode = snapshot?.data() else {
+            guard let userNode = snapshot?.data() else {
                 completion(false)
                 print("user not found")
                 return
@@ -628,61 +621,24 @@ extension DatabaseManager {
             /// Update recipient conversation entry
             self?.database.document("users/\(targetUser.username)/conversations/\(currentUsername)").setData(recipient_newConversationData) { error in
                 if let error = error {
-                    print("Failed to save recent message: \(error)")
+                    print("Failed to save recipient's recent message: \(error)")
                     return
                 }
-                print("Succesfully saved recent message")
+                print("Succesfully saved recipient's recent message")
             }
 
             /// Update current user conversation entry
             
             self?.database.document("users/\(currentUsername)/conversations/\(targetUser.username)").setData(newConversationData) { error in
                 if let error = error {
-                    print("Failed to save recent message: \(error)")
+                    print("Failed to save sender's recent message: \(error)")
                     return
                 }
-                print("Succesfully saved recent message")
+                print("Succesfully saved sender's recent message")
             }
             
             self?.finishCreatingConversation(receiver: receiver, conversationID: conversationId, firstMessage: firstMessage, completion: completion)
             
-//            self?.database.document("users/\(currentUsername)/conversations/\(targetUser.username)").setData(newConversationData, completion: { error in
-//                if let error = error {
-//                    print("Error adding document: \(error)")
-//                    completion(false)
-//                    return
-//                } else {
-//                    self?.finishCreatingConversation(name: name, conversationID: conversationId, firstMessage: firstMessage, completion: completion)
-//                }
-//            })
-            
-//            if var conversations = userNode["conversations"] as? [[String: Any]] {
-//                // conversation array exists for current user
-//                // append
-//                conversations.append(newConversationData)
-//                userNode["conversations"] = conversations
-//                ref.setData(userNode) { [weak self] error in
-//                    guard error == nil else {
-//                        completion(false)
-//                        return
-//                    }
-//                    self?.finishCreatingConversation(name: name, conversationID: conversationId, firstMessage: firstMessage, completion: completion)
-//                }
-//            }
-//            else {
-//                // conversation array doesn't exist
-//                // create
-//                userNode["conversations"] = [
-//                    newConversationData
-//                ]
-//                ref.setData(userNode) { [weak self] error in
-//                    guard error == nil else {
-//                        completion(false)
-//                        return
-//                    }
-//
-//                }
-//            }
         }
         
     }
@@ -692,7 +648,6 @@ extension DatabaseManager {
             completion(false)
             return
         }
-        let recipient = receiver
         let messageDate = firstMessage.sentDate
         let dateString = DateFormatter.formatter.string(from: messageDate)
         var message = ""
@@ -735,14 +690,6 @@ extension DatabaseManager {
             "is_read":false
         ]
         
-        let value: [String: Any] = [
-            "messages": [
-                collectionMessage
-            ]
-        ]
-        
-//        self.database.document("conversations/\(conversationID)").setData(value)
-        
         let document = self.database.collection("conversations").document(sender).collection(receiver).document()
         document.setData(collectionMessage) { error in
             if let error = error {
@@ -751,30 +698,6 @@ extension DatabaseManager {
             }
             print("Succesfully saved current user sending message")
         }
-        
-        
-//        self.database.collection("conversations").document("\(conversationID)").setData(value, completion: { error in
-//            guard error == nil else {
-//                completion(false)
-//                return
-//            }
-//            completion(true)
-//        })
-        
-//        self.database.collection("conversations/\(conversationID)/messages").addDocument(data: collectionMessage) { error in
-//            guard error == nil else {
-//                completion(false)
-//                return
-//            }
-//            completion(true)
-//        }
-//        database.collection("conversations").document(conversationID).setData(value) { error in
-//            guard error == nil else {
-//                completion(false)
-//                return
-//            }
-//            completion(true)
-//        }
     }
     
     /// Fetches and returns all conversations for the user with passed in email
