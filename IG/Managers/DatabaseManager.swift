@@ -733,64 +733,76 @@ extension DatabaseManager {
         }
         let ref = database.collection("conversations").document(sender).collection(targetUser.username)
         ref.addSnapshotListener { querySnapshot, error in
+//            guard let value = querySnapshot?.documents as? [[String: Any]], error == nil else {
+//                return
+//            }
             if let error = error {
-                print("Failed to listen for messages: \(error)")
+                print(error)
                 return
             }
-//            let value = querySnapshot?.documents.asDictionary()
-            let messages: [Message] = value.compactMap { dictionary in
-                guard let name = dictionary["name"] as? String,
-                      let isRead = dictionary["is_read"] as? Bool,
-                      let messageId = dictionary["id"] as? String,
-                      let content = dictionary["content"] as? String,
-                      let senderEmail = dictionary["sender_email"] as? String,
-                      let dateString = dictionary["date"] as? String,
-                      let type = dictionary["type"] as? String,
-                      let date = DateFormatter.formatter.date(from: dateString) else {
-                    return nil
-                }
-                
-                var kind: MessageKind?
-                if type == "photo" {
-                    // photo
-                    guard let imageUrl = URL(string: content),
-                          let placeholder = UIImage(systemName: "plus") else {
-                        return nil
+            querySnapshot?.documentChanges.forEach({ change in
+                if change.type == .added {
+                    do {
+                        let data = change.document.data()
+                        let messages: [Message] = data.compactMap { dictionary in
+                            print(dictionary)
+                            guard let name = dictionary.value as? String,
+                                  let isRead = dictionary.value as? Bool,
+                                  let messageId = dictionary.value as? String,
+                                  let content = dictionary.value as? String,
+                                  let senderEmail = dictionary.value as? String,
+                                  let dateString = dictionary.value as? String,
+                                  let type = dictionary.value as? String,
+                                  let date = DateFormatter.formatter.date(from: dateString) else {
+                                return nil
+                            }
+                            
+                            var kind: MessageKind?
+                            if type == "photo" {
+                                // photo
+                                guard let imageUrl = URL(string: content),
+                                      let placeholder = UIImage(systemName: "plus") else {
+                                    return nil
+                                }
+                                let media = Media(url: imageUrl, image: nil, placeholderImage: placeholder, size: CGSize(width: 300, height: 300))
+                                kind = .photo(media)
+                            }
+                            else if type == "video" {
+                                // video
+                                guard let videoUrl = URL(string: content),
+                                      let placeholder = UIImage(named: "video_placeholder") else {
+                                    return nil
+                                }
+                                let media = Media(url: videoUrl, image: nil, placeholderImage: placeholder, size: CGSize(width: 300, height: 300))
+                                kind = .video(media)
+                            }
+                            else if type == "location" {
+                                // location
+                                let locationComponents = content.components(separatedBy: ",")
+                                guard let longitude = Double(locationComponents[0]), let latitude = Double(locationComponents[1]) else {
+                                    return nil
+                                }
+                                print("Rendering location: long=\(longitude) | lat=\(latitude)")
+                                let location = Location(location: CLLocation(latitude: latitude, longitude: longitude), size: CGSize(width: 300, height: 300))
+                                kind = .location(location)
+                            }
+                            else {
+                                kind = .text(content)
+                            }
+                            
+                            guard let finalKind = kind else {
+                                return nil
+                            }
+                            
+                            let sender = Sender(senderId: senderEmail, displayName: name, photoURL: "")
+                            return Message(sender: sender, messageId: messageId, sentDate: date, kind: finalKind)
+                        }
+                    } catch {
+                        print("Failed to decode messages: \(error)")
                     }
-                    let media = Media(url: imageUrl, image: nil, placeholderImage: placeholder, size: CGSize(width: 300, height: 300))
-                    kind = .photo(media)
                 }
-                else if type == "video" {
-                    // video
-                    guard let videoUrl = URL(string: content),
-                          let placeholder = UIImage(named: "video_placeholder") else {
-                        return nil
-                    }
-                    let media = Media(url: videoUrl, image: nil, placeholderImage: placeholder, size: CGSize(width: 300, height: 300))
-                    kind = .video(media)
-                }
-                else if type == "location" {
-                    // location
-                    let locationComponents = content.components(separatedBy: ",")
-                    guard let longitude = Double(locationComponents[0]), let latitude = Double(locationComponents[1]) else {
-                        return nil
-                    }
-                    print("Rendering location: long=\(longitude) | lat=\(latitude)")
-                    let location = Location(location: CLLocation(latitude: latitude, longitude: longitude), size: CGSize(width: 300, height: 300))
-                    kind = .location(location)
-                }
-                else {
-                    kind = .text(content)
-                }
-                
-                guard let finalKind = kind else {
-                    return nil
-                }
-                
-                let sender = Sender(senderId: senderEmail, displayName: name, photoURL: "")
-                return Message(sender: sender, messageId: messageId, sentDate: date, kind: finalKind)
-            }
-            completion(.success(messages))
+            })
+            return
         }
     }
     
