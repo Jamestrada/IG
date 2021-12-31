@@ -40,9 +40,11 @@ final class ChatViewController: MessagesViewController {
         self.conversationId = id
         super.init(nibName: nil, bundle: nil)
         
-        if let conversationId = conversationId {
-            listenForMessages(id: conversationId)
-        }
+        listenForMessages(user: user)
+        
+//        if let conversationId = conversationId {
+//            listenForMessages(id: conversationId)
+//        }
     }
     
     required init?(coder: NSCoder) {
@@ -169,8 +171,8 @@ final class ChatViewController: MessagesViewController {
         present(actionSheet, animated: true)
     }
     
-    private func listenForMessages(id: String) {
-        DatabaseManager.shared.getAllMessagesForConversation(with: id) { [weak self] result in
+    private func listenForMessages(user: User) {
+        DatabaseManager.shared.getAllMessagesForConversation(with: user) { [weak self] result in
             switch result {
             case .success(let messages):
                 guard !messages.isEmpty else {

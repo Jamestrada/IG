@@ -727,13 +727,17 @@ extension DatabaseManager {
     }
     
     /// Gets all messages for a given conversation
-    public func getAllMessagesForConversation(with id: String, completion: @escaping (Result<[Message], Error>) -> Void) {
-        let ref = database.collection("users").document(id).collection("messages")
-        ref.getDocuments { snapshot, error in
-            guard let value = snapshot?.documents as? [[String: Any]], error == nil else {
-                completion(.failure("Failed to fetch" as! Error))
+    public func getAllMessagesForConversation(with targetUser: User, completion: @escaping (Result<[Message], Error>) -> Void) {
+        guard let sender = UserDefaults.standard.value(forKey: "username") as? String else {
+            return
+        }
+        let ref = database.collection("conversations").document(sender).collection(targetUser.username)
+        ref.addSnapshotListener { querySnapshot, error in
+            if let error = error {
+                print("Failed to listen for messages: \(error)")
                 return
             }
+//            let value = querySnapshot?.documents.asDictionary()
             let messages: [Message] = value.compactMap { dictionary in
                 guard let name = dictionary["name"] as? String,
                       let isRead = dictionary["is_read"] as? Bool,
