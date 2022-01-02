@@ -732,6 +732,7 @@ extension DatabaseManager {
             return
         }
         let ref = database.collection("conversations").document(sender).collection(targetUser.username)
+        var messages: [Message]
         ref.addSnapshotListener { querySnapshot, error in
 //            guard let value = querySnapshot?.documents as? [[String: Any]], error == nil else {
 //                return
@@ -794,6 +795,7 @@ extension DatabaseManager {
                         }
                         
                         let sender = Sender(senderId: senderEmail, displayName: name, photoURL: "")
+                        messages.append(Message(sender: sender, messageId: messageId, sentDate: date, kind: finalKind))
 //                        return Message(sender: sender, messageId: messageId, sentDate: date, kind: finalKind)
 //                        let messages: [Message] = data.compactMap { dictionary in
 //
@@ -803,7 +805,7 @@ extension DatabaseManager {
                     }
                 }
             })
-            return
+            completion(.success(messages))
         }
     }
     
