@@ -703,7 +703,7 @@ extension DatabaseManager {
     /// Fetches and returns all conversations for the user with passed in email
     public func getAllConversations(for username: String, completion: @escaping (Result<[Conversation], Error>) -> Void) {
         firestoreListener?.remove()
-        let ref = database.collection("conversations").document(sender)
+        let ref = database.collection("conversations").document(username)
         ref.getDocuments { snapshot, error in
             guard let value = snapshot?.documents, error == nil else {
 //                completion(.failure("Failed to fetch" as! Error))
@@ -731,8 +731,7 @@ extension DatabaseManager {
         guard let sender = UserDefaults.standard.value(forKey: "username") as? String else {
             return
         }
-        let ref = database.collection("conversations").document(sender).colledatabase.collection("conversations").document(sender).collection(targetUser.username)
-ction(targetUser.username)
+        let ref = database.collection("conversations").document(sender).collection(targetUser.username)
         var messages: [Message]
         ref.addSnapshotListener { querySnapshot, error in
 //            guard let value = querySnapshot?.documents as? [[String: Any]], error == nil else {
