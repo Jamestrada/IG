@@ -704,10 +704,9 @@ extension DatabaseManager {
     public func getAllConversations(for username: String, completion: @escaping (Result<[Conversation], Error>) -> Void) {
         firestoreListener?.remove()
         let ref = database.collection("conversations").document(username)
-        ref.getDocuments { snapshot, error in
-            guard let value = snapshot?.documents, error == nil else {
-//                completion(.failure("Failed to fetch" as! Error))
-                return
+        ref.addSnapshotListener { querySnapshot, error in
+            if let error = error {
+                print("Failed to listen for recent ")
             }
             let conversations: [Conversation] = value.compactMap { dictionary in
                 guard let conversationId = dictionary["id"] as? String,
