@@ -16,7 +16,8 @@ target 'IG' do
   pod 'Appirater'
   pod 'MessageKit'
   pod 'JGProgressHUD'
-  pod 'RealmSwift' 
+  pod 'RealmSwift'
+  pod 'FirebaseFirestoreSwift'
 
 end
 

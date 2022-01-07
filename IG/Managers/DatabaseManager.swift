@@ -9,6 +9,7 @@ import Foundation
 import FirebaseFirestore
 import MessageKit
 import CoreLocation
+import FirebaseFirestoreSwift
 
 final class DatabaseManager {
     static let shared = DatabaseManager()
