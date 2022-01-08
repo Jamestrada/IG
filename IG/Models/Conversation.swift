@@ -6,12 +6,13 @@
 //
 
 import Foundation
+import FirebaseFirestoreSwift
 
-struct Conversation {
+struct Conversation: Identifiable, Codable {
     let id: String
     let username: String
-    let targetUser: User
-    let latestMessage: LatestMessage
+//    let targetUser: User
+//    let latestMessage: LatestMessage
 }
 
 struct LatestMessage {
