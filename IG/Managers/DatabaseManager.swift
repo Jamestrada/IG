@@ -709,18 +709,21 @@ extension DatabaseManager {
             if let error = error {
                 print("Failed to listen for recent ")
             }
-            let conversations: [Conversation] = value.compactMap { dictionary in
-                guard let conversationId = dictionary["id"] as? String,
-                      let name = dictionary["name"] as? String,
-                      let targetUser = dictionary["target_user"] as? User,
-                      let latestMessage = dictionary["latest_message"] as? [String: Any],
-                      let date = latestMessage["date"] as? String,
-                      let message = latestMessage["message"] as? String,
-                      let isRead = latestMessage["is_read"] as? Bool else {
-                    return nil
+            var conversations: [Conversation]
+            querySnapshot?.documentChanges.forEach { change in
+                if change.type == .added {
+                    guard let conversationId = dictionary["id"] as? String,
+                          let name = dictionary["name"] as? String,
+                          let targetUser = dictionary["target_user"] as? User,
+                          let latestMessage = dictionary["latest_message"] as? [String: Any],
+                          let date = latestMessage["date"] as? String,
+                          let message = latestMessage["message"] as? String,
+                          let isRead = latestMessage["is_read"] as? Bool else {
+                        return nil
+                    }
+                    let latestMessageObject = LatestMessage(date: date, message: message, isRead: isRead)
+                    return Conversation(id: conversationId, username: name, targetUser: targetUser, latestMessage: latestMessageObject)
                 }
-                let latestMessageObject = LatestMessage(date: date, message: message, isRead: isRead)
-                return Conversation(id: conversationId, username: name, targetUser: targetUser, latestMessage: latestMessageObject)
             }
             completion(.success(conversations))
         }
